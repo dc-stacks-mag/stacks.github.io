@@ -1,106 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>On Background - Stacks Magazine</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Section — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Mobile Navigation Overlay -->
-    <div id="mobile-nav-overlay">
-        <nav class="mobile-nav">
-            <a href="section.html">On Background</a>
-            <a href="section.html">Off the Record</a>
-            <a href="section.html">Notes</a>
-            <a href="section.html">The Telegraph</a>
-            <a href="section.html">Upcoming Events</a>
-            <a href="section.html">Photo Essays</a>
-            <a href="section.html">From the Stacks</a>
-            <a href="masthead.html">About</a>
-        </nav>
-    </div>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
 
-    <div id="main-content" class="visible">
-        <header class="site-header">
-            <div class="logo">
-                <a href="index.html">STACKS</a>
-            </div>
-            <div class="nav-wrapper" id="nav-wrapper">
-                <nav class="main-nav" id="main-nav">
-                    <a href="section.html">On Background</a>
-                    <a href="section.html">Off the Record</a>
-                    <a href="section.html">Notes</a>
-                    <a href="section.html">The Telegraph</a>
-                    <a href="section.html">Upcoming Events</a>
-                    <a href="section.html">Photo Essays</a>
-                    <a href="section.html">From the Stacks</a>
-                    <a href="masthead.html">About</a>
-                </nav>
-                <div class="scroll-hint"></div>
-            </div>
-            <button id="hamburger-btn" aria-label="Open Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+
+  <div id="main-content" class="visible">
+
+    <main class="site-main">
+        <header class="section-header">
+            <h1>On Background</h1>
+            <p>Placeholder</p>
         </header>
 
-        <main class="site-main">
-            <header class="section-header">
-                <h1>On Background</h1>
-                <p>Placeholder</p>
-            </header>
+        <div class="article-grid">
+            <!-- Article Card 1 -->
+            <a href="article.html" class="article-card">
+                <img src="https://placehold.co/600x400/CCCCCC/FFFFFF?text=Article+Image" alt="Placeholder">
+                <h3 class="article-card-title">Headline placeholder</h3>
+                <p class="article-card-byline">Byline placeholder</p>
+            </a>
+            <!-- Article Card 2 -->
+            <a href="article.html" class="article-card">
+                <img src="https://placehold.co/600x400/DDDDDD/FFFFFF?text=Article+Image" alt="Placeholder">
+                <h3 class="article-card-title">Headline</h3>
+                <p class="article-card-byline">Byline</p>
+            </a>
+            <!-- Article Card 3 -->
+            <a href="article.html" class="article-card">
+                <img src="https://placehold.co/600x400/EEEEEE/FFFFFF?text=Article+Image" alt="Placeholder">
+                <h3 class="article-card-title">Headline</h3>
+                <p class="article-card-byline">Byline</p>
+            </a>
+            <!-- Add more article cards as needed -->
+        </div>
+    </main>
 
-            <div class="article-grid">
-                <!-- Article Card 1 -->
-                <a href="article.html" class="article-card">
-                    <img src="https://placehold.co/600x400/CCCCCC/FFFFFF?text=Article+Image" alt="Placeholder">
-                    <h3 class="article-card-title">Headline placeholder</h3>
-                    <p class="article-card-byline">Byline placeholder</p>
-                </a>
-                <!-- Article Card 2 -->
-                <a href="article.html" class="article-card">
-                    <img src="https://placehold.co/600x400/DDDDDD/FFFFFF?text=Article+Image" alt="Placeholder">
-                    <h3 class="article-card-title">Headline</h3>
-                    <p class="article-card-byline">Byline</p>
-                </a>
-                <!-- Article Card 3 -->
-                <a href="article.html" class="article-card">
-                    <img src="https://placehold.co/600x400/EEEEEE/FFFFFF?text=Article+Image" alt="Placeholder">
-                    <h3 class="article-card-title">Headline</h3>
-                    <p class="article-card-byline">Byline</p>
-                </a>
-                <!-- Add more article cards as needed -->
-            </div>
-        </main>
+</div>
 
-        <footer class="site-footer-main">
-            <p>&copy; 2025 Stacks. All Rights Reserved.</p>
-        </footer>
-    </div>
-    <script>
-        // --- Navigation Logic ---
-        const hamburgerBtn = document.getElementById('hamburger-btn');
-        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-        const navWrapper = document.getElementById('nav-wrapper');
-        const mainNav = document.getElementById('main-nav');
-
-        hamburgerBtn.addEventListener('click', () => {
-            document.body.classList.toggle('no-scroll');
-            hamburgerBtn.classList.toggle('active');
-            mobileNavOverlay.classList.toggle('active');
-        });
-
-        function checkNavOverflow() {
-            if (mainNav.scrollWidth > navWrapper.clientWidth) {
-                navWrapper.classList.add('is-scrollable');
-            } else {
-                navWrapper.classList.remove('is-scrollable');
-            }
-        }
-        window.addEventListener('load', checkNavOverflow);
-        window.addEventListener('resize', checkNavOverflow);
-    </script>
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
