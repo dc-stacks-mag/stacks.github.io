@@ -1,147 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Article Title - Stacks Magazine</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Article — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <!-- Mobile Navigation Overlay -->
-    <div id="mobile-nav-overlay">
-        <nav class="mobile-nav">
-            <a href="section.html" style="--i: 0;">On Background</a>
-            <a href="section.html" style="--i: 1;">Off the Record</a>
-            <a href="section.html" style="--i: 2;">Notes</a>
-            <a href="section.html" style="--i: 3;">The Telegraph</a>
-            <a href="section.html" style="--i: 4;">Upcoming Events</a>
-            <a href="section.html" style="--i: 5;">Photo Essays</a>
-            <a href="section.html" style="--i: 6;">Archives</a>
-            <a href="masthead.html" style="--i: 7;">About</a>
-        </nav>
-    </div>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
 
-    <div id="main-content" class="visible">
-        <header class="site-header">
-            <div class="logo">
-                <a href="index.html">
-                    <span class="logo-s1">S</span><span class="logo-t">t</span><span class="logo-a">a</span><span class="logo-c">c</span><span class="logo-k">k</span><span class="logo-s2">s</span>
-                </a>
-            </div>
-            <div class="nav-wrapper" id="nav-wrapper">
-                <nav class="main-nav" id="main-nav">
-                    <a href="section.html">On Background</a>
-                    <a href="section.html">Off the Record</a>
-                    <a href="section.html">Notes</a>
-                    <a href="section.html">The Telegraph</a>
-                    <a href="section.html">Upcoming Events</a>
-                    <a href="section.html">Lifestyle</a>
-                    <a href="section.html">Photo Essays</a>
-                    <a href="section.html">From the Stacks</a>
-                    <a href="masthead.html">About</a>
-                </nav>
-            </div>
-            <button id="hamburger-btn" aria-label="Open Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="toc-category" style="margin-bottom:.25rem;">On Background</div>
+          <h1 class="article-headline">A Headline That Carries</h1>
+          <p class="toc-title" style="font-weight:400; margin:.25rem 0 1rem 0;">A short dek that frames the story in two lines at most.</p>
+          <p style="margin:.5rem 0; font-family: var(--font-sans);">
+            By <strong>Firstname Lastname</strong> &middot; <time datetime="2025-08-29">Aug 29, 2025</time>
+          </p>
+          <figure class="article-featured-image">
+            <img src="https://placehold.co/1400x840/eeeeee/111111?text=Feature+Image" alt="Feature art" />
+            <figcaption style="font-size:.9rem; color:var(--color-subtle); margin-top:.25rem;">Photo by Staff</figcaption>
+          </figure>
         </header>
 
-        <main class="site-main">
-            <article class="article-full">
-                <header class="article-header">
-                    <div class="article-category">On Background</div>
-                    <h1 class="article-headline">Article Headline Placeholder</h1>
-                    <p class="article-byline">By The Section Editor</p>
-                    <p class="article-date">September 5, 2025</p>
-                </header>
+        <section class="article-body">
+          <p>
+            Opening graf: set the stakes, the place, the rhythm. Keep sentences varied, keep the verbs working. Readers decide
+            in the first paragraph whether to stay.
+          </p>
+          <p>
+            Second graf: what’s new here; why this matters now. Provide the context without burying the lede. Quote a voice that
+            grounds the reporting, or present a crisp fact that reframes the obvious.
+          </p>
+          <blockquote>
+            “Pull the line that hums and trims the rest,” an editor once said. Good advice for writing; better advice for living.
+          </blockquote>
+          <p>
+            Mid-story: add texture, specifics, names, and numbers. Show the tradeoffs, the timeline, what comes next. Keep paragraphs
+            breathable on mobile.
+          </p>
+          <p>
+            Close with consequence or return to the original image. Let the ending feel earned, not stapled on.
+          </p>
+        </section>
+      </article>
+    </main>
+  </div>
 
-                <figure class="article-featured-image">
-                    <img src="https://placehold.co/1600x900/CCCCCC/FFFFFF?text=Featured+Image" alt="Placeholder for a descriptive image caption">
-                    <figcaption>A placeholder for a descriptive image caption.</figcaption>
-                </figure>
-
-                <div class="article-body">
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse vitae magna eget eros pellentesque scelerisque. Ut sed commodo elit, eu eleifend nisi. Sed eleifend, est non egestas iaculis, erat ex maximus elit, ac sodales ipsum magna non velit. Fusce quis justo id ante condimentum accumsan. Integer vel dolor nec lacus elementum posuere. Nam in sem non quam consequat sodales.</p>
-                    <p>Vivamus et nunc eu ex consequat ullamcorper. Praesent sed tincidunt massa. Cras non ex quis massa commodo sollicitudin. Proin ut tortor a risus elementum tristique. Nunc nec ex non dolor laoreet egestas. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Curabitur vel enim a elit vulputate commodo.</p>
-                    <h2>A Subheading for Structure</h2>
-                    <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec id elit non mi porta gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit. Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-                    <blockquote>"This is a blockquote. It's a great way to pull out a powerful quote from the text to grab the reader's attention."</blockquote>
-                    <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Sed posuere consectetur est at lobortis. Vestibulum id ligula porta felis euismod semper. Donec ullamcorper nulla non metus auctor fringilla. Praesent commodo cursus magna, vel scelerisque nisl consectetur et.</p>
-                </div>
-            </article>
-        </main>
-
-        <footer class="site-footer-main">
-            <p>&copy; 2025 Stacks</p>
-        </footer>
-    </div>
-    <script>
-        // --- Navigation Logic ---
-        const hamburgerBtn = document.getElementById('hamburger-btn');
-        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-        hamburgerBtn.addEventListener('click', () => {
-            document.body.classList.toggle('no-scroll');
-            hamburgerBtn.classList.toggle('active');
-            mobileNavOverlay.classList.toggle('active');
-        });
-
-        // --- Desktop Nav Scrolling Logic ---
-        if (window.matchMedia("(min-width: 1024px)").matches) {
-            const navWrapper = document.getElementById('nav-wrapper');
-            const mainNav = document.getElementById('main-nav');
-            let scrollInterval;
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-
-            navWrapper.addEventListener('mousemove', (e) => {
-                if (isDown) return;
-                const wrapperWidth = navWrapper.offsetWidth;
-                const scrollableWidth = mainNav.scrollWidth;
-                if (wrapperWidth >= scrollableWidth) return;
-                const hoverZone = wrapperWidth * 0.2;
-                const mouseX = e.clientX - navWrapper.getBoundingClientRect().left;
-                clearInterval(scrollInterval);
-                if (mouseX < hoverZone) {
-                    scrollInterval = setInterval(() => { 
-                        if(mainNav.scrollLeft > 0) mainNav.scrollLeft -= 5;
-                        else clearInterval(scrollInterval);
-                    }, 20);
-                } else if (mouseX > wrapperWidth - hoverZone) {
-                    scrollInterval = setInterval(() => {
-                        if(mainNav.scrollLeft < scrollableWidth - wrapperWidth) mainNav.scrollLeft += 5;
-                        else clearInterval(scrollInterval);
-                    }, 20);
-                }
-            });
-            
-            navWrapper.addEventListener('mouseleave', () => clearInterval(scrollInterval));
-
-            mainNav.addEventListener('mousedown', (e) => {
-                isDown = true;
-                mainNav.classList.add('active-drag');
-                startX = e.pageX - mainNav.offsetLeft;
-                scrollLeft = mainNav.scrollLeft;
-                clearInterval(scrollInterval);
-            });
-            mainNav.addEventListener('mouseleave', () => {
-                isDown = false;
-                mainNav.classList.remove('active-drag');
-            });
-            mainNav.addEventListener('mouseup', () => {
-                isDown = false;
-                mainNav.classList.remove('active-drag');
-            });
-            mainNav.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - mainNav.offsetLeft;
-                const walk = (x - startX) * 2;
-                mainNav.scrollLeft = scrollLeft - walk;
-            });
-        }
-    </script>
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  </script>
 </body>
 </html>

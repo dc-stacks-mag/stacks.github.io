@@ -1,288 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Stacks Loader</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap');
-
   :root{
-    --fg:#111;
-    --bg:#ffffff;
-
-    /* Speed: fast */
-    --drop-dur: 420ms;
-    --drop-gap: 90ms;
-    --morph-dur: 520ms;
-    --pause-before-dock: 220ms;
-    --dock-dur: 600ms;
-
-    /* Index reveal starts almost immediately */
-    --veil-fade-delay: 350ms;
-
-    /* Tight but non-overlapping spacing in the word */
-    --spacing-x: 2px;
-
-    /* Corner target (match index header paddings) */
-    --corner-x: -750px;
-    --corner-y: -900px;
+    --ink:#111; --bg:#ffb0d3; /* pinkish nod to your inspo poster */
   }
-
-  *{ box-sizing:border-box; }
-  html,body{
-    height:100%; margin:0; overflow:hidden;
-    background: transparent; /* let index show through as we fade veil */
-    color:var(--fg);
-    font-family:'Playfair Display', serif;
+  html,body{height:100%}
+  body{
+    margin:0; background:var(--bg);
+    display:grid; place-items:center;
+    overflow:hidden;
   }
-
   .stage{
-    position:fixed; inset:0; display:grid; place-items:center;
-    isolation:isolate;
+    position:relative; width:min(56vmin,520px); height:min(56vmin,520px);
+    display:grid; place-items:center;
   }
-
-  /* White veil fades to transparent fast, so index is visible behind */
-  .veil{
-    position:absolute; inset:0; background:var(--bg); z-index:0;
-    animation: veilFade 3000ms ease forwards;
-    animation-delay: var(--veil-fade-delay);
-    pointer-events:none;
+  /* Stacking logo tiles */
+  .tile{
+    position:absolute; inset:0; display:grid; place-items:center;
+    filter: drop-shadow(0 6px 12px rgba(0,0,0,.15));
+    opacity:0; transform: translateY(24px) scale(.96) rotate(var(--r,0deg));
+    animation: pop 700ms cubic-bezier(.2,.8,.2,1) forwards;
   }
-  @keyframes veilFade{ to{ opacity:0; } }
-
-  .stack-wrapper{
-    position:absolute;
-    top:58%;
-    left:50%;
-    transform: translate(-50%, -50%);
-    z-index:2;
-    will-change: transform;
+  .tile img{ width:72%; height:auto; display:block; }
+  /* offset rings like the poster “POCUS” motion lines */
+  .ring{
+    position:absolute; border:3px solid rgba(0,0,0,.18); border-radius:50%;
+    opacity:0; transform: scale(.8);
+    animation: ring 900ms ease-out forwards;
   }
-  .stack-scale{
-    position:relative;
-    transform-origin: 50% 100%;
-  }
-
-  .letter{
-    position:absolute;
-    left:50%;
-    top:60%;
-    font-size: clamp(56px, 18vw, 120px);
-    font-weight:700;
-    line-height:1;
-    text-transform: uppercase;
-    color: var(--fg);
-    text-shadow: 0 1px 0 rgba(255,255,255,.55), 0 8px 24px rgba(0,0,0,.14);
-    will-change: transform, opacity;
-  }
-
-  /* Tiny sparkles for pizzazz */
-  .sparkle{
-    position:absolute; width:8px; height:8px; border-radius:50%;
-    background: radial-gradient(circle, rgba(255,255,255,.95), rgba(255,255,255,.25) 60%, transparent 70%);
-    filter: blur(.2px);
-    opacity:0;
-    animation: pop 700ms ease forwards;
-  }
+  .ring.r1{ width:84%; height:84%; animation-delay:200ms;}
+  .ring.r2{ width:96%; height:96%; animation-delay:280ms;}
+  .ring.r3{ width:108%; height:108%; animation-delay:360ms;}
   @keyframes pop{
-    0%{ opacity:0; transform: scale(.2) translateY(0); }
-    40%{ opacity:1; transform: scale(1.1) translateY(-10px); }
-    100%{ opacity:0; transform: scale(.9) translateY(-20px); }
+    40%{ opacity:1; transform: translateY(-6px) scale(1.02) rotate(var(--r,0deg)); }
+    100%{ opacity:1; transform: translateY(0) scale(1) rotate(0); }
+  }
+  @keyframes ring{
+    0%{ opacity:0; transform: scale(.8); }
+    100%{ opacity:1; transform: scale(1); }
   }
 
-  /* Reduced motion: show final word, then quick dock */
-  @media (prefers-reduced-motion: reduce){
-    .veil{ animation: none !important; opacity:0; }
-    .letter{ transition:none !important; }
-  }
+  /* quick fade handoff to index */
+  .handoff{ position:fixed; inset:0; pointer-events:none; background:#000; opacity:0; transition:opacity .35s ease; }
+  .handoff.show{ opacity:.08; } /* barely there, just to cue transition */
 </style>
 </head>
 <body>
-  <div class="stage">
-    <div class="veil" aria-hidden="true"></div>
-    <div class="stack-wrapper" id="stackWrapper" aria-label="Stacks logo loader">
-      <div class="stack-scale" id="stackScale"></div>
-    </div>
+  <div class="stage" id="stage">
+    <span class="ring r1"></span>
+    <span class="ring r2"></span>
+    <span class="ring r3"></span>
+    <!-- 6 stacked tiles that “pop” into place; delays create the stack -->
+    <div class="tile" style="--r:-3deg; animation-delay: 0ms;"><img src="stacks-logo.png" alt="Stacks logo"></div>
+    <div class="tile" style="--r: 4deg; animation-delay: 80ms;"><img src="stacks-logo.png" alt=""></div>
+    <div class="tile" style="--r:-2deg; animation-delay:160ms;"><img src="stacks-logo.png" alt=""></div>
+    <div class="tile" style="--r: 3deg; animation-delay:240ms;"><img src="stacks-logo.png" alt=""></div>
+    <div class="tile" style="--r:-1deg; animation-delay:320ms;"><img src="stacks-logo.png" alt=""></div>
+    <div class="tile" style="--r: 0deg; animation-delay:400ms;"><img src="stacks-logo.png" alt=""></div>
   </div>
+  <div class="handoff" id="handoff"></div>
 
 <script>
-(function(){
-  const WORD = "STACKS";
-  const DROP_DUR = readMs('--drop-dur', 420);
-  const DROP_GAP = readMs('--drop-gap', 90);
-  const MORPH_DUR = readMs('--morph-dur', 520);
-  const PAUSE_BEFORE_DOCK = readMs('--pause-before-dock', 220);
-  const DOCK_DUR = readMs('--dock-dur', 700);
-  const FADE_NOTE = readMs('--veil-fade-delay', 360);
-  const SPX = parseInt(readCss('--spacing-x','2px'),10);
+  // Tell index.html to start fading in ASAP
+  parent && parent.postMessage('fadeInIndex','*');
 
-  const wrapper = document.getElementById('stackWrapper');
-  const scaler  = document.getElementById('stackScale');
-
-  // Build letters
-  const letters = [...WORD].map((ch,i)=>{
-    const el = document.createElement('span');
-    el.className = 'letter';
-    el.textContent = ch;
-    el.style.opacity = 0;
-    el.style.zIndex = 10 + i;
-    scaler.appendChild(el);
-    return el;
-  });
-
-  // Measure widths/heights
-  const mets = measure(letters);
-  const widths = mets.map(m=>m.w);
-  const heights= mets.map(m=>m.h);
-  const avgH = heights.reduce((a,b)=>a+b,0)/heights.length;
-
-  // Horizontal centers so letters touch (like normal word)
-  const totalW = widths.reduce((a,b)=>a+b,0) + SPX*(widths.length-1);
-  let centers = [];
-  let x = -totalW/2 + widths[0]/2;
-  centers[0] = x;
-  for(let i=1;i<widths.length;i++){
-    x += (widths[i-1]/2 + widths[i]/2 + SPX);
-    centers[i] = x;
-  }
-
-  // CASCADE layout: gently descending diagonal (pancake-y, non-perfect)
-  const slope = avgH * 0.38; // per-letter downward step
-  const extra = [0, -6, -2, 6, 18, 30]; // little hand-tuned offsets (px)
-  const cascadeY = centers.map((_,i)=> i*slope + extra[i]);
-
-  // Fit to viewport (both width and height considered)
-  const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-  const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
-  const minY = Math.min(...cascadeY.map((y,i)=> y - heights[i]/2));
-  const maxY = Math.max(...cascadeY.map((y,i)=> y + heights[i]/2));
-  const stackH = maxY - minY;
-  const allowedW = vw * 0.86;
-  const allowedH = vh * 0.52; // space between a safe top pad and baseline
-  const s = Math.min(1, Math.max(0.5, Math.min(allowedW/totalW, allowedH/stackH)));
-  scaler.style.transform = `scale(${s})`;
-
-  // Initial drop into CASCADE (staggered)
-  letters.forEach((el,i)=>{
-    const rot = (Math.random()*3 - 1.5); // small tilt to avoid collisions
-    const X = centers[i]*s;
-    const Y = cascadeY[i]*s;
-
-    const kf = [
-      { transform: `translate(calc(-50% + ${X}px), -120vh) rotate(${rot}deg)`, opacity: 0 },
-      { transform: `translate(calc(-50% + ${X}px), ${Y+8}px) rotate(${rot}deg)`, opacity: 1, offset: 0.70, easing:'cubic-bezier(.2,.8,.2,1)'},
-      { transform: `translate(calc(-50% + ${X}px), ${Y-5}px) rotate(${rot/2}deg)`, offset: 0.88 },
-      { transform: `translate(calc(-50% + ${X}px), ${Y}px) rotate(${rot}deg)`, opacity:1 }
-    ];
-    el.animate(kf, { duration: DROP_DUR, delay: i*DROP_GAP, fill: 'forwards' });
-  });
-
-  // Sparkles near the last drop for a tiny flourish
-  setTimeout(()=> sparkles(scaler, 6), (letters.length-1)*DROP_GAP + DROP_DUR - 100);
-
-  // Start index fade almost immediately
-  setTimeout(()=> {
-    try{ window.parent && window.parent.postMessage('fadeInIndex', '*'); }catch(e){}
-  }, FADE_NOTE);
-
-  // MORPH: cascade -> straight line "STACKS" (same X positions, shared Y)
-  const lastDropEnd = (letters.length-1)*DROP_GAP + DROP_DUR;
-  const lineY = ((minY + maxY)/2) * s * 0 + 0; // center baseline (use 0 for clean line)
+  // After the short stack sequence, fade and hand off control
   setTimeout(()=>{
-    letters.forEach((el,i)=>{
-      const X = centers[i]*s;
-      const current = getComputedStyle(el).transform;
-      const target  = `translate(calc(-50% + ${X}px), ${lineY}px) rotate(0deg)`;
-      el.animate(
-        [{ transform: current }, { transform: target }],
-        { duration: MORPH_DUR, easing: 'cubic-bezier(.3,.7,.2,1)', fill:'forwards' }
-      );
-    });
-  }, lastDropEnd);
+    document.getElementById('handoff').classList.add('show');
+  }, 520);
 
-  // DOCK: move whole word to the top-left logo position
   setTimeout(()=>{
-    const cornerX = readCss('--corner-x','20px');
-    const cornerY = readCss('--corner-y','54px');
-    wrapper.animate(
-      [
-        { transform: getComputedStyle(wrapper).transform },
-        { transform: `translate(${cornerX}, ${cornerY}) scale(.80)` }
-      ],
-      { duration: DOCK_DUR, easing: 'cubic-bezier(.45,0,.25,1)', fill:'forwards' }
-    );
-  }, lastDropEnd + MORPH_DUR + PAUSE_BEFORE_DOCK);
-
-  // Finish: hide loader
-  setTimeout(()=>{
-    try{ window.parent && window.parent.postMessage('animationComplete', '*'); }catch(e){}
-  }, lastDropEnd + MORPH_DUR + PAUSE_BEFORE_DOCK + DOCK_DUR + 100);
-
-  /* ---------- Helpers ---------- */
-  function measure(els){
-    const meas = document.createElement('div');
-    meas.style.cssText = 'position:absolute; left:-999px; top:-999px; visibility:hidden; white-space:nowrap;';
-    document.body.appendChild(meas);
-    const out = els.map(el=>{
-      const s = document.createElement('span');
-      s.textContent = el.textContent;
-      s.style.fontFamily = getComputedStyle(el).fontFamily;
-      s.style.fontSize   = getComputedStyle(el).fontSize;
-      s.style.fontWeight = getComputedStyle(el).fontWeight;
-      s.style.display='inline-block';
-      meas.appendChild(s);
-      const r = s.getBoundingClientRect();
-      return {w:r.width, h:r.height};
-    });
-    meas.remove();
-    return out;
-  }
-  function sparkles(container, n=6){
-    const bounds = container.getBoundingClientRect();
-    for(let i=0;i<n;i++){
-      const sp = document.createElement('span');
-      sp.className = 'sparkle';
-      const x = (Math.random()*bounds.width - bounds.width/2) * .35;
-      const y = -bounds.height*.45 + (Math.random()*20);
-      sp.style.left = `calc(50% + ${x}px)`;
-      sp.style.top  = `calc(50% + ${y}px)`;
-      sp.style.animationDelay = `${i*40}ms`;
-      container.appendChild(sp);
-      setTimeout(()=> sp.remove(), 1000);
-    }
-  }
-  function readCss(name, fallback){
-    const v = getComputedStyle(document.documentElement).getPropertyValue(name).trim();
-    return v || fallback;
-  }
-  function readMs(name, fallback){
-    const v = readCss(name,'');
-    if(!v) return fallback;
-    if(v.endsWith('ms')) return parseFloat(v);
-    if(v.endsWith('s'))  return parseFloat(v)*1000;
-    const n = parseFloat(v); return isNaN(n)? fallback : n;
-  }
-
-  // Reduced motion shortcut
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches){
-    // Show line instantly, dock fast
-    letters.forEach((el,i)=>{
-      const X = centers[i]*s;
-      el.style.transform = `translate(calc(-520% + ${X}px), 0px)`;
-      el.style.opacity = 1;
-    });
-    setTimeout(()=>{
-      const cornerX = readCss('--corner-x','10px');
-      const cornerY = readCss('--corner-y','4px');
-      wrapper.style.transform = `translate(${cornerX}, ${cornerY}) scale(2.0)`;
-      try{ window.parent && window.parent.postMessage('animationComplete', '*'); }catch(e){}
-    }, 30000);
-  }
-
-  // Refit on orientation change (rare during quick loader)
-  window.addEventListener('orientationchange', ()=>location.reload(), {once:true});
-})();
+    parent && parent.postMessage('animationComplete','*');
+  }, 920);
 </script>
 </body>
 </html>

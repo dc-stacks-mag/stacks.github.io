@@ -1,175 +1,105 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stacks Magazine</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="index-page">
 
-    <!-- Animation Loader Iframe -->
-    <div id="loader-wrapper">
-        <!-- The loader already fades its white veil quickly & posts messages -->
-        <iframe src="loader.html" frameborder="0" title="Stacks Loader"></iframe>
-    </div>
+  <!-- Loader (updated animation) -->
+  <div id="loader-wrapper">
+    <iframe src="loader.html" frameborder="0" title="Stacks Loader"></iframe>
+  </div>
 
-    <!-- Mobile Navigation Overlay -->
-    <div id="mobile-nav-overlay">
-        <nav class="mobile-nav">
-            <a href="section.html" style="--i: 0;">On Background</a>
-            <a href="section.html" style="--i: 1;">Off the Record</a>
-            <a href="section.html" style="--i: 2;">Notes</a>
-            <a href="section.html" style="--i: 3;">The Telegraph</a>
-            <a href="section.html" style="--i: 4;">Upcoming Events</a>
-            <a href="section.html" style="--i: 5;">Photo Essays</a>
-            <a href="section.html" style="--i: 6;">From the Stacks</a>
-            <a href="masthead.html" style="--i: 7;">About</a>
-        </nav>
-    </div>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
 
-    <div id="main-content">
-        <header class="site-header">
-            <div class="logo">
-                <a href="index.html" aria-label="Stacks">
-                    <span class="logo-s1">S</span><span class="logo-t">t</span><span class="logo-a">a</span><span class="logo-c">c</span><span class="logo-k">k</span><span class="logo-s2">s</span>
-                </a>
+  <div id="main-content">
+    <main class="site-main">
+      <section class="issue-block">
+        <h2 class="issue-title">The Issue — Fall 2025</h2>
+
+        <div class="issue-content">
+          <!-- LEFT: Cover -->
+          <div class="issue-cover">
+            <a href="article.html">
+              <img src="https://placehold.co/900x1200/eeeeee/111111?text=Issue+1+Cover" alt="Cover for Issue 1">
+            </a>
+          </div>
+
+          <!-- RIGHT: TOC + extra -->
+          <div class="issue-toc">
+            <h3>In This Issue</h3>
+            <ul>
+              <li><a href="article.html"><span class="toc-category">On Background</span><span class="toc-title">Title Placeholder</span></a></li>
+              <li><a href="article.html"><span class="toc-category">Off the Record</span><span class="toc-title">Title Placeholder</span></a></li>
+              <li><a href="article.html"><span class="toc-category">Commentary</span><span class="toc-title">Title Placeholder</span></a></li>
+              <li><a href="article.html"><span class="toc-category">Notes</span><span class="toc-title">Title Placeholder</span></a></li>
+              <li><a href="article.html"><span class="toc-category">Photo Essay</span><span class="toc-title">Title Placeholder</span></a></li>
+              <li><a href="article.html"><span class="toc-category">From the Stacks</span><span class="toc-title">Title Placeholder</span></a></li>
+            </ul>
+
+            <div class="editor-note">
+              <h3>Editor’s Note</h3>
+              <p>Our first issue maps a campus by its small frictions — stairwells, coffee lines, and the doors you pass without noticing.</p>
             </div>
-            <div class="nav-wrapper" id="nav-wrapper">
-                <nav class="main-nav" id="main-nav">
-                    <a href="section.html">On Background</a>
-                    <a href="section.html">Off the Record</a>
-                    <a href="section.html">Notes</a>
-                    <a href="section.html">The Telegraph</a>
-                    <a href="section.html">Upcoming Events</a>
-                    <a href="section.html">Photo Essays</a>
-                    <a href="section.html">From the Stacks</a>
-                    <a href="masthead.html">About</a>
-                </nav>
+
+            <div class="mission-statement">
+              <h3>Mission Statement</h3>
+              <p>We publish work that takes place seriously. The city and the university are not just settings; they are systems that shape who gets seen and why.</p>
             </div>
-            <button id="hamburger-btn" aria-label="Open Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-        </header>
+          </div>
+        </div>
 
-        <main class="site-main">
-            <!-- Issue 1 -->
-            <section class="issue-block">
-                <h2 class="issue-title">The Issue &mdash; Fall 2025</h2>
-                <div class="issue-content">
-                    <div class="issue-cover">
-                        <a href="article.html">
-                            <img src="https://placehold.co/800x1000/111111/FFFFFF?text=Issue+1+Cover" alt="Cover for Issue 1">
-                        </a>
-                    </div>
-                    <div class="issue-toc">
-                        <h3>In This Issue</h3>
-                        <ul>
-                            <li><a href="article.html"><span class="toc-category">On Background</span><span class="toc-title">Title Placeholder</span></a></li>
-                            <li><a href="article.html"><span class="toc-category">Off the Record</span><span class="toc-title">Title Placeholder</span></a></li>
-                            <li><a href="article.html"><span class="toc-category">Commentary</span><span class="toc-title">Title Placeholder</span></a></li>
-                            <li><a href="article.html"><span class="toc-category">Notes</span><span class="toc-title">Title Placeholder</span></a></li>
-                            <li><a href="article.html"><span class="toc-category">Photo Essay</span><span class="toc-title">Title Placeholder</span></a></li>
-                            <li><a href="article.html"><span class="toc-category">From the Stacks</span><span class="toc-title">Title Placeholder</span></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </section>
-        </main>
+        <!-- Full-width extras -->
+        <div class="editor-note">
+          <h3>From the Managing Editor</h3>
+          <p>We’re experimenting in public — with formats, with beats, with a slower cadence. Tell us what lands.</p>
+        </div>
 
-        <footer class="site-footer-main">
-            <p>&copy; 2025 Stacks. All Rights Reserved.</p>
-        </footer>
-    </div>
+        <div class="mission-statement">
+          <h3>On Archives & Ephemera</h3>
+          <p>We’re building an index that prizes primary documents and everyday testimony. The stacks are shelves and also layers — history, policy, memory — and we’re trying to read across them.</p>
+        </div>
+      </section>
+    </main>
+  </div>
 
-    <script>
-        // --- Page Load Logic (FAST FADE) ---
-        const loaderWrapper = document.getElementById('loader-wrapper');
-        const mainContent   = document.getElementById('main-content');
+  <!-- Handoff from loader -->
+  <script>
+    const loaderWrapper = document.getElementById('loader-wrapper');
+    const mainContent   = document.getElementById('main-content');
+    window.addEventListener('message', (event) => {
+      if (event.data === 'fadeInIndex') {
+        mainContent.classList.add('fading');
+      }
+      if (event.data === 'animationComplete') {
+        loaderWrapper.classList.add('hidden');
+        mainContent.classList.add('visible');
+      }
+    });
+  </script>
 
-        // The loader posts 'fadeInIndex' early and 'animationComplete' at the end.
-        window.addEventListener('message', (event) => {
-            if (event.data === 'fadeInIndex') {
-                // start revealing the site behind the transparent loader
-                mainContent.classList.add('fading');
-            }
-            if (event.data === 'animationComplete') {
-                loaderWrapper.classList.add('hidden');  // remove overlay
-                mainContent.classList.add('visible');   // fully visible
-            }
-        });
-
-        // --- Navigation Logic ---
-        const hamburgerBtn = document.getElementById('hamburger-btn');
-        const mobileNavOverlay = document.getElementById('mobile-nav-overlay');
-        if (hamburgerBtn) {
-            hamburgerBtn.addEventListener('click', () => {
-                document.body.classList.toggle('no-scroll');
-                hamburgerBtn.classList.toggle('active');
-                mobileNavOverlay.classList.toggle('active');
-            });
-        }
-
-        // --- Desktop Nav Scrolling Logic (same as yours) ---
-        if (window.matchMedia("(min-width: 1024px)").matches) {
-            const navWrapper = document.getElementById('nav-wrapper');
-            const mainNav = document.getElementById('main-nav');
-            let scrollInterval;
-            let isDown = false;
-            let startX;
-            let scrollLeft;
-
-            navWrapper.addEventListener('mousemove', (e) => {
-                if (isDown) return; // Don't hover scroll while dragging
-                const wrapperWidth = navWrapper.offsetWidth;
-                const scrollableWidth = mainNav.scrollWidth;
-                if (wrapperWidth >= scrollableWidth) return;
-
-                const hoverZone = wrapperWidth * 0.2; // 20% of the edge
-                const mouseX = e.clientX - navWrapper.getBoundingClientRect().left;
-
-                clearInterval(scrollInterval);
-
-                if (mouseX < hoverZone) {
-                    scrollInterval = setInterval(() => { 
-                        if(mainNav.scrollLeft > 0) mainNav.scrollLeft -= 5;
-                        else clearInterval(scrollInterval);
-                    }, 20);
-                } else if (mouseX > wrapperWidth - hoverZone) {
-                    scrollInterval = setInterval(() => {
-                        if(mainNav.scrollLeft < scrollableWidth - wrapperWidth) mainNav.scrollLeft += 5;
-                        else clearInterval(scrollInterval);
-                    }, 20);
-                }
-            });
-            
-            navWrapper.addEventListener('mouseleave', () => clearInterval(scrollInterval));
-
-            mainNav.addEventListener('mousedown', (e) => {
-                isDown = true;
-                mainNav.classList.add('active-drag');
-                startX = e.pageX - mainNav.offsetLeft;
-                scrollLeft = mainNav.scrollLeft;
-                clearInterval(scrollInterval); // Stop hover scroll when dragging
-            });
-            mainNav.addEventListener('mouseleave', () => {
-                isDown = false;
-                mainNav.classList.remove('active-drag');
-            });
-            mainNav.addEventListener('mouseup', () => {
-                isDown = false;
-                mainNav.classList.remove('active-drag');
-            });
-            mainNav.addEventListener('mousemove', (e) => {
-                if (!isDown) return;
-                e.preventDefault();
-                const x = e.pageX - mainNav.offsetLeft;
-                const walk = (x - startX) * 2; //scroll-fast
-                mainNav.scrollLeft = scrollLeft - walk;
-            });
-        }
-    </script>
+  <!-- Simple HTML partial include loader -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src;
+        else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  </script>
 </body>
 </html>
