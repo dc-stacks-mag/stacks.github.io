@@ -1,52 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
 <title>Loading...</title>
 <style>
-  /* This keyframe animation controls the fade from a solid
-    white background to completely transparent.
-  */
+  /* Fade the iframe's white veil to transparent so the page shows through */
   @keyframes fadeOutBackground {
-    from { background-color: #fff; }
-    to   { background-color: transparent; }
+    from { background-color:#fff; }
+    to   { background-color:transparent; }
   }
 
-  html, body {
-    height: 100%;
-    margin: 0;
-    overflow: hidden;
+  html, body { height:100%; margin:0; overflow:hidden; }
+  body{
+    background-color:#fff;
+    animation-name:fadeOutBackground;
+    animation-duration:1s;
+    animation-delay:1s;
+    animation-fill-mode:forwards;
+    animation-timing-function:ease-in-out;
   }
 
-  body {
-    /* --- Faster Animation Settings --- */
-    background-color: #fff;
-    animation-name: fadeOutBackground;
-    animation-duration: 1s;           /* The fade will last 1 second */
-    animation-delay: 1s;              /* Wait 1 second before starting */
-    animation-fill-mode: forwards;    /* Stay transparent after animation ends */
-    animation-timing-function: ease-in-out;
-  }
-
-  img {
-    /* Ensure the transparent GIF covers the entire viewport */
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+  /* Transparent GIF covers the viewport */
+  img{
+    width:100%; height:100%; object-fit:cover; display:block;
+    image-rendering:auto;
   }
 </style>
 </head>
 <body>
+  <!-- Use a transparent GIF that loops once -->
   <img src="spiral.gif" alt="Loading animation">
 
-<script>
-  // New total duration is 2 seconds (1s delay + 1s animation).
-  setTimeout(() => {
-    // Tell the main page to hide the loader iframe.
-    parent && parent.postMessage('hideLoader', '*');
-  }, 2000); // 2000ms = 2 seconds
-</script>
+  <script>
+    // Notify parent to begin fading the main content shortly after load
+    setTimeout(()=> { parent && parent.postMessage('beginFade', '*'); }, 100);
+    // Total "play + fade": 1s delay + 1s fade = 2s
+    setTimeout(()=> { parent && parent.postMessage('hideLoader', '*'); }, 1600);
+  </script>
 </body>
 </html>
-

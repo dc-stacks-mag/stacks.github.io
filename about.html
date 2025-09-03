@@ -4,7 +4,124 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>About — Stacks Magazine</title>
+  <!-- The original stylesheet is still linked to keep the base styles and fonts -->
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* --- New Styles for the Revamped About Page --- */
+
+    /* The main grid for the two-column layout */
+    .about-grid {
+      display: flex;
+      flex-direction: column; /* Stacks columns on mobile */
+      gap: 2rem;
+    }
+
+    /* On larger screens, switch to a two-column layout */
+    @media (min-width: 1024px) {
+      .about-grid {
+        flex-direction: row; /* Side-by-side on desktop */
+        gap: 4rem;
+        align-items: flex-start; /* Align items to the top */
+      }
+      .about-left {
+        flex: 1; /* Takes up 1 part of the available space */
+        position: sticky; /* Makes the mission statement stick on scroll */
+        top: 2rem;
+        align-self: flex-start;
+      }
+      .about-right {
+        flex: 1.5; /* Takes up 1.5 parts, making it slightly wider */
+      }
+    }
+
+    /* Style adjustments for the left column content */
+    .about-left .section-header {
+      text-align: left;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .about-left .section-header h1 {
+      font-size: clamp(2rem, 5vw, 2.5rem); /* Responsive font size */
+      margin-bottom: 0.5rem;
+    }
+    
+    .about-left .section-header p {
+        margin: 0;
+    }
+
+    .about-mission {
+      margin-top: 1.5rem;
+    }
+    
+    .about-mission h2 {
+        font-family: var(--font-sans);
+    }
+
+    /* Styling for the list of names */
+    .masthead-list h2 {
+      font-family: var(--font-sans);
+      font-size: 1.5rem;
+      color: var(--color-subtle);
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1rem;
+      margin-top: 0;
+    }
+    
+    .masthead-section:not(:first-child) h2 {
+        margin-top: 2.5rem;
+    }
+
+    .masthead-list p {
+      margin: 0.5rem 0;
+      font-size: 1.1rem;
+      line-height: 1.8;
+    }
+
+    /* --- The Cool Hover Effect --- */
+
+    /* Container for a name, allowing for relative positioning of the GIF */
+    .name-container {
+      position: relative;
+      display: inline-block;
+    }
+
+    /* The text part of the name */
+    .name-text {
+      transition: all 0.2s ease-in-out;
+      display: inline-block; /* Ensures transform works correctly */
+    }
+
+    /* On hover, italicize the name and give it a slight lift */
+    .name-container:hover .name-text {
+      font-style: italic;
+      transform: translateY(-2px);
+      cursor: pointer;
+    }
+
+    /* The placeholder GIF */
+    .name-gif {
+      display: none; /* Hidden by default */
+      position: absolute;
+      bottom: 110%; /* Position it above the name */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 120px;
+      height: 120px;
+      border-radius: 8px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      z-index: 10;
+      pointer-events: none; /* Prevents the GIF from blocking mouse events */
+      border: 3px solid white;
+      object-fit: cover;
+    }
+
+    /* Show the GIF on hover */
+    .name-container:hover .name-gif {
+      display: block;
+    }
+  </style>
 </head>
 <body>
   <!-- Include shared nav + footer -->
@@ -12,41 +129,56 @@
 
   <div id="main-content" class="visible">
     <main class="site-main">
-      <header class="section-header">
-        <h1>About Stacks</h1>
-        <p>The team and mission behind the magazine.</p>
-      </header>
+      <!-- New two-column grid layout -->
+      <div class="about-grid">
+        
+        <!-- Left Column: About & Mission -->
+        <div class="about-left">
+          <header class="section-header">
+            <h1>About Stacks</h1>
+            <p>The team and mission behind the magazine.</p>
+          </header>
 
-      <div class="about-content">
-        <div class="about-mission">
-          <h2>Our Mission</h2>
-          <p>Placeholder text for the magazine's mission statement.</p>
+          <div class="about-mission">
+            <h2>Our Mission</h2>
+            <p>Placeholder text for the magazine's mission statement. We believe in the power of words to illuminate, inspire, and connect. Our goal is to provide a platform for diverse voices and untold stories, fostering a community of curious readers and passionate creators.</p>
+          </div>
         </div>
 
-        <header class="section-header">
-          <h1>Masthead</h1>
-          <p>The team behind the magazine.</p>
-        </header>
+        <!-- Right Column: The Team -->
+        <div class="about-right masthead-list">
+          <div class="masthead-section">
+            <h2>Editorial</h2>
+            <p><strong>Editor-in-Chief</strong>: <span class="name-container"><span class="name-text">Ananya Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Managing Editor</strong>: <span class="name-container"><span class="name-text">Clara Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Creative Director</strong>: <span class="name-container"><span class="name-text">Sally Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Managing Editor for Race &amp; Equity</strong>: <span class="name-container"><span class="name-text">Elise Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Production Editor</strong>: <span class="name-container"><span class="name-text">Haylee Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+          </div>
 
-        <div class="masthead-list">
-          <h2>Editorial</h2>
-          <p><strong>Editor-in-Chief</strong>: Ananya</p>
-          <p><strong>Managing Editor</strong>: Clara</p>
-          <p><strong>Creative Director</strong>: Sally</p>
-          <p><strong>Managing Editor for Race &amp; Equity</strong>: Elise</p>
-          <p><strong>Production Editor</strong>: Haylee</p>
+          <div class="masthead-section">
+            <h2>Section Editors</h2>
+            <p><strong>On Background</strong>: <span class="name-container"><span class="name-text">Aarya Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Off the Record</strong>: <span class="name-container"><span class="name-text">Stella Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span> & <span class="name-container"><span class="name-text">Amara Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Notes</strong>: <span class="name-container"><span class="name-text">Denis Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+          </div>
 
-          <h2>Section Editors</h2>
-          <p><strong>On Background</strong>: Aarya</p>
-          <p><strong>Off the Record</strong>: Stella &amp; Amara</p>
-          <p><strong>Notes</strong>: Denis</p>
+          <div class="masthead-section">
+            <h2>Visuals</h2>
+            <p><strong>Photo Editor</strong>: <span class="name-container"><span class="name-text">Hayes Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Graphics Editor</strong>: <span class="name-container"><span class="name-text">Brynn Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Designer</strong>: <span class="name-container"><span class="name-text">Alyssa Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+            <p><strong>Website guy</strong>: <span class="name-container"><span class="name-text">Joever Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span></p>
+          </div>
 
-          <h2>Visuals</h2>
-          <p><strong>Photo Editor</strong>: Hayes</p>
-          <p><strong>Graphics Editor</strong>: Brynn</p>
-
-          <h2>Deputy Editors</h2>
-          <p>Safwat, Sam, Afton</p>
+          <div class="masthead-section">
+            <h2>Deputy Editors</h2>
+            <p>
+                <span class="name-container"><span class="name-text">Safwat Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span>, 
+                <span class="name-container"><span class="name-text">Sam Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span>, 
+                <span class="name-container"><span class="name-text">Afton Last-name</span><img src="https://media1.tenor.com/m/S3ByFeu39_wAAAAd/chow-puppy-puppy.gif" class="name-gif" alt="Placeholder GIF"></span>
+            </p>
+          </div>
         </div>
       </div>
     </main>
@@ -55,18 +187,25 @@
   <!-- partial include loader -->
   <script>
   (async function includePartials(){
+    // This script remains the same to load your nav and footer
     const nodes = document.querySelectorAll('[data-include]');
     for (const host of nodes){
-      const file = host.getAttribute('data-include');
-      const res  = await fetch(file);
-      const html = await res.text();
-      host.innerHTML = html;
-      host.querySelectorAll('script').forEach(old => {
-        const s = document.createElement('script');
-        if (old.src) s.src = old.src; else s.textContent = old.textContent;
-        document.body.appendChild(s);
-        old.remove();
-      });
+      try {
+        const file = host.getAttribute('data-include');
+        const res  = await fetch(file);
+        if (res.ok) {
+            const html = await res.text();
+            host.innerHTML = html;
+            host.querySelectorAll('script').forEach(old => {
+                const s = document.createElement('script');
+                if (old.src) s.src = old.src; else s.textContent = old.textContent;
+                document.body.appendChild(s);
+                old.remove();
+            });
+        }
+      } catch (error) {
+          console.error('Error including partial:', error);
+      }
     }
   })();
   </script>
