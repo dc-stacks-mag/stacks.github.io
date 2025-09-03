@@ -3,79 +3,50 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Stacks Loader</title>
+<title>Loading...</title>
 <style>
-  :root{
-    --ink:#111; --bg:#ffb0d3; /* pinkish nod to your inspo poster */
-  }
-  html,body{height:100%}
-  body{
-    margin:0; background:var(--bg);
-    display:grid; place-items:center;
-    overflow:hidden;
-  }
-  .stage{
-    position:relative; width:min(56vmin,520px); height:min(56vmin,520px);
-    display:grid; place-items:center;
-  }
-  /* Stacking logo tiles */
-  .tile{
-    position:absolute; inset:0; display:grid; place-items:center;
-    filter: drop-shadow(0 6px 12px rgba(0,0,0,.15));
-    opacity:0; transform: translateY(24px) scale(.96) rotate(var(--r,0deg));
-    animation: pop 700ms cubic-bezier(.2,.8,.2,1) forwards;
-  }
-  .tile img{ width:72%; height:auto; display:block; }
-  /* offset rings like the poster “POCUS” motion lines */
-  .ring{
-    position:absolute; border:3px solid rgba(0,0,0,.18); border-radius:50%;
-    opacity:0; transform: scale(.8);
-    animation: ring 900ms ease-out forwards;
-  }
-  .ring.r1{ width:84%; height:84%; animation-delay:200ms;}
-  .ring.r2{ width:96%; height:96%; animation-delay:280ms;}
-  .ring.r3{ width:108%; height:108%; animation-delay:360ms;}
-  @keyframes pop{
-    40%{ opacity:1; transform: translateY(-6px) scale(1.02) rotate(var(--r,0deg)); }
-    100%{ opacity:1; transform: translateY(0) scale(1) rotate(0); }
-  }
-  @keyframes ring{
-    0%{ opacity:0; transform: scale(.8); }
-    100%{ opacity:1; transform: scale(1); }
+  /* This keyframe animation controls the fade from a solid
+    white background to completely transparent.
+  */
+  @keyframes fadeOutBackground {
+    from { background-color: #fff; }
+    to   { background-color: transparent; }
   }
 
-  /* quick fade handoff to index */
-  .handoff{ position:fixed; inset:0; pointer-events:none; background:#000; opacity:0; transition:opacity .35s ease; }
-  .handoff.show{ opacity:.08; } /* barely there, just to cue transition */
+  html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  body {
+    /* --- Faster Animation Settings --- */
+    background-color: #fff;
+    animation-name: fadeOutBackground;
+    animation-duration: 1s;           /* The fade will last 1 second */
+    animation-delay: 1s;              /* Wait 1 second before starting */
+    animation-fill-mode: forwards;    /* Stay transparent after animation ends */
+    animation-timing-function: ease-in-out;
+  }
+
+  img {
+    /* Ensure the transparent GIF covers the entire viewport */
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 </style>
 </head>
 <body>
-  <div class="stage" id="stage">
-    <span class="ring r1"></span>
-    <span class="ring r2"></span>
-    <span class="ring r3"></span>
-    <!-- 6 stacked tiles that “pop” into place; delays create the stack -->
-    <div class="tile" style="--r:-3deg; animation-delay: 0ms;"><img src="stacks-logo.png" alt="Stacks logo"></div>
-    <div class="tile" style="--r: 4deg; animation-delay: 80ms;"><img src="stacks-logo.png" alt=""></div>
-    <div class="tile" style="--r:-2deg; animation-delay:160ms;"><img src="stacks-logo.png" alt=""></div>
-    <div class="tile" style="--r: 3deg; animation-delay:240ms;"><img src="stacks-logo.png" alt=""></div>
-    <div class="tile" style="--r:-1deg; animation-delay:320ms;"><img src="stacks-logo.png" alt=""></div>
-    <div class="tile" style="--r: 0deg; animation-delay:400ms;"><img src="stacks-logo.png" alt=""></div>
-  </div>
-  <div class="handoff" id="handoff"></div>
+  <img src="spiral.gif" alt="Loading animation">
 
 <script>
-  // Tell index.html to start fading in ASAP
-  parent && parent.postMessage('fadeInIndex','*');
-
-  // After the short stack sequence, fade and hand off control
-  setTimeout(()=>{
-    document.getElementById('handoff').classList.add('show');
-  }, 520);
-
-  setTimeout(()=>{
-    parent && parent.postMessage('animationComplete','*');
-  }, 920);
+  // New total duration is 2 seconds (1s delay + 1s animation).
+  setTimeout(() => {
+    // Tell the main page to hide the loader iframe.
+    parent && parent.postMessage('hideLoader', '*');
+  }, 2000); // 2000ms = 2 seconds
 </script>
 </body>
 </html>
+
