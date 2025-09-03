@@ -1,28 +1,28 @@
-<!-- nav-footer.html (updated) -->
-<!-- Top spacer equal to folio height (keeps empty space above nav) -->
-<!-- DESKTOP NAV: single horizontal rail with centered logo -->
-<header class="site-header desktop-only" role="banner" aria-label="Site navigation">
-  <div id="nav-scroll" class="nav-scroll" aria-label="Primary sections">
-    <!-- Left items -->
-    <a href="section.html">On Background</a>
-    <a href="section.html">Off the Record</a>
-    <a href="section.html">Notes</a>
-    <a href="section.html">The Telegraph</a>
+<!-- nav-footer.html -->
 
-    <!-- Center logo (oversized; can overflow header) -->
+<!-- ===== DESKTOP NAV ===== -->
+<header class="site-header desktop-only" role="banner" aria-label="Site navigation">
+  <div id="nav-scroll" class="nav-scroll" aria-label="Primary sections" tabindex="0">
+    <!-- Left items -->
+    <a href="section.html" class="nav-item">On Background</a>
+    <a href="section.html" class="nav-item">Off the Record</a>
+    <a href="section.html" class="nav-item">Notes</a>
+    <a href="section.html" class="nav-item">The Telegraph</a>
+
+    <!-- Center logo (sticky; items scroll “behind” it) -->
     <a class="nav-logo" href="index.html" aria-label="Stacks">
       <img src="stacks-logo-2.png" alt="Stacks">
     </a>
 
     <!-- Right items -->
-    <a href="section.html">Upcoming Events</a>
-    <a href="section.html">Photo Essays</a>
-    <a href="section.html">From the Stacks</a>
-    <a href="about.html">About</a>
+    <a href="section.html" class="nav-item">Upcoming Events</a>
+    <a href="section.html" class="nav-item">Photo Essays</a>
+    <a href="section.html" class="nav-item">From the Stacks</a>
+    <a href="about.html"   class="nav-item">About</a>
   </div>
 </header>
 
-<!-- MOBILE NAV -->
+<!-- ===== MOBILE NAV ===== -->
 <div class="mobile-only" role="banner" aria-label="Mobile navigation">
   <div class="mobile-bar">
     <a class="mobile-logo" href="index.html" aria-label="Stacks">
@@ -33,7 +33,6 @@
     </button>
   </div>
 
-  <!-- Full-width dropdown that sits directly under the purple header -->
   <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile menu">
     <a href="section.html" data-index="0">On Background</a>
     <a href="section.html" data-index="1">Off the Record</a>
@@ -46,7 +45,7 @@
   </nav>
 </div>
 
-<!-- FOLIO (directly under nav on ALL devices) -->
+<!-- ===== FOLIO ===== -->
 <div class="folio" role="contentinfo">
   <div class="folio-inner">
     <span id="folio-date" class="folio-item"></span>
@@ -57,7 +56,7 @@
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ===== FOOTER ===== -->
 <footer class="site-footer-main" id="global-footer" role="contentinfo">
   <div class="footer-inner">
     <div class="footer-left">
@@ -83,150 +82,212 @@
   </div>
 </footer>
 
+<!-- ===== Tiny, scoped safeguard so header links stay white ===== -->
+<style>
+  .site-header .nav-scroll a { color:#fff !important; }
+</style>
+
 <script>
-/* ===== Keep footer at bottom (safety) ===== */
+/* ===== Keep footer at bottom ===== */
 (function moveFooterToBottom(){
   const f = document.getElementById('global-footer');
   if (f && f.parentElement !== document.body) document.body.appendChild(f);
 })();
 
-/* ===== FOLIO DATE + spacing ===== */
+/* ===== FOLIO DATE: “Tuesday, Sep. 02, 2025” ===== */
 (function setFolioDate(){
   const el = document.getElementById('folio-date');
   if (!el) return;
-  el.textContent = new Date().toLocaleString('en-US', {
-    weekday:'short', month:'short', day:'2-digit', year:'numeric',
-    timeZone: 'America/Los_Angeles'
-  });
+  const months = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sep.","Oct.","Nov.","Dec."];
+  const nowLA = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+  const weekday = nowLA.toLocaleString('en-US', { weekday: 'long' });
+  const m = months[nowLA.getMonth()];
+  const day = String(nowLA.getDate()).padStart(2,'0');
+  const year = nowLA.getFullYear();
+  el.textContent = `${weekday}, ${m} ${day}, ${year}`;
 })();
 
-/* ===== FOOTER CLOCK + COUNTDOWN (with hover/tap behaviors) ===== */
+/* ===== FOOTER CLOCK + COUNTDOWN with correct hover behavior ===== */
 (function footerInfo(){
   const clockEl = document.getElementById('berkeley-time');
   const titleEl = document.getElementById('time-title');
-  const locEl   = document.getElementById('location-label');
+  const cdEl    = document.getElementById('countdown');
   const blockTime = document.getElementById('block-time');
-  const cdEl = document.getElementById('countdown');
   const blockNext = document.getElementById('block-nextpub');
+  const yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  function fmtDateFull(d){
-    return d.toLocaleString('en-US',{
-      timeZone:'America/Los_Angeles',
-      weekday:'short', month:'short', day:'2-digit', year:'numeric',
-      hour:'2-digit', minute:'2-digit', second:'2-digit'
-    });
-  }
-  function realNow(){ return new Date(new Date().toLocaleString('en-US', { timeZone:'America/Los_Angeles' })); }
-  function tickClock(){
-    if (!clockEl) return;
-    clockEl.textContent = fmtDateFull(realNow());
-  }
-  tickClock(); setInterval(tickClock, 1000);
+  const tz = 'America/Los_Angeles';
+  const nowLA = () => new Date(new Date().toLocaleString('en-US',{ timeZone: tz }));
 
+  const fmtClock = (d) => d.toLocaleString('en-US',{
+    timeZone: tz, weekday:'short', month:'short', day:'2-digit', year:'numeric',
+    hour:'2-digit', minute:'2-digit', second:'2-digit'
+  });
+
+  const addMin = (d, m) => new Date(d.getTime() + m*60000);
+
+  // Countdown target: first of next month, 9:00am PT (16:00 UTC approx DST-dependent)
   function nextPubDate(){
-    const now = realNow();
-    const y = now.getFullYear(), m = now.getMonth();
-    // first of next month at 9:00 AM PT
-    return new Date(Date.UTC(y, m+1, 1, 16, 0, 0));
+    const n = nowLA();
+    return new Date(Date.UTC(n.getFullYear(), n.getMonth()+1, 1, 16, 0, 0));
   }
   function fmtCountdown(ms){
-    if (ms <= 0) return 'Publishing soon';
-    const s = Math.floor(ms/1000);
-    const d = Math.floor(s/86400);
-    const h = Math.floor((s%86400)/3600);
-    const m = Math.floor((s%3600)/60);
-    const sec = s%60;
+    if (ms<=0) return 'Publishing soon';
+    const s=Math.floor(ms/1000);
+    const d=Math.floor(s/86400);
+    const h=Math.floor((s%86400)/3600);
+    const m=Math.floor((s%3600)/60);
+    const sec=s%60;
     return `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(sec).padStart(2,'0')}s`;
   }
-  function tickCountdown(){
-    if (!cdEl) return;
-    cdEl.textContent = fmtCountdown(nextPubDate().getTime() - Date.now());
+
+  // Flags to prevent ticks from overwriting hover states
+  let showPlus10 = false;
+  let freezeCountdown = false;
+
+  // Clock tick (respects “+10 while hovered”)
+  (function clockTick(){
+    const base = nowLA();
+    const display = showPlus10 ? addMin(base, 10) : base;
+    if (clockEl) clockEl.textContent = fmtClock(display);
+    requestAnimationFrame(clockTick);
+  })();
+
+  // Countdown tick (pauses while hovered)
+  (function countdownTick(){
+    if (!freezeCountdown && cdEl){
+      cdEl.textContent = fmtCountdown(nextPubDate().getTime() - Date.now());
+    }
+    setTimeout(countdownTick, 1000);
+  })();
+
+  // Desktop hover behavior
+  const prefersTouch = matchMedia('(hover: none)').matches;
+
+  function handleTimeHoverStart(){
+    showPlus10 = true;
+    if (titleEl) titleEl.textContent = 'BERKELEY TIME';
   }
-  tickCountdown(); setInterval(tickCountdown, 1000);
-
-  const yEl = document.getElementById('year');
-  if (yEl) yEl.textContent = new Date().getFullYear();
-
-  /* Interactions:
-     - Desktop hover: time → title becomes "BERKELEY TIME" and time +10 minutes.
-     - Mobile tap: toggles that state.
-     - Countdown hover/tap: shows exact publication datetime (title stays the same). */
-  function addMinutes(date, mins){ return new Date(date.getTime() + mins*60000); }
-  function showBerkeleyPlus10(){
-    if (!clockEl) return;
-    titleEl.textContent = 'BERKELEY TIME';
-    clockEl.textContent = fmtDateFull(addMinutes(realNow(), 10));
-  }
-  function showBerkeleyReal(){
-    titleEl.textContent = 'Location & time';
-    tickClock();
+  function handleTimeHoverEnd(){
+    showPlus10 = false;
+    if (titleEl) titleEl.textContent = 'Location & time';
   }
 
-  const isMobile = matchMedia('(max-width: 1023px)').matches;
+  function handleNextHoverStart(){
+    freezeCountdown = true;
+    const d = nextPubDate();
+    cdEl.textContent = d.toLocaleString('en-US',{
+      timeZone: tz, weekday:'long', month:'long', day:'2-digit', year:'numeric',
+      hour:'2-digit', minute:'2-digit'
+    });
+  }
+  function handleNextHoverEnd(){
+    freezeCountdown = false; // tick will resume on next interval
+  }
 
-  if (isMobile){
-    let toggled = false;
-    blockTime.addEventListener('click', ()=>{
-      toggled = !toggled;
-      toggled ? showBerkeleyPlus10() : showBerkeleyReal();
+  if (!prefersTouch){
+    // Hover on desktop
+    blockTime?.addEventListener('mouseenter', handleTimeHoverStart);
+    blockTime?.addEventListener('mouseleave', handleTimeHoverEnd);
+
+    blockNext?.addEventListener('mouseenter', handleNextHoverStart);
+    blockNext?.addEventListener('mouseleave', handleNextHoverEnd);
+  } else {
+    // Tap on mobile toggles states
+    blockTime?.addEventListener('click', ()=> {
+      showPlus10 = !showPlus10;
+      titleEl.textContent = showPlus10 ? 'BERKELEY TIME' : 'Location & time';
     });
-    blockNext.addEventListener('click', ()=>{
-      const d = nextPubDate();
-      cdEl.textContent = d.toLocaleString('en-US', { timeZone:'America/Los_Angeles', weekday:'short', month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
+    blockNext?.addEventListener('click', ()=> {
+      freezeCountdown = !freezeCountdown;
+      if (freezeCountdown) handleNextHoverStart();
     });
-  }else{
-    blockTime.addEventListener('mouseenter', showBerkeleyPlus10);
-    blockTime.addEventListener('mouseleave', showBerkeleyReal);
-    blockNext.addEventListener('mouseenter', ()=>{
-      const d = nextPubDate();
-      cdEl.textContent = d.toLocaleString('en-US', { timeZone:'America/Los_Angeles', weekday:'short', month:'short', day:'2-digit', year:'numeric', hour:'2-digit', minute:'2-digit' });
-    });
-    blockNext.addEventListener('mouseleave', tickCountdown);
   }
 })();
 
-/* ===== Desktop nav: one rail, drag/trackpad/arrow scroll + hint nudge ===== */
+/* ===== Desktop nav: single track, centered start, gentle nudge ===== */
 (function desktopNav(){
-  if (!window.matchMedia('(min-width:1024px)').matches) return;
+  if (!matchMedia('(min-width:1024px)').matches) return;
   const rail = document.getElementById('nav-scroll');
   if (!rail) return;
 
-  // Drag to scroll
-  let isDown=false, startX=0, scrollLeft=0;
-  rail.addEventListener('mousedown', (e)=>{ isDown=true; startX=e.pageX-rail.offsetLeft; scrollLeft=rail.scrollLeft; rail.classList.add('active-drag');});
-  ['mouseup','mouseleave'].forEach(evt=> rail.addEventListener(evt, ()=>{ isDown=false; rail.classList.remove('active-drag');}));
-  rail.addEventListener('mousemove', (e)=>{ if(!isDown) return; e.preventDefault(); const x=e.pageX-rail.offsetLeft; rail.scrollLeft = scrollLeft - (x-startX)*2; });
+  // Center the rail so first view looks symmetric under fixed logo
+  function centerRail(){
+    const max = rail.scrollWidth - rail.clientWidth;
+    rail.scrollLeft = Math.max(0, Math.floor(max/2));
+  }
 
-  // Wheel horizontal (for trackpads/mice)
+  // Run when ready + on resize
+  let ro;
+  function onReady(){
+    centerRail();
+    if (ro) ro.disconnect();
+    ro = new ResizeObserver(centerRail);
+    ro.observe(rail);
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') onReady();
+  else window.addEventListener('DOMContentLoaded', onReady);
+
+  // Drag to scroll
+  let isDown=false, startX=0, startLeft=0;
+  rail.addEventListener('mousedown', (e)=>{
+    isDown = true; startX = e.pageX; startLeft = rail.scrollLeft;
+    rail.classList.add('active-drag');
+  });
+  ['mouseleave','mouseup'].forEach(evt=>{
+    rail.addEventListener(evt, ()=>{ isDown=false; rail.classList.remove('active-drag'); });
+  });
+  rail.addEventListener('mousemove', (e)=>{
+    if(!isDown) return;
+    e.preventDefault();
+    rail.scrollLeft = startLeft - (e.pageX - startX) * 1.5;
+  });
+
+  // Wheel vertical → horizontal
   rail.addEventListener('wheel', (e)=>{
-    if (Math.abs(e.deltaX) < Math.abs(e.deltaY)) {
-      rail.scrollLeft += e.deltaY; // vertical wheel drives horizontal motion
+    if (Math.abs(e.deltaY) > Math.abs(e.deltaX)){
+      rail.scrollLeft += e.deltaY;
       e.preventDefault();
     }
-  }, { passive:false });
+  }, {passive:false});
 
-  // After index loads, hint there's more by “carousel” nudge
-  const startNudge = () => {
-    if (rail.scrollWidth <= rail.clientWidth) return;
-    const start = rail.scrollLeft;
-    rail.scrollTo({ left: Math.min(start + 160, rail.scrollWidth), behavior: 'smooth' });
-    setTimeout(()=> rail.scrollTo({ left: start, behavior: 'smooth' }), 1400);
-  };
+  // Keyboard nudges
+  rail.addEventListener('keydown', (e)=>{
+    if (e.key === 'ArrowRight') rail.scrollLeft += 60;
+    if (e.key === 'ArrowLeft')  rail.scrollLeft -= 60;
+  });
 
-  // If we're on index, wait ~5s after page becomes visible; otherwise run once after 5s
-  const fiveSec = 5000;
-  if (document.body.classList.contains('index-page')){
-    window.addEventListener('message', (event) => {
-      if (event.data === 'animationComplete') setTimeout(startNudge, fiveSec);
-    });
-  } else {
-    setTimeout(startNudge, fiveSec);
+  // Subtle “nudge” after 5s, then ease back (respect reduced-motion)
+  const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function gentleNudge(){
+    if (prefersReduced) return;
+    const start = rail.scrollLeft, dist = 80, dur = 900, t0 = performance.now();
+    const ease = x => 1 - (1 - x) * (1 - x);
+    function step(t){
+      const p = Math.min(1, (t - t0)/dur);
+      rail.scrollLeft = start + dist*ease(p);
+      if (p < 1) requestAnimationFrame(step);
+      else {
+        setTimeout(()=>{
+          const s2 = rail.scrollLeft, backDur = 800, t1 = performance.now();
+          function backStep(ti){
+            const pb = Math.min(1, (ti - t1)/backDur);
+            rail.scrollLeft = s2 - (s2 - start)*ease(pb);
+            if (pb < 1) requestAnimationFrame(backStep);
+          }
+          requestAnimationFrame(backStep);
+        }, 700);
+      }
+    }
+    requestAnimationFrame(step);
   }
+  setTimeout(gentleNudge, 5000);
 })();
 
-/* ===== Mobile dropdown menu ===== */
+/* ===== Mobile dropdown ===== */
 (function mobileNav(){
-  if (!window.matchMedia('(max-width:1023px)').matches) return;
+  if (!matchMedia('(max-width:1023px)').matches) return;
   const btn  = document.getElementById('mobile-menu-toggle');
   const menu = document.getElementById('mobile-menu');
   if (!btn || !menu) return;
