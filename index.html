@@ -31,7 +31,7 @@
           <!-- LEFT: Cover -->
           <div class="issue-cover">
             <a href="article.html">
-              <img src="https://placehold.co/900x1200/eeeeee/111111?text=Issue+1+Cover" alt="Cover for Issue 1">
+              <img src="issue-1-cover.png" alt="Cover for Issue 1">
             </a>
           </div>
 
@@ -46,27 +46,13 @@
               <li><a href="article.html"><span class="toc-category">Photo Essay</span><span class="toc-title">Title Placeholder</span></a></li>
               <li><a href="article.html"><span class="toc-category">From the Stacks</span><span class="toc-title">Title Placeholder</span></a></li>
             </ul>
-
-            <div class="editor-note">
-              <h3>Editor’s Note</h3>
-              <p>Our first issue maps a campus by its small frictions — stairwells, coffee lines, and the doors you pass without noticing.</p>
-            </div>
-
-            <div class="mission-statement">
-              <h3>Mission Statement</h3>
-              <p>We publish work that takes place seriously. The city and the university are not just settings; they are systems that shape who gets seen and why.</p>
-            </div>
           </div>
         </div>
 
         <!-- Full-width extras -->
-        <div class="editor-note">
-          <h3>From the Managing Editor</h3>
-          <p>We’re experimenting in public — with formats, with beats, with a slower cadence. Tell us what lands.</p>
-        </div>
 
         <div class="mission-statement">
-          <h3>On Archives & Ephemera</h3>
+          <h3>Mission Statement</h3>
           <p>We’re building an index that prizes primary documents and everyday testimony. The stacks are shelves and also layers — history, policy, memory — and we’re trying to read across them.</p>
         </div>
       </section>
@@ -114,5 +100,58 @@
       }
     })();
   </script>
+
+  <script>
+    /* ===== Replay-on-hover nav GIFs (desktop only) ===== */
+    (function navHoverGifs(){
+      if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    
+      const rail  = document.getElementById('nav-scroll');
+      if (!rail) return;
+    
+      // Map the first three nav items to their GIFs + single-loop durations (ms)
+      // Adjust duration to the real single-loop lengths of your files.
+      const cfg = [
+        { index: 0, src: 'stacks-7/animations/on-background.gif', ms: 1200 },
+        { index: 1, src: 'stacks-7/animations/off-the-record.gif', ms: 1200 },
+        { index: 2, src: 'stacks-7/animations/notes.gif',         ms: 1200 },
+      ];
+    
+      const items = Array.from(rail.querySelectorAll('a.nav-item'));
+    
+      cfg.forEach(({ index, src, ms }) => {
+        const a = items[index];
+        if (!a) return;
+    
+        // On every hover, inject a fresh <img> so the GIF starts from frame 0.
+        a.addEventListener('mouseenter', () => {
+          // Remove any previous overlay to allow retriggering cleanly
+          const old = a.querySelector('img.nav-gif');
+          if (old) old.remove();
+    
+          const img = new Image();
+          img.className = 'nav-gif';
+          img.alt = '';
+          img.decoding = 'async';
+          img.src = src + '?t=' + Date.now(); // cache-bust to force restart
+          a.appendChild(img);
+    
+          // Remove after one loop (so it doesn't keep animating)
+          // Tweak 'ms' above to match each GIF's single-loop length.
+          setTimeout(() => {
+            // fade-out quickly for polish, then remove
+            if (img) { img.style.opacity = '0'; setTimeout(() => img.remove(), 140); }
+          }, ms);
+        });
+    
+        // Optional: if the user leaves early, fade/remove the overlay
+        a.addEventListener('mouseleave', () => {
+          const old = a.querySelector('img.nav-gif');
+          if (old) { old.style.opacity = '0'; setTimeout(() => old.remove(), 140); }
+        });
+      });
+    })();
+    </script>
+    
 </body>
 </html>
