@@ -4,19 +4,17 @@
 <header class="site-header desktop-only" role="banner" aria-label="Site navigation">
   <div id="nav-scroll" class="nav-scroll" aria-label="Primary sections" tabindex="0">
     <!-- Left items -->
-    <a href="section.html" class="nav-item">On Background</a>
-    <a href="section.html" class="nav-item">Off the Record</a>
+    <a href="section-on.html" class="nav-item">On Background</a>
+    <a href="section-off.html" class="nav-item">Off the Record</a>
     <a href="section.html" class="nav-item">Notes</a>
-    <a href="section.html" class="nav-item">The Telegraph</a>
 
     <!-- Center logo (sticky; items scroll “behind” it) -->
     <a class="nav-logo" href="index.html" aria-label="Stacks">
-      <img src="stacks-logo-2.png" alt="Stacks">
+      <img src="stacks-logo-3.png" alt="Stacks">
     </a>
 
     <!-- Right items -->
     <a href="section.html" class="nav-item">Upcoming Events</a>
-    <a href="section.html" class="nav-item">Photo Essays</a>
     <a href="section.html" class="nav-item">From the Stacks</a>
     <a href="about.html"   class="nav-item">About</a>
   </div>
@@ -34,14 +32,14 @@
   </div>
 
   <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile menu">
-    <a href="section.html" data-index="0">On Background</a>
-    <a href="section.html" data-index="1">Off the Record</a>
-    <a href="section.html" data-index="2">Notes</a>
-    <a href="section.html" data-index="3">The Telegraph</a>
-    <a href="section.html" data-index="4">Upcoming Events</a>
-    <a href="section.html" data-index="5">Photo Essays</a>
-    <a href="section.html" data-index="6">From the Stacks</a>
-    <a href="about.html"   data-index="7">About</a>
+    <a href="section-on.html"  class="nav-item" data-index="0">On Background</a>
+    <a href="section-off.html" class="nav-item" data-index="1">Off the Record</a>
+    <a href="section.html"     class="nav-item" data-index="2">Notes</a>
+    <a href="section.html"     class="nav-item" data-index="3">The Telegraph</a>
+    <a href="section.html"     class="nav-item" data-index="4">Upcoming Events</a>
+    <a href="section.html"     class="nav-item" data-index="5">Photo Essays</a>
+    <a href="section.html"     class="nav-item" data-index="6">From the Stacks</a>
+    <a href="about.html"       class="nav-item" data-index="7">About</a>
   </nav>
 </div>
 
@@ -53,12 +51,12 @@
     </div>
     <!-- Center group stays perfectly centered under the logo -->
     <div class="folio-center" aria-label="Publication">
-      <span class="folio-sep" aria-hidden="true">|</span>
+      <span class="folio-sep" aria-hidden="true">●</span>
       <a class="folio-item" href="https://daily.org" target="_blank" rel="noopener">The Daily Californian</a>
-      <span class="folio-sep" aria-hidden="true">|</span>
+      <span class="folio-sep" aria-hidden="true">●</span>
     </div>
     <div class="folio-right">
-      <span class="folio-item">Issue 1</span>
+      <span class="folio-item">Issue I</span>
     </div>
   </div>
 </div>
@@ -66,53 +64,68 @@
 <!-- ===== FOOTER ===== -->
 <footer class="site-footer-main" id="global-footer" role="contentinfo">
   <div class="footer-inner">
+    <!-- Far-most left: spin trigger (15% vw column) -->
+    <div class="footer-spin">
+      <button class="spin-btn" id="spin-trigger" type="button" aria-label="Spin Mode" title="Spin Mode">
+        <!-- set data-duration to your GIF's single-loop length (ms) -->
+        <img id="spin-gif"
+             src="spiral-still.png"
+             data-still="spiral-still.png"
+             data-anim="spiral.gif"
+             data-duration="1200"
+             alt="Spiral" />
+      </button>
+    </div>
+
+    <!-- Left: 3 equal blocks (60% column) -->
     <div class="footer-left">
       <div class="footer-block" id="block-nextpub">
-        <div class="footer-title">Next publication</div>
+        <div class="footer-title">Next pub</div>
         <div class="footer-value"><span id="countdown"></span></div>
       </div>
 
       <div class="footer-block" id="block-time">
-        <div class="footer-title" id="time-title">Berkeley, California</div>
-        <div class="footer-value"><span id="location-label"></span> <span id="berkeley-time">—</span></div>
+        <div class="footer-title" id="time-title">Berkeley, CA</div>
+        <div class="footer-value"><span id="berkeley-time">—</span></div>
       </div>
 
       <div class="footer-block">
-        <div class="footer-title">Office coordinates</div>
+        <div class="footer-title">Office</div>
         <div class="footer-value"><span id="coords">37.8715° N, 122.2730° W</span></div>
       </div>
     </div>
 
+    <!-- Right: Stacks books + text (25% column) -->
     <div class="footer-right">
-      <!-- If you have a small footer gif, drop it next to the note -->
-      <!-- <img class="footer-gif" src="footer.gif" alt="" aria-hidden="true"> -->
-      <div class="footer-note">&copy; <span id="year"></span> Stacks. All Rights Reserved.</div>
+      <img class="footer-books" src="footer-books.gif" alt="Books" />
+      <div class="footer-note">&copy; <span id="year"></span> Stacks.</div>
     </div>
   </div>
 </footer>
 
-<!-- ===== Scoped CSS: logo fixed center; folio centered under it ===== -->
+<!-- ===== Minimal scoped CSS that pairs with style.css ===== -->
 <style>
-  /* Keep header links white (as you had) */
-  .site-header .nav-scroll a { color:#fff !important; }
+  /* Force header links white (belt-and-suspenders) */
+  .site-header .nav-scroll .nav-item { color:#fff !important; }
+  .site-header .nav-scroll .nav-logo { color:inherit !important; }
 
-  /* Center rail + hide scrollbar “chrome” */
+  /* Center rail + hide scrollbar chrome */
   .nav-scroll{
-    display:flex; align-items:center; gap:24px;
+    display:flex; align-items:center; gap:28px;
     overflow:auto hidden; scrollbar-width:none;
   }
   .nav-scroll::-webkit-scrollbar{ display:none; }
 
-  /* Logo always dead-center & fixed size */
+  /* Logo always dead-center & sized by header height */
   .site-header .nav-logo{
     position: sticky; left:50%; transform:translateX(-50%);
     z-index:2; pointer-events:auto;
   }
   .site-header .nav-logo img{
-    display:block; width:250px; height:auto; /* fixed, doesn’t resize */
+    display:block; height:calc(var(--header-height) - 10px); width:auto;
   }
 
-  /* FOLIO layout: middle item locked to page center line */
+  /* FOLIO layout shell only (type & details from style.css) */
   .folio { position:relative; }
   .folio .folio-inner{
     display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:12px;
@@ -125,21 +138,6 @@
     white-space:nowrap;
   }
   .folio-sep{ opacity:.6; }
-
-  /* Optional: ensure the folio’s true center line aligns with the logo’s center on very wide screens */
-  .folio .folio-inner::before{
-    content:""; position:absolute; left:50%; transform:translateX(-50%);
-    top:0; bottom:0; width:0; /* invisible guide; keep for alignment sanity */
-  }
-
-  /* Mobile niceties */
-  @media (max-width: 600px){
-    .folio .folio-inner{
-      grid-template-columns:1fr; text-align:center;
-      row-gap:6px;
-    }
-    .folio-left, .folio-right{ text-align:center; }
-  }
 </style>
 
 <script>
@@ -153,41 +151,43 @@
 (function setFolioDate(){
   const el = document.getElementById('folio-date');
   if (!el) return;
-  const months = ["Jan.","Feb.","Mar.","Apr.","May.","Jun.","Jul.","Aug.","Sep.","Oct.","Nov.","Dec."];
   const nowLA = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
-  const weekday = nowLA.toLocaleString('en-US', { weekday: 'long' });
-  const m = months[nowLA.getMonth()];
-  const day = String(nowLA.getDate()).padStart(2,'0');
-  const year = nowLA.getFullYear();
-  el.textContent = `${weekday}, ${m} ${day}, ${year}`;
+  const wd = nowLA.toLocaleString('en-US', { weekday: 'long' });
+  const m  = nowLA.toLocaleString('en-US', { month: 'short' });
+  const d  = String(nowLA.getDate()).padStart(2,'0');
+  const y  = nowLA.getFullYear();
+  el.textContent = `${wd}, ${m} ${d}, ${y}`;
 })();
 
-/* ===== FOOTER CLOCK + COUNTDOWN (+10min on hover; freeze countdown while hovered) ===== */
+/* ===== FOOTER CLOCK + COUNTDOWN ===== */
 (function footerInfo(){
-  const clockEl = document.getElementById('berkeley-time');
-  const titleEl = document.getElementById('time-title');
-  const cdEl    = document.getElementById('countdown');
+  const clockEl   = document.getElementById('berkeley-time');
+  const titleEl   = document.getElementById('time-title');
+  const cdEl      = document.getElementById('countdown');
   const blockTime = document.getElementById('block-time');
   const blockNext = document.getElementById('block-nextpub');
-  const yearEl = document.getElementById('year');
+  const yearEl    = document.getElementById('year');
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
   const tz = 'America/Los_Angeles';
   const nowLA = () => new Date(new Date().toLocaleString('en-US',{ timeZone: tz }));
 
-  const fmtClock = (d) => d.toLocaleString('en-US',{
-    timeZone: tz, weekday:'short', month:'short', day:'2-digit', year:'numeric',
-    hour:'2-digit', minute:'2-digit', second:'2-digit'
-  });
+  const fmtClockShort = (d) => {
+    const m = d.toLocaleString('en-US', { month: 'short', timeZone: tz });
+    const day = String(d.getDate()).padStart(2,'0');
+    const t = d.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz });
+    return `${m} ${day} · ${t}`;
+  };
+
   const addMin = (d, m) => new Date(d.getTime() + m*60000);
 
-  // Countdown target: first of next month, 9:00am PT
+  // Next pub: 1st of next month, 9:00am PT (16:00 UTC)
   function nextPubDate(){
     const n = nowLA();
     return new Date(Date.UTC(n.getFullYear(), n.getMonth()+1, 1, 16, 0, 0));
   }
   function fmtCountdown(ms){
-    if (ms<=0) return 'Publishing soon';
+    if (ms<=0) return 'Soon';
     const s=Math.floor(ms/1000);
     const d=Math.floor(s/86400);
     const h=Math.floor((s%86400)/3600);
@@ -196,19 +196,16 @@
     return `${d}d ${String(h).padStart(2,'0')}h ${String(m).padStart(2,'0')}m ${String(sec).padStart(2,'0')}s`;
   }
 
-  // Flags to prevent ticks from overwriting hover states
   let showPlus10 = false;
   let freezeCountdown = false;
 
-  // Clock tick (respects “+10 while hovered”)
   (function clockTick(){
     const base = nowLA();
     const display = showPlus10 ? addMin(base, 10) : base;
-    if (clockEl) clockEl.textContent = fmtClock(display);
+    if (clockEl) clockEl.textContent = fmtClockShort(display);
     requestAnimationFrame(clockTick);
   })();
 
-  // Countdown tick (pauses while hovered)
   (function countdownTick(){
     if (!freezeCountdown && cdEl){
       cdEl.textContent = fmtCountdown(nextPubDate().getTime() - Date.now());
@@ -216,7 +213,7 @@
     setTimeout(countdownTick, 1000);
   })();
 
-  // Desktop hover behavior
+  // Hover/tap interactions
   const prefersTouch = matchMedia('(hover: none)').matches;
 
   function handleTimeHoverStart(){
@@ -225,14 +222,14 @@
   }
   function handleTimeHoverEnd(){
     showPlus10 = false;
-    if (titleEl) titleEl.textContent = 'Berkeley, California';
+    if (titleEl) titleEl.textContent = 'Berkeley, CA';
   }
   function handleNextHoverStart(){
     freezeCountdown = true;
     const d = nextPubDate();
     cdEl.textContent = d.toLocaleString('en-US',{
-      timeZone: tz, weekday:'long', month:'long', day:'2-digit', year:'numeric',
-      hour:'2-digit', minute:'2-digit'
+      timeZone: tz, weekday:'short', month:'short', day:'2-digit',
+      hour:'numeric', minute:'2-digit'
     });
   }
   function handleNextHoverEnd(){ freezeCountdown = false; }
@@ -243,10 +240,9 @@
     blockNext?.addEventListener('mouseenter', handleNextHoverStart);
     blockNext?.addEventListener('mouseleave', handleNextHoverEnd);
   } else {
-    // Tap toggles states on touch devices
     blockTime?.addEventListener('click', ()=> {
       showPlus10 = !showPlus10;
-      titleEl.textContent = showPlus10 ? 'BERKELEY TIME' : 'Berkeley, California';
+      titleEl.textContent = showPlus10 ? 'BERKELEY TIME' : 'Berkeley, CA';
     });
     blockNext?.addEventListener('click', ()=> {
       freezeCountdown = !freezeCountdown;
@@ -255,7 +251,7 @@
   }
 })();
 
-/* ===== Desktop nav: centered start, drag/wheel scroll, gentle nudge ===== */
+/* ===== Desktop nav: center/drag/wheel/nudge ===== */
 (function desktopNav(){
   if (!matchMedia('(min-width:1024px)').matches) return;
   const rail = document.getElementById('nav-scroll');
@@ -327,7 +323,7 @@
         }, 700);
       }
     }
-    requestAnimationFrame(step);
+    setTimeout(()=>requestAnimationFrame(step), 5000);
   }
   setTimeout(gentleNudge, 5000);
 })();
@@ -349,6 +345,35 @@
         a.classList.remove('plopped'); void a.offsetWidth; a.classList.add('plopped');
       });
     }
+  });
+})();
+
+/* ===== SPIN SITE + play GIF once ===== */
+(function spinEverything(){
+  const trigger = document.getElementById('spin-trigger');
+  const img = document.getElementById('spin-gif');
+  if (!trigger || !img) return;
+
+  function spinSiteOnce(){
+    const root = document.documentElement;
+    if (root.classList.contains('spin-once-anim')) return;
+    root.classList.add('spin-once-anim');
+    function cleanup(){ root.classList.remove('spin-once-anim'); root.removeEventListener('animationend', cleanup); }
+    root.addEventListener('animationend', cleanup, { once: true });
+  }
+
+  function playGifOnce(){
+    const still = img.getAttribute('data-still') || img.src;
+    const anim  = img.getAttribute('data-anim')  || img.src;
+    const durMs = parseInt(img.getAttribute('data-duration') || '1200', 10);
+    img.src = `${anim}?t=${Date.now()}`; // restart GIF
+    setTimeout(()=>{ img.src = still; }, durMs);
+  }
+
+  trigger.addEventListener('click', (e)=>{
+    e.preventDefault();
+    playGifOnce();
+    spinSiteOnce();
   });
 })();
 </script>

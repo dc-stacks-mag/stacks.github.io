@@ -1,0 +1,98 @@
+<!-- spin-mode.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Spin Mode · Stacks</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:#0f0d13; --fg:#fff; --accent:#8b79a2;
+    }
+    html,body{height:100%}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      color:var(--fg); background:radial-gradient(1200px 800px at 20% 10%, rgba(139,121,162,.22), transparent),
+                       radial-gradient(900px 700px at 80% 80%, rgba(139,121,162,.15), transparent),
+                       var(--bg);
+      display:flex; align-items:center; justify-content:center; overflow:hidden;
+    }
+    main{
+      width:min(92vw, 860px);
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.15);
+      border-radius:16px; padding:28px;
+      box-shadow:0 20px 60px rgba(0,0,0,.35);
+      position:relative;
+    }
+    h1{margin:0 0 .25rem; font-size:clamp(1.6rem,3vw,2rem)}
+    p{margin:.25rem 0 1rem; opacity:.9}
+    .actions{display:flex; gap:.75rem; flex-wrap:wrap}
+    a.btn{
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.65rem .9rem; border-radius:999px;
+      background:#fff; color:#111; text-decoration:none; font-weight:600;
+    }
+    .ghost{background:transparent; color:#fff; border:1px solid rgba(255,255,255,.35)}
+    footer{position:fixed; left:16px; bottom:16px; opacity:.9}
+    .hint{opacity:.7; font-size:.92rem}
+  </style>
+</head>
+<body>
+  <main>
+    <h1>Spin Mode</h1>
+    <p class="hint">This page contains the spiral animation. Load it when you want to spin things.</p>
+    <div class="actions">
+      <a href="#" class="btn" id="spin-once">Spin Once</a>
+      <a href="#" class="btn ghost" id="spin-twice">Spin Twice</a>
+      <a href="index.html" class="btn ghost">Back to site</a>
+    </div>
+  </main>
+  <footer>
+    <img src="spiral-still.png" alt="Spiral" width="44" height="44" />
+  </footer>
+
+  <script>
+  // Collect visible elements to animate
+  function collectTargets(){
+    const nodes = Array.from(document.querySelectorAll('h1,h2,h3,p,main,a.btn,footer img'));
+    return nodes.filter(el => el.offsetParent !== null).slice(0, 160);
+  }
+
+  function spiralOnce(){
+    const prefersReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReduced){
+      collectTargets().forEach(el=>{
+        el.animate([{transform:'rotate(0deg)'},{transform:'rotate(6deg)'},{transform:'rotate(0deg)'}],
+                   {duration:500, easing:'ease-in-out'});
+      });
+      return;
+    }
+
+    const cx = window.innerWidth/2, cy = window.innerHeight/2;
+    const steps = 24, duration = 1100, ease = 'cubic-bezier(.2,.8,.2,1)';
+
+    collectTargets().forEach((el,i)=>{
+      const r = el.getBoundingClientRect();
+      const ex = r.left + r.width/2, ey = r.top + r.height/2;
+      const baseAngle = Math.atan2(ey - cy, ex - cx);
+      const maxOut = Math.min(140, Math.hypot(ex - cx, ey - cy) * 0.25) + (i % 7) * 3;
+
+      const kfs = [];
+      for (let k=0;k<=steps;k++){
+        const t=k/steps, theta=baseAngle + 2*Math.PI*t, radius=t*maxOut;
+        const x=Math.cos(theta)*radius, y=Math.sin(theta)*radius, rot=360*t;
+        kfs.push({ transform:`translate(${x}px, ${y}px) rotate(${rot}deg)` });
+      }
+      kfs.push({ transform:'none' });
+      el.animate(kfs, {duration, easing:ease, fill:'none'});
+    });
+  }
+
+  document.getElementById('spin-once')?.addEventListener('click', (e)=>{ e.preventDefault(); spiralOnce(); });
+  document.getElementById('spin-twice')?.addEventListener('click', (e)=>{ e.preventDefault(); spiralOnce(); setTimeout(spiralOnce, 350); });
+
+  // IMPORTANT: No auto-spin on load per request.
+  </script>
+</body>
+</html>
