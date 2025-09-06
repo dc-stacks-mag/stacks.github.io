@@ -26,7 +26,10 @@
   --nav-bg:#000;                 /* Black top bar */
   --nav-glow:rgba(255,255,255,.30);
 
-  --header-height:84px; --header-height-shrink:64px; --folio-h:36px;
+  /* Taller header for more vertical padding */
+  --header-height:96px; 
+  --header-height-shrink:74px; 
+  --folio-h:36px;
 
   --mobile-menu-bg: rgba(25, 25, 30, 0.6);
 }
@@ -65,7 +68,7 @@ a,a:visited{color:inherit;text-decoration:none}
 .top-spacer{height:var(--folio-h)}
 
 /* =========================
-   FOLIO (force JMHTypewriter)
+   FOLIO
    ========================= */
 .folio{
   height:var(--folio-h);
@@ -85,8 +88,6 @@ a,a:visited{color:inherit;text-decoration:none}
   font-size:.96rem;
 }
 .folio-item{ white-space: nowrap; }
-
-/* Folio separator (dot) */
 .folio-sep { font-size: 0; color: transparent; }
 .folio-sep::before {
   content: "●";
@@ -103,47 +104,51 @@ a,a:visited{color:inherit;text-decoration:none}
   display:flex; align-items:center; background:var(--nav-bg); color:#fff;
   border-bottom:1px solid rgba(255,255,255,.12); overflow:visible;
 }
+
+/* Allow hover art to overflow vertically */
 .nav-scroll{
   display:flex; align-items:center; justify-content:center;
   gap:1.1rem; padding:0 12px;
-  overflow-x:auto; overscroll-behavior-x:contain; -ms-overflow-style:none; scrollbar-width:none; cursor:grab; width:100%;
+  overflow-x:auto; overflow-y:visible;
+  overscroll-behavior-x:contain; -ms-overflow-style:none; scrollbar-width:none; cursor:grab; width:100%;
 }
 .nav-scroll::-webkit-scrollbar{height:6px}
 .nav-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:6px}
 .nav-scroll.active-drag{cursor:grabbing}
 
-/* Base link style */
+/* Base link style — extra vertical padding */
 .nav-scroll a{
   position:relative;
   display:inline-flex; align-items:center;
-  padding:.5rem .85rem;
+  padding:.8rem 1rem; /* more vertical padding */
   z-index:1;
   color:#fff; white-space:nowrap; text-transform:uppercase; letter-spacing:.03em; font-family:var(--font-sans);
   text-shadow:0 0 6px var(--nav-glow);
   transition:opacity .12s ease;
 }
+
+/* REMOVE global fade of siblings on hover */
 @media (min-width:1024px){
-  .nav-scroll:hover a{opacity:.22}
+  .nav-scroll:hover a{opacity:1}     /* was .22; now fully visible */
   .nav-scroll a:hover{opacity:1!important}
 }
 
-/* Desktop-only GIF overlay (looks white via filter) */
+/* Desktop-only GIF overlay (white-on-black look) */
 @media (hover:hover) and (pointer:fine) {
   .nav-scroll a::after{
     content:"";
     position:absolute;
-    /* slightly larger than the item box */
-    inset:-2px;
+    /* make it significantly larger so it can spill out */
+    left:-40%; right:-40%; top:-50%; bottom:-40%;
     pointer-events:none;
-    background-image:none;          /* default: off for most items */
-    background-size:120% 120%;      /* a touch larger than the item */
+    background-image:none;          /* off by default */
+    background-size:110% 110%;      /* larger art */
     background-repeat:no-repeat;
     background-position:center;
     opacity:0; transition:opacity .12s ease;
-    z-index:2;
-    /* Make dark GIFs appear white on black background */
+    z-index:2;                      /* ABOVE the text */
     filter: invert(1) brightness(1.6) contrast(1.1) saturate(0);
-    mix-blend-mode: screen;         /* extra punch on deep blacks */
+    mix-blend-mode: screen;
   }
   .nav-scroll a:hover::after{ opacity:1; }
 
@@ -162,38 +167,14 @@ a,a:visited{color:inherit;text-decoration:none}
   .nav-scroll .nav-logo::after{ content:none !important; }
 }
 
-/* Hover GIF overlay element (white-on-black look) */
-.nav-scroll a { position: relative; z-index: 1; } /* text above overlay */
-.nav-scroll a .nav-gif {
-  position: absolute;
-  inset: -2px;                 /* slightly larger than the item */
-  width: calc(100% + 4px);
-  height: calc(100% + 4px);
-  object-fit: cover;
-  pointer-events: none;
-  z-index: 0;                  /* under the link text */
-
-  /* turn dark GIFs white-ish on black */
-  filter: invert(1) brightness(1.6) contrast(1.1) saturate(0);
-  mix-blend-mode: screen;
-
-  opacity: 1;
-  transition: opacity .12s ease;
-}
-@media (hover: hover) and (pointer: fine) {
-  .nav-scroll:hover a { opacity: .22; }
-  .nav-scroll a:hover { opacity: 1 !important; }
-}
-/* Never show an overlay on the logo */
-.nav-scroll .nav-logo .nav-gif { display: none !important; }
-
-
+/* (Legacy helper kept; text stays above any lower z elements) */
+.nav-scroll a { position: relative; z-index: 1; }
 
 /* Logo */
 .nav-logo{display:flex; align-items:center; justify-content:center; padding:0 .75rem}
 .nav-logo img{
-  height:150px; width:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
-  transform:translateY(2px);
+  height:80px; width:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
+  transform:translateY(1px);
   filter: grayscale(100%) contrast(120%) brightness(90%);
 }
 
@@ -266,72 +247,69 @@ a,a:visited{color:inherit;text-decoration:none}
 /* =========================
    FOOTER — 3 columns: 10vw | 60vw | 30vw
    ========================= */
-   .site-footer-main{
-    padding:1rem 1.25rem;
-    margin-top:2rem;
-    border-top:1px solid var(--color-border);
-  }
-  
-  /* Three siblings side-by-side:
-     [ .footer-spin ] [ .footer-left (3 equal blocks) ] [ .footer-right ] */
-  .footer-inner{
-    max-width:none;                 /* let vw math be exact */
-    margin:0 auto;
-    display:grid;
-    grid-template-columns: 10vw 50vw 40vw;
-    align-items:center;
-    gap:1rem;
-    width:100%;
-    box-sizing:border-box;
-  }
-  
-  /* LEFT: spin button cell */
-  .footer-spin{
-    grid-column:1;
-    display:flex; align-items:center; justify-content:flex-start;
-  }
-  .spin-btn{
-    display:inline-flex; align-items:center; justify-content:center;
-    width:8vw;                 /* exactly 10% of viewport width */
-    max-width:16rem;
-    min-width:40px;
-    aspect-ratio:1/1;
-    background:transparent; border:0; padding:0; cursor:pointer;
-  }
-  .spin-btn img{
-    width:90%; height:90%; object-fit:fill; display:block;
-  }
-  
-  /* MIDDLE: three equal blocks across 60vw */
-  .footer-left{
-    grid-column:2;
-    display:grid;
-    grid-template-columns: repeat(3, 1fr);  /* equal thirds */
-    gap:0.25rem;
-    align-items:center;
-    justify-items:start;
-    min-width:0;
-  }
-  .footer-block{ min-width:0; }
-  .footer-title{ color:var(--color-subtle); font-family:var(--font-sans); font-size:.9rem; }
-  .footer-value{ font-weight:700; font-family:var(--font-sans); white-space:nowrap; }
-  
-  /* RIGHT: copyright/books area occupies 30vw */
-  .footer-right{
-    grid-column:3;
-    display:flex; align-items:center; justify-content:flex-end;
-    gap:.75rem; white-space:nowrap; min-width:0;
-  }
-  .footer-books{ width:min(6vw, 90px); height:auto; display:block; }
-  .footer-note{ font-family:var(--font-sans); font-size:.95rem; }
-  
-  /* Mobile: stack vertically, keep sensible sizes */
-  @media (max-width:900px){
-    .footer-inner{ grid-template-columns:1fr; gap:1rem; }
-    .spin-btn{ width:min(20vw, 120px); }
-    .footer-right{ justify-content:flex-start; }
-  }
-  
+.site-footer-main{
+  padding:1rem 1.25rem;
+  margin-top:2rem;
+  border-top:1px solid var(--color-border);
+}
+.footer-inner{
+  max-width:90vw;               /* contain to viewport */
+  margin:0 auto;
+  display:grid;
+  grid-template-columns: 15vw 40vw 30vw; /* corrected split */
+  align-items:center;
+  gap:0.5rem;
+  width:100%;
+  box-sizing:border-box;
+  overflow:hidden;               /* prevent accidental overflow */
+}
+
+/* LEFT: spin button cell */
+.footer-spin{
+  grid-column:1;
+  display:flex; align-items:center; justify-content:flex-start;
+}
+.spin-btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  width:10vw;                 /* exactly 10% of viewport width */
+  max-width:16rem;
+  min-width:40px;
+  aspect-ratio:1/1;
+  background:transparent; border:0; padding:0; cursor:pointer;
+}
+.spin-btn img{
+  width:70%; height:70%; display:block;
+}
+
+/* MIDDLE: three equal blocks across 60vw */
+.footer-left{
+  grid-column:2;
+  display:grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap:0.25rem;
+  align-items:center;
+  justify-items:start;
+  min-width:0;
+}
+.footer-block{ min-width:0; }
+.footer-title{ color:var(--color-subtle); font-family:var(--font-sans); font-size:.9rem; }
+.footer-value{ font-weight:700; font-family:var(--font-folio); white-space:nowrap; }
+
+/* RIGHT: copyright/books area occupies 30vw */
+.footer-right{
+  grid-column:3;
+  display:flex; align-items:center; justify-content:flex-end;
+  gap:.75rem; white-space:nowrap; min-width:0;
+}
+.footer-books{ width:min(6vw, 90px); height:auto; display:block; }
+.footer-note{ font-family:var(--font-sans); font-size:.95rem; }
+
+/* Mobile: stack vertically */
+@media (max-width:900px){
+  .footer-inner{ grid-template-columns:1fr; gap:1rem; }
+  .spin-btn{ width:min(20vw, 120px); }
+  .footer-right{ justify-content:flex-start; }
+}
 
 /* --- Keep the page from ever widening --- */
 html { overflow-x: hidden; }
