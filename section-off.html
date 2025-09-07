@@ -3,10 +3,12 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Off the Record — Stacks Magazine</title>
+  <title>On Background — Stacks Magazine</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    /* Basic Styles for this section */
+    /* Basic Styles from original CSS */
+    @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap');
+    
     :root {
       --color-bg: #fff;
       --color-text: #111;
@@ -15,7 +17,15 @@
       --font-sans: 'Georgia', serif;
       --font-serif: 'Georgia', serif;
     }
-    
+
+    body {
+      margin: 0;
+      color: var(--color-text);
+      background: var(--color-bg);
+      line-height: 1.6;
+      font-family: var(--font-serif);
+    }
+
     .site-main {
       padding: 1.5rem;
       max-width: 1200px;
@@ -23,8 +33,10 @@
     }
 
     .section-header {
-        text-align: center;
-        margin-bottom: 2.5rem;
+      text-align: center;
+      margin-bottom: 2.5rem;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 1.5rem;
     }
 
     .section-header h1 {
@@ -38,61 +50,83 @@
         margin: 0;
     }
 
-    /* Styles for Vertical Card Grid Layout */
-    .article-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1.5rem;
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    /* Styles for Horizontal Layout */
+    .article-list {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
     }
 
     .article-card {
       display: flex;
-      flex-direction: column;
-      background: #fff;
-      border: 1px solid var(--color-border);
-      overflow: hidden;
-      color: inherit;
+      flex-direction: row;
+      gap: 1rem;
+      border-bottom: 1px solid var(--color-border);
+      padding-bottom: 2rem;
       text-decoration: none;
+      color: inherit;
+    }
+
+    .article-card:last-child {
+      border-bottom: none;
+    }
+
+    .article-card-text {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
     }
     
-    .article-card img {
+    .article-card-image {
+      flex-basis: 350px;
+      flex-shrink: 0;
+    }
+
+    .article-card-image img {
       width: 100%;
-      aspect-ratio: 16 / 9;
+      height: 100%;
+      aspect-ratio: 4 / 3;
       object-fit: cover;
-      border-bottom: 1px solid var(--color-border);
+      border: 1px solid var(--color-border);
     }
-
-    .article-card-content {
-        padding: 1rem;
-    }
-
+    
     .article-card-category {
         font-size: 0.8rem;
         color: var(--color-subtle);
         text-transform: uppercase;
         font-family: var(--font-sans);
+        margin-bottom: 0.5rem;
     }
 
     .article-card-title {
       font-family: var(--font-sans);
-      font-size: 1.25rem;
+      font-size: 1.75rem;
       font-weight: bold;
-      margin: 0.25rem 0 0.5rem;
-    }
-
-    .article-card-byline {
-        font-family: var(--font-serif);
-        font-style: italic;
-        color: var(--color-subtle);
-        font-size: 0.9rem;
-        margin-bottom: 0.75rem;
+      margin: 0 0 0.5rem;
+      line-height: 1.2;
     }
 
     .article-card-excerpt {
-        font-family: var(--font-serif);
-        color: var(--color-text);
-        font-size: 1rem;
-        margin: 0;
+      font-family: var(--font-serif);
+      color: var(--color-text);
+      margin: 0;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .article-card {
+        flex-direction: column-reverse;
+      }
+      .article-card-image {
+        flex-basis: auto;
+      }
     }
   </style>
 </head>
@@ -104,39 +138,42 @@
     <main class="site-main">
       <header class="section-header">
         <h1>Off the Record</h1>
-        <p>News, reviews, and cultural commentary.</p>
+        <p>In-depth stories and analysis.</p>
       </header>
 
-      <div class="article-grid">
+      <div class="article-list">
         <!-- Article Card 1 -->
         <a href="article.html" class="article-card">
-          <img src="https://placehold.co/600x400/CCCCCC/FFFFFF?text=Article+Image" alt="Placeholder">
-          <div class="article-card-content">
-              <p class="article-card-category">Album Reviews</p>
-              <h3 class="article-card-title">Laufey’s ‘A Matter of Time’ spins stories like never before</h3>
-              <p class="article-card-byline">By Jane Doe</p>
-              <p class="article-card-excerpt">Honest and conversational, Laufey sings “A Matter of Time” like she’s writing in her journal, and her listeners are eagerly glued to its pages.</p>
+          <div class="article-card-text">
+            <p class="article-card-category">Film & Television</p>
+            <h3 class="article-card-title">A mix of both highs and lows in “Highest 2 Lowest”</h3>
+            <p class="article-card-excerpt">An interesting theme begins to peek through. Can King accept being, for the first time in his recent memory, not on top, but below?</p>
+          </div>
+          <div class="article-card-image">
+            <img src="https://placehold.co/400x300/CCCCCC/FFFFFF?text=Article+Image" alt="Placeholder">
           </div>
         </a>
         <!-- Article Card 2 -->
         <a href="article.html" class="article-card">
-            <img src="https://placehold.co/600x400/DDDDDD/FFFFFF?text=Article+Image" alt="Placeholder">
-            <div class="article-card-content">
-              <p class="article-card-category">Album Reviews</p>
-              <h3 class="article-card-title">‘Maybe I’m just an actor’: With ‘Big Money,’ Jon Batiste puts on a dynamic and comforting one-man show</h3>
-              <p class="article-card-byline">By John Smith</p>
-              <p class="article-card-excerpt">Batiste’s personae in Big Money sit on porches, busk on street corners and sit next to you on the train ride home.</p>
-            </div>
+          <div class="article-card-text">
+            <p class="article-card-category">Album Reviews</p>
+            <h3 class="article-card-title">Amaarae’s ‘Black Star’ intoxicates with ecstasy, eroticism and eternal dancing</h3>
+            <p class="article-card-excerpt">Black Star is a declaration of Amaarae as a star, a Black star, and she's here to have a good time.</p>
+          </div>
+          <div class="article-card-image">
+            <img src="https://placehold.co/400x300/DDDDDD/FFFFFF?text=Article+Image" alt="Placeholder">
+          </div>
         </a>
         <!-- Article Card 3 -->
         <a href="article.html" class="article-card">
-            <img src="https://placehold.co/600x400/EEEEEE/FFFFFF?text=Article+Image" alt="Placeholder">
-            <div class="article-card-content">
-                <p class="article-card-category">Music</p>
-                <h3 class="article-card-title">Angélique Kidjo and Yo-Yo Ma on creating harmonic sanctuary ahead of Greek Theatre performance</h3>
-                <p class="article-card-byline">By Sam Jones</p>
-                <p class="article-card-excerpt">When asked what stands out most to the artists about the Berkeley microcosm, Angélique Kidjo had a clear answer: the sense of purpose.</p>
-            </div>
+          <div class="article-card-text">
+            <p class="article-card-category">Film & Television</p>
+            <h3 class="article-card-title">Creating “Severance”: An interview with casting director Rachel Tenner</h3>
+            <p class="article-card-excerpt">“This is a group of highly skilled actors, so I think we instinctively knew that they would be able to navigate both worlds of it,” said casting director Rachel Tenner.</p>
+          </div>
+          <div class="article-card-image">
+            <img src="https://placehold.co/400x300/EEEEEE/FFFFFF?text=Article+Image" alt="Placeholder">
+          </div>
         </a>
       </div>
     </main>

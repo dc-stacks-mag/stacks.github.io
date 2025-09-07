@@ -5,11 +5,78 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stacks Magazine</title>
   <link rel="stylesheet" href="style.css"/>
+
+  <!-- Index-only styles moved here so the homepage can be tuned without touching style.css -->
   <style>
-    /* Loader iframe wrapper (white veil lives inside loader.html) */
+    /* Subtle page bg only for index */
+    body.index-page::after{
+      content:""; position:fixed; inset:0; z-index:-2;
+      background:center/cover no-repeat url('index-bg.jpg'); opacity:.25
+    }
+
+    /* Layout frame for index content */
+    .site-main{padding:1.5rem;max-width:1200px;margin:0 auto}
+    .issue-block{padding:2rem 0;border-bottom:1px solid var(--color-border)}
+    .issue-block:last-of-type{border-bottom:none}
+
+    /* Two-column hero: cover | toc */
+    .issue-content{
+      display:grid;
+      grid-template-columns:1fr;
+      gap:1.5rem;
+      font-size:1rem;
+    }
+    @media (min-width:1024px){
+      .issue-content{
+        grid-template-columns:1fr 1fr;
+        gap:2rem;
+        align-items:stretch; /* stretch columns to equal height */
+      }
+    }
+
+    .issue-cover img{width:100%;height:auto;max-height:70vh;object-fit:contain}
+
+    /* TOC block that spaces items to match cover height on desktop */
+    .issue-toc{font-size:1rem; display:flex; flex-direction:column}
+    .issue-toc h3{margin:0 0 .75rem}
+    .issue-toc ul{
+      list-style:none; padding:0; margin:0;
+      display:flex; flex-direction:column;
+      gap:.25rem;              /* base gap for many items */
+      flex:1 1 auto;
+    }
+    /* When space permits (desktop), distribute items to fill height
+       so the column visually matches the cover column height. */
+    @media (min-width:1024px){
+      .issue-toc ul{ justify-content:space-between; gap:.5rem; }
+    }
+    .issue-toc li{padding:0;border-bottom:1px solid var(--color-border)}
+    .issue-toc li:last-child{border-bottom:none}
+    .issue-toc a{display:block;padding:.75rem .25rem}
+    .toc-category{display:block;font-size:.8rem;color:var(--color-subtle);margin-bottom:.1rem}
+    .toc-title{display:block;font-weight:700;font-family:var(--font-sans)}
+    .issue-toc a:hover .toc-title{font-style:italic}
+
+    /* Mission statement: align left edge with cover, sit below it */
+    .mission-statement{ margin-top:1.5rem; }
+    @media (min-width:1024px){
+      /* width equals the left column (1fr) minus half the grid gap (approx.) */
+      .mission-statement{
+        width:100%; max-width:calc(50% - 1rem);
+        padding-top:1rem;
+      }
+    }
+    .mission-statement h3{ margin:0 0 .5rem; }
+  </style>
+
+  <!-- Loader iframe wrapper -->
+  <style>
     #loader-wrapper{position:fixed; inset:0; z-index:9999; transition:opacity .35s ease, visibility .35s ease}
     #loader-wrapper.hidden{opacity:0; visibility:hidden}
     #loader-wrapper iframe{width:100%; height:100%; border:0; display:block}
+    #main-content{opacity:0; transform:translateY(6px); transition: opacity .35s ease, transform .35s ease}
+    #main-content.fading{opacity:.95; transform:translateY(0)}
+    #main-content.visible{opacity:1; transform:translateY(0)}
   </style>
 </head>
 <body class="index-page">
@@ -31,15 +98,16 @@
           <!-- LEFT: Cover -->
           <div class="issue-cover">
             <a href="article.html">
-              <img src="issue-1-cover.png" alt="Cover for Issue 1">
+              <img src="issue-2-cover.png" alt="Cover for Issue 1">
             </a>
           </div>
 
-          <!-- RIGHT: TOC + extra -->
+          <!-- RIGHT: TOC (supports multiple items per section just by repeating entries) -->
           <div class="issue-toc">
             <h3>In This Issue</h3>
             <ul>
               <li><a href="article.html"><span class="toc-category">On Background</span><span class="toc-title">Title Placeholder</span></a></li>
+              <li><a href="article.html"><span class="toc-category">On Background</span><span class="toc-title">Second Story Placeholder</span></a></li>
               <li><a href="article.html"><span class="toc-category">Off the Record</span><span class="toc-title">Title Placeholder</span></a></li>
               <li><a href="article.html"><span class="toc-category">Commentary</span><span class="toc-title">Title Placeholder</span></a></li>
               <li><a href="article.html"><span class="toc-category">Notes</span><span class="toc-title">Title Placeholder</span></a></li>
@@ -49,8 +117,7 @@
           </div>
         </div>
 
-        <!-- Full-width extras -->
-
+        <!-- Mission statement aligned under the cover (left column) -->
         <div class="mission-statement">
           <h3>Mission Statement</h3>
           <p>We’re building an index that prizes primary documents and everyday testimony. The stacks are shelves and also layers — history, policy, memory — and we’re trying to read across them.</p>
@@ -101,57 +168,47 @@
     })();
   </script>
 
+  <!-- Replay-on-hover nav GIFs (desktop only) -->
   <script>
-    /* ===== Replay-on-hover nav GIFs (desktop only) ===== */
-    (function navHoverGifs(){
-      if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-    
-      const rail  = document.getElementById('nav-scroll');
-      if (!rail) return;
-    
-      // Map the first three nav items to their GIFs + single-loop durations (ms)
-      // Adjust duration to the real single-loop lengths of your files.
-      const cfg = [
-        { index: 0, src: 'animations/on-background.gif', ms: 1200 },
-        { index: 1, src: 'animations/off-the-record.gif', ms: 1200 },
-        { index: 2, src: 'animations/notes.gif',         ms: 1200 },
-      ];
-    
-      const items = Array.from(rail.querySelectorAll('a.nav-item'));
-    
-      cfg.forEach(({ index, src, ms }) => {
-        const a = items[index];
-        if (!a) return;
-    
-        // On every hover, inject a fresh <img> so the GIF starts from frame 0.
-        a.addEventListener('mouseenter', () => {
-          // Remove any previous overlay to allow retriggering cleanly
-          const old = a.querySelector('img.nav-gif');
-          if (old) old.remove();
-    
-          const img = new Image();
-          img.className = 'nav-gif';
-          img.alt = '';
-          img.decoding = 'async';
-          img.src = src + '?t=' + Date.now(); // cache-bust to force restart
-          a.appendChild(img);
-    
-          // Remove after one loop (so it doesn't keep animating)
-          // Tweak 'ms' above to match each GIF's single-loop length.
-          setTimeout(() => {
-            // fade-out quickly for polish, then remove
-            if (img) { img.style.opacity = '0'; setTimeout(() => img.remove(), 140); }
-          }, ms);
-        });
-    
-        // Optional: if the user leaves early, fade/remove the overlay
-        a.addEventListener('mouseleave', () => {
-          const old = a.querySelector('img.nav-gif');
-          if (old) { old.style.opacity = '0'; setTimeout(() => old.remove(), 140); }
-        });
+  (function navHoverGifs(){
+    if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    const rail  = document.getElementById('nav-scroll');
+    if (!rail) return;
+
+    const cfg = [
+      { index: 0, src: 'animations/on-background.gif', ms: 1200 },
+      { index: 1, src: 'animations/off-the-record.gif', ms: 1200 },
+      { index: 2, src: 'animations/notes.gif',         ms: 1200 },
+    ];
+
+    const items = Array.from(rail.querySelectorAll('a.nav-item'));
+
+    cfg.forEach(({ index, src, ms }) => {
+      const a = items[index];
+      if (!a) return;
+
+      a.addEventListener('mouseenter', () => {
+        const old = a.querySelector('img.nav-gif');
+        if (old) old.remove();
+
+        const img = new Image();
+        img.className = 'nav-gif';
+        img.alt = '';
+        img.decoding = 'async';
+        img.src = src + '?t=' + Date.now(); // restart every hover
+        a.appendChild(img);
+
+        setTimeout(() => {
+          if (img) { img.style.opacity = '0'; setTimeout(() => img.remove(), 140); }
+        }, ms);
       });
-    })();
-    </script>
-    
+
+      a.addEventListener('mouseleave', () => {
+        const old = a.querySelector('img.nav-gif');
+        if (old) { old.style.opacity = '0'; setTimeout(() => old.remove(), 140); }
+      });
+    });
+  })();
+  </script>
 </body>
 </html>
