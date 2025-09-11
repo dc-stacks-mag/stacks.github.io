@@ -14,15 +14,23 @@
     <main class="site-main">
       <article class="article-full">
         <header class="article-header">
-          <div class="toc-category" style="margin-bottom:.25rem;">On Background</div>
+          <div class="article-kicker">On Background</div>
+
+          <!-- 1) Headline -->
           <h1 class="article-headline">A Headline That Carries</h1>
-          <p class="toc-title" style="font-weight:400; margin:.25rem 0 1rem 0;">A short dek that frames the story in two lines at most.</p>
-          <p style="margin:.5rem 0; font-family: var(--font-sans);">
+
+          <!-- 2) Byline (moved directly under headline) -->
+          <p class="article-byline">
             By <strong>Firstname Lastname</strong> &middot; <time datetime="2025-08-29">Aug 29, 2025</time>
           </p>
+
+          <!-- 3) Blurb/Dek (now below the byline) -->
+          <p class="article-dek">A short dek that frames the story in two lines at most.</p>
+
+          <!-- Feature image -->
           <figure class="article-featured-image">
             <img src="https://placehold.co/1400x840/eeeeee/111111?text=Feature+Image" alt="Feature art" />
-            <figcaption style="font-size:.9rem; color:var(--color-subtle); margin-top:.25rem;">Photo by Staff</figcaption>
+            <figcaption>Photo by Staff</figcaption>
           </figure>
         </header>
 

@@ -1,3 +1,7 @@
+/* style.css — GLOBAL + UNIVERSAL ARTICLE STYLES
+   (about.html keeps its own styles inside itself; nav/footer + index page
+   may have some inline styles, but we add safe overrides here where needed) */
+
 /* Fonts */
 @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap');
 @font-face{
@@ -23,300 +27,156 @@
   --color-bg:#fff; --color-text:#111; --color-border:#606a97;
   --color-subtle:#666;
 
-  --nav-bg:#000;                 /* Black top bar */
+  --nav-bg:#000;
   --nav-glow:rgba(255,255,255,.30);
 
-  /* Taller header for more vertical padding */
-  --header-height:96px; 
-  --header-height-shrink:74px; 
+  --header-height:96px;
+  --header-height-shrink:74px;
   --folio-h:36px;
 
   --mobile-menu-bg: rgba(25, 25, 30, 0.6);
 }
 
-/* Layout */
+/* Global layout */
 html,body{height:100%}
 body{
-  margin:0; color:var(--color-text); background:var(--color-bg); line-height:1.6; font-family:var(--font-serif);
+  margin:0; color:var(--color-text); background:var(--color-bg); line-height:1.7; font-family:var(--font-serif);
   display:flex; flex-direction:column; position:relative;
 }
+/* Subtle paper texture */
 body::before{
   content:"";position:fixed;inset:0;pointer-events:none;
   background-image:url('https://www.shutterstock.com/image-photo/old-newspaper-background-blank-grunge-600nw-2479887711.jpg');
   background-size:cover;background-position:center;opacity:.05;z-index:-1
 }
-body.index-page::after{content:""; position:fixed; inset:0; z-index:-2; background:center/cover no-repeat url('index-bg.jpg'); opacity:.25}
-
-/* Make sure spinning the entire site looks natural */
-html{ transform-origin:center center; will-change: transform; }
-@keyframes spinOnce { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-html.spin-once-anim { animation: spinOnce 1.1s cubic-bezier(.2,.8,.2,1); }
-
-/* Loader handoff */
-#loader-wrapper{position:fixed; inset:0; z-index:9999; background:transparent; transition: opacity .35s ease, visibility .35s ease}
-#loader-wrapper iframe{width:100%; height:100%; border:0; display:block}
-#loader-wrapper.hidden{opacity:0; visibility:hidden}
-#main-content{flex:1 0 auto; opacity:0; transform:translateY(6px); transition: opacity .35s ease, transform .35s ease}
-#main-content.fading{opacity:.95; transform:translateY(0)}
-#main-content.visible{opacity:1; transform:translateY(0)}
-.site-footer-main{flex-shrink:0; margin-top:auto; background:transparent}
 
 /* Links */
 a,a:visited{color:inherit;text-decoration:none}
 
-/* Spacer for folio height */
-.top-spacer{height:var(--folio-h)}
-
-/* =========================
-   FOLIO
-   ========================= */
-.folio{
-  height:var(--folio-h);
-  display:flex;align-items:center;border-bottom:1px solid var(--color-border);background:#fff;
-  font-family:var(--font-folio) !important;
-}
-.folio, .folio * { font-family:var(--font-folio) !important; }
-.folio-inner{
-  width:100%;
-  max-width:1200px;
-  margin:0 auto;
-  padding:0 1.25rem;
-  display:flex;
-  gap:1.75rem;
-  align-items:center;
-  justify-content:center;
-  font-size:.96rem;
-}
-.folio-item{ white-space: nowrap; }
-.folio-sep { font-size: 0; color: transparent; }
-.folio-sep::before {
-  content: "●";
-  font-size: 0.96rem;
-  color: var(--color-text);
-  opacity: 0.45;
-}
-
-/* =========================
-   DESKTOP HEADER / NAV
-   ========================= */
-.site-header{
-  position:sticky; top:0; z-index:1000; height:var(--header-height);
-  display:flex; align-items:center; background:var(--nav-bg); color:#fff;
-  border-bottom:1px solid rgba(255,255,255,.12); overflow:visible;
-}
-
-/* Allow hover art to overflow vertically */
-.nav-scroll{
-  display:flex; align-items:center; justify-content:center;
-  gap:1.1rem; padding:0 12px;
-  overflow-x:auto; overflow-y:visible;
-  overscroll-behavior-x:contain; -ms-overflow-style:none; scrollbar-width:none; cursor:grab; width:100%;
-}
-.nav-scroll::-webkit-scrollbar{height:6px}
-.nav-scroll::-webkit-scrollbar-thumb{background:rgba(255,255,255,.25);border-radius:6px}
-.nav-scroll.active-drag{cursor:grabbing}
-
-/* Base link style — extra vertical padding */
-.nav-scroll a{
-  position:relative;
-  display:inline-flex; align-items:center;
-  padding:.8rem 1rem; /* more vertical padding */
-  z-index:1;
-  color:#fff; white-space:nowrap; text-transform:uppercase; letter-spacing:.03em; font-family:var(--font-sans);
-  text-shadow:0 0 6px var(--nav-glow);
-  transition:opacity .12s ease;
-}
-
-/* REMOVE global fade of siblings on hover */
-@media (min-width:1024px){
-  .nav-scroll:hover a{opacity:1}     /* was .22; now fully visible */
-  .nav-scroll a:hover{opacity:1!important}
-}
-
-/* Desktop-only GIF overlay (white-on-black look) */
-@media (hover:hover) and (pointer:fine) {
-  .nav-scroll a::after{
-    content:"";
-    position:absolute;
-    /* make it significantly larger so it can spill out */
-    left:-40%; right:-40%; top:-50%; bottom:-40%;
-    pointer-events:none;
-    background-image:none;          /* off by default */
-    background-size:110% 110%;      /* larger art */
-    background-repeat:no-repeat;
-    background-position:center;
-    opacity:0; transition:opacity .12s ease;
-    z-index:2;                      /* ABOVE the text */
-    filter: invert(1) brightness(1.6) contrast(1.1) saturate(0);
-    mix-blend-mode: screen;
-  }
-  .nav-scroll a:hover::after{ opacity:1; }
-
-  /* Map the first 3 items to their GIFs */
-  .nav-scroll > a.nav-item:nth-of-type(1)::after{
-    background-image:url('animations/on-background.gif');
-  }
-  .nav-scroll > a.nav-item:nth-of-type(2)::after{
-    background-image:url('animations/off-the-record.gif');
-  }
-  .nav-scroll > a.nav-item:nth-of-type(3)::after{
-    background-image:url('animations/notes.gif');
-  }
-
-  /* Never show a GIF on the logo */
-  .nav-scroll .nav-logo::after{ content:none !important; }
-}
-
-/* (Legacy helper kept; text stays above any lower z elements) */
-.nav-scroll a { position: relative; z-index: 1; }
-
-/* Logo */
-.nav-logo{display:flex; align-items:center; justify-content:center; padding:0 .75rem}
-.nav-logo img{
-  height:60px; width:auto; display:block; filter:drop-shadow(0 2px 6px rgba(0,0,0,.25));
-  transform:translateY(1px);
-  filter: grayscale(100%) contrast(120%) brightness(90%);
-}
-
-/* =========================
-   MOBILE NAV
-   ========================= */
-.mobile-only{display:none}
-.mobile-bar{
-  display:flex; align-items:center; justify-content:space-between; gap:.5rem; width:100%;
-  height:var(--header-height); background:var(--nav-bg); color:#fff; padding:0 1.5rem;
-  position:sticky; top:0; z-index:1000;
-  box-sizing:border-box;
-}
-.mobile-bar.shrink{height:var(--header-height-shrink); padding:0 1.5rem}
-.mobile-logo img{height:32px; width:auto; display:block}
-
-/* Hamburger */
-.mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:0;cursor:pointer;position:relative}
-.mobile-menu-toggle .line{position:absolute;left:6px;right:6px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .25s}
-.mobile-menu-toggle .line:nth-child(1){top:12px}.mobile-menu-toggle .line:nth-child(2){top:20px}.mobile-menu-toggle .line:nth-child(3){top:28px}
-.mobile-menu-toggle.active .line:nth-child(1){transform:translateY(8px) rotate(45deg)}
-.mobile-menu-toggle.active .line:nth-child(2){opacity:0}
-.mobile-menu-toggle.active .line:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-
-/* Mobile dropdown */
-.mobile-menu{
-  position:fixed; left:0; right:0; top:var(--header-height); bottom:0;
-  display:none; flex-direction:column; gap:.25rem; padding:.75rem 1rem 1rem;
-  pointer-events:auto; z-index:999;
-  background-color: var(--mobile-menu-bg);
-  backdrop-filter: blur(4px);
-}
-.mobile-bar.shrink + .mobile-menu{ top:var(--header-height-shrink); }
-.mobile-menu.open{ display:flex }
-.mobile-menu a{
-  opacity: 1;
-  transform:translateY(-15px) scale(.97);
-  padding:.6rem .5rem; border-radius:8px; text-align:center;
-  text-transform:uppercase; letter-spacing:.03em; font-family:var(--font-sans);
-  color:#fff; background:transparent; text-shadow:0 0 6px var(--nav-glow);
-  transition:transform .15s ease,opacity .15s ease;
-}
-.mobile-menu a.plopped{ animation:plop-in .28s cubic-bezier(.2,.8,.2,1) forwards }
-@keyframes plop-in{0%{opacity:.0;transform:translateY(-15px) scale(.97)}70%{opacity:.9;transform:translateY(2px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
-
-/* =========================
-   Main content & TOC
-   ========================= */
-.site-main{padding:1.5rem;max-width:1200px;margin:0 auto}
-.issue-block{padding:2rem 0;border-bottom:1px solid var(--color-border)}
-.issue-block:last-of-type{border-bottom:none}
-.issue-title{font-size:1.1rem;color:var(--color-subtle);margin-bottom:1.5rem;text-align:center}
-
-.issue-content{display:grid;grid-template-columns:1fr;gap:1.5rem;font-size:1rem}
-@media (min-width:1024px){ .issue-content{grid-template-columns:1fr 1fr;gap:2rem;align-items:start} }
-.issue-cover img{width:100%;height:auto;max-height:70vh;object-fit:contain}
-.issue-toc{font-size:1rem}
-.issue-toc h3{margin-top:0}
-.issue-toc ul{list-style:none;padding:0;margin:0}
-.issue-toc li{padding:0;border-bottom:1px solid var(--color-border)}
-.issue-toc li:last-child{border-bottom:none}
-.issue-toc a{display:block;padding:.75rem .25rem}
-.toc-category{display:block;font-size:.8rem;color:var(--color-subtle);margin-bottom:.1rem}
-.toc-title{display:block;font-weight:700;font-family:var(--font-sans)}
-.issue-toc a:hover .toc-title{font-style:italic}
-
-/* Section images */
-.section-page img{max-width:100%;height:auto;max-height:60vh;object-fit:contain;border:1px solid var(--color-border)}
-
-/* =========================
-   FOOTER — 3 columns: 10vw | 60vw | 30vw
-   ========================= */
-.site-footer-main{
-  padding:1rem 1.25rem;
-  margin-top:2rem;
-  border-top:1px solid var(--color-border);
-}
-.footer-inner{
-  max-width:90vw;               /* contain to viewport */
-  margin:0 auto;
-  display:grid;
-  grid-template-columns: 15vw 40vw 30vw; /* corrected split */
-  align-items:center;
-  gap:0.5rem;
-  width:100%;
-  box-sizing:border-box;
-  overflow:hidden;               /* prevent accidental overflow */
-}
-
-/* LEFT: spin button cell */
-.footer-spin{
-  grid-column:1;
-  display:flex; align-items:center; justify-content:flex-start;
-}
-.spin-btn{
-  display:inline-flex; align-items:center; justify-content:center;
-  width:10vw;                 /* exactly 10% of viewport width */
-  max-width:16rem;
-  min-width:40px;
-  aspect-ratio:1/1;
-  background:transparent; border:0; padding:0; cursor:pointer;
-}
-.spin-btn img{
-  width:70%; height:70%; display:block;
-}
-
-/* MIDDLE: three equal blocks across 60vw */
-.footer-left{
-  grid-column:2;
-  display:grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap:0.25rem;
-  align-items:center;
-  justify-items:start;
-  min-width:0;
-}
-.footer-block{ min-width:0; }
-.footer-title{ color:var(--color-subtle); font-family:var(--font-sans); font-size:.9rem; }
-.footer-value{ font-weight:700; font-family:var(--font-folio); white-space:nowrap; }
-
-/* RIGHT: copyright/books area occupies 30vw */
-.footer-right{
-  grid-column:3;
-  display:flex; align-items:center; justify-content:flex-end;
-  gap:.75rem; white-space:nowrap; min-width:0;
-}
-.footer-books{ width:min(6vw, 90px); height:auto; display:block; }
-.footer-note{ font-family:var(--font-sans); font-size:.95rem; }
-
-/* Mobile: stack vertically */
-@media (max-width:900px){
-  .footer-inner{ grid-template-columns:1fr; gap:1rem; }
-  .spin-btn{ width:min(20vw, 120px); }
-  .footer-right{ justify-content:flex-start; }
-}
-
-/* --- Keep the page from ever widening --- */
+/* Media safety */
 html { overflow-x: hidden; }
+img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
 
-/* --- Safe defaults so images never blow out containers --- */
-img, svg, video, canvas {
-  max-width: 100%;
+/* Section page images (global use) */
+.section-page img{
+  max-width:100%;height:auto;max-height:60vh;object-fit:contain;border:1px solid var(--color-border)
+}
+
+/* Footer baseline */
+.site-footer-main{flex-shrink:0; margin-top:auto; background:transparent}
+
+/* ----------------------------- */
+/* UNIVERSAL ARTICLE STYLES      */
+/* ----------------------------- */
+.article-full{
+  --article-width: min(1000px, 92vw);
+  --article-measure: min(72ch, 92vw);
+  padding: 1.25rem;
+}
+@media (min-width: 1024px){
+  .article-full{ padding: 2rem 1.5rem; }
+}
+.article-header{
+  max-width: var(--article-width);
+  margin: 0 auto 1rem auto;
+}
+.article-kicker{
+  font-size: .82rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color: var(--color-subtle);
+  margin-bottom: .35rem;
+  text-align:center;
+}
+.article-headline{
+  font-family: var(--font-logo);
+  font-weight: 400;
+  line-height: 1.1;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  text-align: center;
+  margin: 0 0 .6rem 0;
+}
+.article-byline{
+  font-family: var(--font-sans);
+  text-align: center;
+  margin: 0 0 .8rem 0;
+  color: var(--color-text);
+}
+.article-dek{
+  text-align: center;
+  font-size: clamp(1.05rem, 2.1vw, 1.25rem);
+  margin: 0 0 1.1rem 0;
+  color: var(--color-subtle);
+}
+.article-featured-image{
+  max-width: var(--article-width);
+  margin: 0 auto 1.25rem auto;
+}
+.article-featured-image img{
+  width: 100%;
   height: auto;
-  display: block;
+  border: 1px solid var(--color-border);
+  background: #f9f9f9;
+}
+.article-featured-image figcaption{
+  font-size: .9rem;
+  color: var(--color-subtle);
+  margin-top: .35rem;
+}
+
+.article-body{
+  max-width: var(--article-width);          /* same width as photo */
+  margin: 0 auto 4rem auto;
+  font-size: clamp(1rem, 1.7vw, 1.1rem);
+}
+.article-body p{
+  max-width: var(--article-measure);
+  margin: 0 auto 1.05rem auto;
+}
+.article-body blockquote{
+  max-width: var(--article-measure);
+  margin: 1.25rem auto;
+  padding: .75rem 1rem;
+  border-left: 3px solid #000;
+  background: #fafafa;
+  font-style: italic;
+}
+
+/* Optional subheads inside body */
+.article-body h2, .article-body h3{
+  max-width: var(--article-measure);
+  margin: 2rem auto 1rem auto;
+  line-height: 1.2;
+}
+
+/* Utility for small metadata rows (if needed later) */
+.meta-row{
+  max-width: var(--article-width);
+  margin: .5rem auto 1rem;
+  color: var(--color-subtle);
+  font-size: .95rem;
+}
+
+/* ---------------------------------------------- */
+/* INDEX PAGE TWEAKS (no HTML edits required)     */
+/* ---------------------------------------------- */
+/* match cover height to right-hand column height; add spacing; black borders */
+body.index-page .issue-content{
+  align-items: stretch !important;
+}
+body.index-page .issue-cover{
+  display: flex !important;
+}
+body.index-page .issue-cover img{
+  height: 100% !important;
+  object-fit: cover !important;
+}
+body.index-page .issue-toc ul{
+  row-gap: .75rem !important; /* was .5rem */
+}
+body.index-page .issue-toc li{
+  border-bottom: 1px solid #000 !important;
+}
+body.index-page .issue-toc li:last-child{
+  border-bottom: none !important;
 }

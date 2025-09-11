@@ -6,9 +6,9 @@
   <title>Stacks Magazine</title>
   <link rel="stylesheet" href="style.css"/>
 
-  <!-- Index-only styles moved here so the homepage can be tuned without touching style.css -->
+  <!-- Index-only styles -->
   <style>
-    /* Subtle page bg only for index */
+    /* Background image only for the index page */
     body.index-page::after{
       content:""; position:fixed; inset:0; z-index:-2;
       background:center/cover no-repeat url('index-bg.jpg'); opacity:.25
@@ -21,55 +21,35 @@
 
     /* Two-column hero: cover | toc */
     .issue-content{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:1.5rem;
-      font-size:1rem;
+      display:grid; grid-template-columns:1fr; gap:1.5rem; font-size:1rem;
     }
     @media (min-width:1024px){
-      .issue-content{
-        grid-template-columns:1fr 1fr;
-        gap:2rem;
-        align-items:stretch; /* stretch columns to equal height */
-      }
+      .issue-content{ grid-template-columns:1fr 1fr; gap:2rem; align-items:stretch; }
     }
-
     .issue-cover img{width:100%;height:auto;max-height:70vh;object-fit:contain}
 
-    /* TOC block that spaces items to match cover height on desktop */
+    /* TOC: allow multiple titles per category (no lines between titles) */
     .issue-toc{font-size:1rem; display:flex; flex-direction:column}
     .issue-toc h3{margin:0 0 .75rem}
-    .issue-toc ul{
-      list-style:none; padding:0; margin:0;
-      display:flex; flex-direction:column;
-      gap:.25rem;              /* base gap for many items */
-      flex:1 1 auto;
-    }
-    /* When space permits (desktop), distribute items to fill height
-       so the column visually matches the cover column height. */
-    @media (min-width:1024px){
-      .issue-toc ul{ justify-content:space-between; gap:.5rem; }
-    }
-    .issue-toc li{padding:0;border-bottom:1px solid var(--color-border)}
-    .issue-toc li:last-child{border-bottom:none}
-    .issue-toc a{display:block;padding:.75rem .25rem}
-    .toc-category{display:block;font-size:.8rem;color:var(--color-subtle);margin-bottom:.1rem}
-    .toc-title{display:block;font-weight:700;font-family:var(--font-sans)}
-    .issue-toc a:hover .toc-title{font-style:italic}
+    .issue-toc ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; }
+    .issue-toc li{ padding:.25rem 0; border-bottom:1px solid var(--color-border); }
+    .issue-toc li:last-child{ border-bottom:none; }
+    .toc-category{ display:block; font-size:.8rem; color:var(--color-subtle); margin-bottom:.15rem; }
+    .toc-title{ display:block; font-weight:700; font-family:var(--font-sans); padding:.15rem .25rem .15rem 0; }
+    .toc-title + .toc-title{ border-top:none; margin-top:.1rem; } /* no lines between titles in same group */
+    .issue-toc a.toc-title:hover{ font-style:italic; }
 
-    /* Mission statement: align left edge with cover, sit below it */
+    /* “about stacks” box: centered and wider */
     .mission-statement{ margin-top:1.5rem; }
     @media (min-width:1024px){
-      /* width equals the left column (1fr) minus half the grid gap (approx.) */
       .mission-statement{
-        width:100%; max-width:calc(50% - 1rem);
-        padding-top:1rem;
+        max-width:75ch; margin:1.5rem auto 0; padding-top:1rem; text-align:center;
       }
     }
-    .mission-statement h3{ margin:0 0 .5rem; }
+    .mission-statement h3{ margin:0 0 .5rem; text-transform:lowercase; }
   </style>
 
-  <!-- Loader iframe wrapper -->
+  <!-- Loader iframe wrapper (index-only) -->
   <style>
     #loader-wrapper{position:fixed; inset:0; z-index:9999; transition:opacity .35s ease, visibility .35s ease}
     #loader-wrapper.hidden{opacity:0; visibility:hidden}
@@ -81,7 +61,7 @@
 </head>
 <body class="index-page">
 
-  <!-- Loader container (the iframe fades its white bg to transparent) -->
+  <!-- Loader -->
   <div id="loader-wrapper" aria-hidden="true">
     <iframe src="loader.html" title="Stacks Loader"></iframe>
   </div>
@@ -93,7 +73,6 @@
   <div id="main-content" aria-live="polite">
     <main class="site-main">
       <section class="issue-block">
-
         <div class="issue-content">
           <!-- LEFT: Cover -->
           <div class="issue-cover">
@@ -102,31 +81,55 @@
             </a>
           </div>
 
-          <!-- RIGHT: TOC (supports multiple items per section just by repeating entries) -->
+          <!-- RIGHT: TOC (grouped by category; multiple titles per group) -->
           <div class="issue-toc">
             <h3>In This Issue</h3>
             <ul>
-              <li><a href="article.html"><span class="toc-category">On Background</span><span class="toc-title">Title Placeholder</span></a></li>
-              <li><a href="article.html"><span class="toc-category">On Background</span><span class="toc-title">Second Story Placeholder</span></a></li>
-              <li><a href="article.html"><span class="toc-category">Off the Record</span><span class="toc-title">Title Placeholder</span></a></li>
-              <li><a href="article.html"><span class="toc-category">Commentary</span><span class="toc-title">Title Placeholder</span></a></li>
-              <li><a href="article.html"><span class="toc-category">Notes</span><span class="toc-title">Title Placeholder</span></a></li>
-              <li><a href="article.html"><span class="toc-category">Photo Essay</span><span class="toc-title">Title Placeholder</span></a></li>
-              <li><a href="article.html"><span class="toc-category">From the Stacks</span><span class="toc-title">Title Placeholder</span></a></li>
+              <li class="toc-group">
+                <span class="toc-category">On Background</span>
+                <a class="toc-title" href="article.html">First Story Placeholder</a>
+                <a class="toc-title" href="article.html">Second Story Placeholder</a>
+              </li>
+
+              <li class="toc-group">
+                <span class="toc-category">Off the Record</span>
+                <a class="toc-title" href="article.html">Title Placeholder</a>
+              </li>
+
+              <li class="toc-group">
+                <span class="toc-category">Commentary</span>
+                <a class="toc-title" href="article.html">Title Placeholder</a>
+                <a class="toc-title" href="article.html">Another Commentary</a>
+              </li>
+
+              <li class="toc-group">
+                <span class="toc-category">Notes</span>
+                <a class="toc-title" href="article.html">Title Placeholder</a>
+              </li>
+
+              <li class="toc-group">
+                <span class="toc-category">Photo Essay</span>
+                <a class="toc-title" href="article.html">Title Placeholder</a>
+              </li>
+
+              <li class="toc-group">
+                <span class="toc-category">From the Stacks</span>
+                <a class="toc-title" href="article.html">Title Placeholder</a>
+              </li>
             </ul>
           </div>
         </div>
 
-        <!-- Mission statement aligned under the cover (left column) -->
+        <!-- “about stacks” (renamed & centered; wider) -->
         <div class="mission-statement">
-          <h3>Mission Statement</h3>
+          <h3>about stacks</h3>
           <p>We’re building an index that prizes primary documents and everyday testimony. The stacks are shelves and also layers — history, policy, memory — and we’re trying to read across them.</p>
         </div>
       </section>
     </main>
   </div>
 
-  <!-- Loader → Main handoff -->
+  <!-- Loader → Main handoff & partial include -->
   <script>
     const loaderWrapper = document.getElementById('loader-wrapper');
     const mainContent   = document.getElementById('main-content');
@@ -166,49 +169,6 @@
         });
       }
     })();
-  </script>
-
-  <!-- Replay-on-hover nav GIFs (desktop only) -->
-  <script>
-  (function navHoverGifs(){
-    if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-    const rail  = document.getElementById('nav-scroll');
-    if (!rail) return;
-
-    const cfg = [
-      { index: 0, src: 'animations/on-background.gif', ms: 1200 },
-      { index: 1, src: 'animations/off-the-record.gif', ms: 1200 },
-      { index: 2, src: 'animations/notes.gif',         ms: 1200 },
-    ];
-
-    const items = Array.from(rail.querySelectorAll('a.nav-item'));
-
-    cfg.forEach(({ index, src, ms }) => {
-      const a = items[index];
-      if (!a) return;
-
-      a.addEventListener('mouseenter', () => {
-        const old = a.querySelector('img.nav-gif');
-        if (old) old.remove();
-
-        const img = new Image();
-        img.className = 'nav-gif';
-        img.alt = '';
-        img.decoding = 'async';
-        img.src = src + '?t=' + Date.now(); // restart every hover
-        a.appendChild(img);
-
-        setTimeout(() => {
-          if (img) { img.style.opacity = '0'; setTimeout(() => img.remove(), 140); }
-        }, ms);
-      });
-
-      a.addEventListener('mouseleave', () => {
-        const old = a.querySelector('img.nav-gif');
-        if (old) { old.style.opacity = '0'; setTimeout(() => old.remove(), 140); }
-      });
-    });
-  })();
   </script>
 </body>
 </html>
