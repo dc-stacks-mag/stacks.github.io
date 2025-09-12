@@ -16,6 +16,12 @@
     url('fonts/JMHTypewriter.otf') format('opentype');
   font-weight:normal; font-style:normal; font-display:swap;
 }
+@font-face{
+  font-family:'GillSansNova-CnBold';
+  src:
+    url('fonts/GillSansNova-CnBold.ttf') format('truetype');
+  font-weight:normal; font-style:normal; font-display:swap;
+}
 
 /* Vars */
 :root{
@@ -23,6 +29,7 @@
   --font-serif:'Georgia',serif;
   --font-logo:'Filmotype Maxwell','Georgia',serif;
   --font-folio:'JMHTypewriter',serif;
+  --font-folio-2:'GillSansNova-CnBold',serif;
 
   --color-bg:#fff; --color-text:#111; --color-border:#606a97;
   --color-subtle:#666;
@@ -100,7 +107,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
   font-family: var(--font-logo);
   font-weight: 400;
   line-height: 1;
-  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
+  font-size: clamp(1rem, 3vw, 2rem);
   text-align: center;
   margin: 0 0 .6rem 0;
 }
@@ -111,7 +118,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
   color: var(--color-text);
   font-size: clamp(1.05rem, 2.1vw, 1.25rem);
 }
-.article-dek{
+.article-excerpt{
   text-align: center;
   font-size: clamp(1.05rem, 2.1vw, 1.25rem);
   margin: 0 0 1.1rem 0;
@@ -194,15 +201,15 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
   padding: 1.25rem 1.25rem 1rem 1.25rem;
   border-bottom: 1px solid var(--color-border);
   margin: 0 auto 1rem auto;
-  max-width: min(1200px, 94vw);
+  max-width: min(1200px, 75vw);
 }
 .section-header h1{
   font-family: var(--font-logo);
   font-weight: 400;
   margin: 0 0 .35rem 0;
-  font-size: clamp(2rem, 4vw, 2.8rem);
+  font-size: clamp(1.8rem, 3vw, 2rem);
 }
-.section-header p{ margin:0; color: var(--color-subtle); }
+.section-header p{ margin:0; color: var(--color-subtle) }
 
 .article-grid{
   display:grid;
@@ -234,12 +241,16 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
   font-family: var(--font-sans);
   font-size: 1.05rem;
 }
-.article-card-subtitle,
+.article-card-sub-title {
+  margin: 0 .85rem .60rem .8rem;
+  font-size: clamp(1rem, 2vw, 1rem);
+  line-height: 1;
+}
 .article-card-excerpt{
   margin: 0 .85rem .65rem .85rem;
   color: var(--color-subtle);
-  font-size: 0.95rem;
-  line-height: 1.5;
+  font-size: 0.4rem;
+  line-height: 1.3;
 }
 .article-card-byline{
   margin:0 .85rem .85rem .85rem;
@@ -276,12 +287,12 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
         - Excerpt & Subtitle a bit smaller than before
         - Title sits right under the image (no top gap) */
   .article-card-title{
-    font-size: 1.1rem;      /* slightly bigger than desktop */
+    font-size: 1rem;      /* slightly bigger than desktop */
     margin: 0 1rem .25rem 1rem;   /* top=0 so it kisses the image */
   }
   .article-card-subtitle,
   .article-card-excerpt{
-    font-size: .90rem;       /* a bit smaller */
+    font-size: .6rem;       /* a bit smaller */
     margin: 0 1rem .6rem 1rem;
   }
   .article-card-byline{
@@ -300,7 +311,7 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
 @media (max-width:1023px){
   .article-full{ padding: 1rem .9rem; }
   .article-featured-image{ margin: 0 auto 1rem auto; }
-  .article-dek{ margin-bottom: .9rem; }
+  .article-excerpt{ margin-bottom: .9rem; }
   .article-body p{ margin-bottom: .95rem; }
 }
 
