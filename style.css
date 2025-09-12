@@ -71,7 +71,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
 .article-full{
   --article-width: min(1000px, 92vw);
   --article-measure: min(72ch, 92vw);
-  padding: 1.25rem;
+  padding: 1rem;
 }
 @media (min-width: 1024px){
   .article-full{ padding: 2rem 1.5rem; }
@@ -92,7 +92,15 @@ img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
   font-family: var(--font-logo);
   font-weight: 400;
   line-height: 1.1;
-  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  font-size: clamp(2rem, 4vw, 3rem);
+  text-align: center;
+  margin: 0 0 .6rem 0;
+}
+.article-sub-headline{
+  font-family: var(--font-logo);
+  font-weight: 400;
+  line-height: 1;
+  font-size: clamp(1.8rem, 3.8vw, 2.8rem);
   text-align: center;
   margin: 0 0 .6rem 0;
 }
@@ -101,6 +109,7 @@ img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
   text-align: center;
   margin: 0 0 .8rem 0;
   color: var(--color-text);
+  font-size: clamp(1.05rem, 2.1vw, 1.25rem);
 }
 .article-dek{
   text-align: center;

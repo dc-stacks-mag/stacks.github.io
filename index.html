@@ -15,7 +15,7 @@
     }
 
     /* Layout frame for index content */
-    .site-main{padding:1.5rem;max-width:1200px;margin:0 auto}
+    .site-main{padding:1.25rem;max-width:1200px;margin:0 auto}
     .issue-block{padding:2rem 0;}
     .issue-block:last-of-type{border-bottom:none}
 
@@ -24,19 +24,18 @@
       display:grid; grid-template-columns:1fr; gap:1.5rem; font-size:1rem;
     }
     @media (min-width:1024px){
-      .issue-content{ grid-template-columns:1fr 1fr; gap:2rem; align-items:stretch; }
+      .issue-content{ grid-template-columns:1fr 1fr; gap:1.5rem; align-items:stretch; }
     }
-    .issue-cover img{width:100%;height:auto;max-height:70vh;object-fit:contain}
+    .issue-cover img{width:100%;height:auto;max-height:65vh;object-fit:contain}
 
     /* TOC: allow multiple titles per category (no lines between titles) */
-    .issue-toc{font-size:1rem; display:flex; flex-direction:column}
+    .issue-toc{font-size:1.1rem; display:flex; flex-direction:column}
     .issue-toc h3{margin:0 0 .75rem}
-    .issue-toc ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; }
-    .issue-toc li{ padding:.25rem 0; }
+    .issue-toc ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.75rem; }
+    .issue-toc li{ padding:.5rem 0; }
     .issue-toc li:last-child{ border-bottom:none; }
-    .toc-category{ display:block; font-size:.8rem; color:var(--color-subtle); margin-bottom:.15rem; }
+    .toc-category{ display:block; font-size:.8rem; color:var(--color-subtle); margin-bottom:.25rem; }
     .toc-title{ display:block; font-weight:700; font-family:var(--font-sans); padding:.15rem .25rem .15rem 0; border-bottom:1px solid var(--color-border)}
-    .toc-title + .toc-title{ border-top:none; margin-top:.1rem; } /* no lines between titles in same group */
     .issue-toc a.toc-title:hover{ font-style:italic; }
         /* Add this new rule to remove the border from the very last title */
 .issue-toc li:last-child .toc-title:last-child {
@@ -44,13 +43,29 @@
 }
 
     /* “about stacks” box: centered and wider */
-    .mission-statement{ margin-top:1.5rem; }
-    @media (min-width:1024px){
-      .mission-statement{
-        max-width:85%; margin:1.5rem auto 0; padding-top:1rem; text-align:center; font-size: 1.5rem;
+    .mission-statement {
+      margin-top: 0.25rem;
+  }
+  
+  @media (min-width: 1024px) {
+      .mission-statement {
+          max-width: 80%; 
+          margin: 0.5rem auto 0; 
+          padding-top: 1rem; 
+          text-align: center; 
+          font-size: 1.25rem;
       }
-    }
-    .mission-statement h3{ margin:0 0 .5rem; text-transform:lowercase; }
+  }
+  
+  .mission-statement h2 {
+      margin: 0 0 0.1rem; /* Decreased bottom margin */
+      font-size: 1.5rem; 
+      font-family: var(--font-sans); 
+  }
+  
+  .mission-statement p {
+      margin: 0; /* Ensure there's no margin on the paragraph */
+  }
   </style>
 
   <!-- Loader iframe wrapper (index-only) -->
