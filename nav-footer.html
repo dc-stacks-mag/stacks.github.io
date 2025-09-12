@@ -1,30 +1,30 @@
 <!-- nav-footer.html -->
 
-<!-- ===== DESKTOP NAV ===== -->
+<!-- ================= DESKTOP / WEB (unchanged from your original) ================ -->
 <header class="site-header desktop-only" role="banner" aria-label="Site navigation">
   <nav id="nav-scroll" class="nav-scroll" aria-label="Primary sections">
-    <!-- Left items (3) -->
+    <!-- Left items -->
     <a href="section-on.html"  class="nav-item" data-gif="animations/on-background.gif">On Background</a>
     <a href="section-off.html" class="nav-item" data-gif="animations/off-the-record.gif">Off the Record</a>
     <a href="section-off.html" class="nav-item" data-gif="animations/notes.gif">Notes</a>
 
-    <!-- Center logo (fixed size) -->
+    <!-- Center logo -->
     <a class="nav-logo" href="index.html" aria-label="Stacks">
       <img src="stacks-logo-3.png" alt="Stacks" width="280" height="85">
     </a>
 
-    <!-- Right items (3) -->
+    <!-- Right items -->
     <a href="section-off.html" class="nav-item">Upcoming Events</a>
     <a href="section-off.html" class="nav-item">From the Stacks</a>
-    <a href="about.html"      class="nav-item">About</a>
+    <a href="about.html"       class="nav-item">About</a>
   </nav>
 </header>
 
-<!-- ===== MOBILE NAV (unchanged) ===== -->
+<!-- ================= MOBILE (separate markup; flat list) ================ -->
 <div class="mobile-only" role="banner" aria-label="Mobile navigation">
   <div class="mobile-bar">
     <a class="mobile-logo" href="index.html" aria-label="Stacks">
-      <img src="stacks-logo-2.png" alt="Stacks" />
+      <img src="stacks-logo-3.png" alt="Stacks" />
     </a>
     <button id="mobile-menu-toggle" class="mobile-menu-toggle" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
       <span class="line"></span><span class="line"></span><span class="line"></span>
@@ -32,24 +32,22 @@
   </div>
 
   <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile menu">
-    <a href="section-on.html"  class="nav-item" data-index="0">On Background</a>
-    <a href="section-off.html" class="nav-item" data-index="1">Off the Record</a>
-    <a href="section-off.html" class="nav-item" data-index="2">Notes</a>
-    <a href="section-off.html" class="nav-item" data-index="3">The Telegraph</a>
-    <a href="section-off.html" class="nav-item" data-index="4">Upcoming Events</a>
-    <a href="section-off.html" class="nav-item" data-index="5">Photo Essays</a>
-    <a href="section-off.html" class="nav-item" data-index="6">From the Stacks</a>
-    <a href="about.html"       class="nav-item" data-index="7">About</a>
+    <a href="section-on.html"  class="nav-item">On Background</a>
+    <a href="section-off.html" class="nav-item">Off the Record</a>
+    <a href="section-off.html" class="nav-item">Notes</a>
+    <a href="section-off.html" class="nav-item">Upcoming Events</a>
+    <a href="section-off.html" class="nav-item">From the Stacks</a>
+    <a href="about.html"       class="nav-item">About</a>
   </nav>
 </div>
 
-<!-- ===== FOLIO ===== -->
+<!-- ================= FOLIO ================= -->
 <div class="folio" role="contentinfo" aria-label="Folio">
+  <!-- Desktop/web folio (unchanged) -->
   <div class="folio-inner">
     <div class="folio-left">
       <span id="folio-date" class="folio-item"></span>
     </div>
-    <!-- Center group stays centered under the logo -->
     <div class="folio-center" aria-label="Publication">
       <span class="folio-sep" aria-hidden="true">●</span>
       <a class="folio-item" href="https://dailycal.org" target="_blank" rel="noopener">The Daily Californian</a>
@@ -59,12 +57,19 @@
       <span class="folio-item">Issue I</span>
     </div>
   </div>
+
+  <!-- Mobile-only folio row (centered two items) -->
+  <div class="folio-mobile">
+    <a class="folio-item" href="https://dailycal.org" target="_blank" rel="noopener">The Daily Californian</a>
+    <span class="folio-dot" aria-hidden="true">●</span>
+    <span class="folio-item">Issue I</span>
+  </div>
 </div>
 
-<!-- ===== FOOTER ===== -->
+<!-- ================= FOOTER ================= -->
 <footer class="site-footer-main" id="global-footer" role="contentinfo">
   <div class="footer-inner">
-    <!-- Left: spiral button (10vw column) -->
+    <!-- Left: spiral -->
     <div class="footer-spin">
       <button class="spin-btn" id="spin-trigger" type="button" aria-label="Spin Mode" title="Spin Mode">
         <img id="spin-gif"
@@ -76,7 +81,7 @@
       </button>
     </div>
 
-    <!-- Middle: 3 equal blocks (60vw) -->
+    <!-- Middle: two blocks -->
     <div class="footer-left">
       <div class="footer-block" id="block-time">
         <div class="footer-title" id="time-title">Berkeley, CA</div>
@@ -87,24 +92,21 @@
         <div class="footer-title">The Daily Cal</div>
         <div class="footer-value footer-mainfont"><span id="coords">37.8715° N, 122.2730° W</span></div>
       </div>
-
     </div>
 
-    <!-- Right: just the books gif (removed “2025 Stacks”) -->
+    <!-- Right: books -->
     <div class="footer-right">
       <img class="footer-books" src="footer-books.gif" alt="Books" />
     </div>
   </div>
 </footer>
 
-<!-- ===== SCOPED STYLES for NAV/FOLIO/FOOTER (desktop + mobile) ===== -->
+<!-- ================= SCOPED STYLES ================= -->
 <style>
-  /* Spin animation (used by footer trigger) */
-  html{ transform-origin:center center; will-change:transform; }
-  @keyframes spinOnce { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-  html.spin-once-anim { animation: spinOnce 1.1s cubic-bezier(.2,.8,.2,1); }
+  /* ---------- base toggles ---------- */
+  .mobile-only{display:none}
 
-  /* ===== FOLIO ===== */
+  /* ---------- folio (desktop/web) ---------- */
   .folio{
     height:var(--folio-h, 36px);
     display:flex;align-items:center;border-bottom:1px solid var(--color-border);background:#fff;
@@ -116,12 +118,12 @@
     font-size:.96rem;
   }
   .folio-left{ justify-self:end; white-space:nowrap; }
-  .folio-right{ justify-self:start; white-space:nowrap; }
   .folio-center{ display:flex; align-items:center; gap:.6rem; white-space:nowrap; }
+  .folio-right{ justify-self:start; white-space:nowrap; }
   .folio-sep{ font-size:0; color:transparent; }
   .folio-sep::before{ content:"●"; font-size:.96rem; color:var(--color-text); opacity:.45; }
 
-  /* ===== DESKTOP HEADER / NAV (no scrolling) ===== */
+  /* ---------- header/nav (desktop/web; matches your original) ---------- */
   .site-header{
     position:sticky; top:0; z-index:1000; height:var(--header-height, 96px);
     display:flex; align-items:center; background:var(--nav-bg, #000); color:#fff;
@@ -129,7 +131,7 @@
   }
   .nav-scroll{
     display:flex; align-items:center; justify-content:center; gap:1.25rem;
-    width:100%; padding:0 12px; overflow:visible; /* no scrolling */
+    width:100%; padding:0 12px; overflow:visible;
   }
   .nav-scroll a{
     position:relative; display:inline-flex; align-items:center; justify-content:center;
@@ -137,96 +139,140 @@
     color:#fff; text-shadow:0 0 6px var(--nav-glow, rgba(255,255,255,.30));
     font-family:var(--font-sans);
   }
-
-  /* Fixed logo size */
   .nav-logo{ display:flex; align-items:center; justify-content:center; padding:0 .75rem; }
   .nav-logo img{ width:280px; height:85px; object-fit:contain; display:block; }
 
-  /* Replay-on-hover GIF (smaller than before) — desktop only */
+  /* Desktop GIF overlays (original size so they don’t disturb layout) */
   @media (hover:hover) and (pointer:fine){
     .nav-item{ z-index:1; }
     .nav-item .nav-gif{
       position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      height:110px; width:auto; opacity:1; pointer-events:none;
+      height:90px; width:auto; opacity:1; pointer-events:none;
       mix-blend-mode:screen; filter: invert(1) brightness(1.35) contrast(1.1) saturate(0);
       transition:opacity .14s ease;
     }
     .nav-item .nav-gif.fadeout{ opacity:0; }
   }
 
-  /* ===== MOBILE NAV (unchanged styling moved here) ===== */
-  .mobile-only{display:none}
-  .mobile-bar{
-    display:flex; align-items:center; justify-content:space-between; gap:.5rem; width:100%;
-    height:var(--header-height, 96px); background:var(--nav-bg, #000); color:#fff; padding:0 1.5rem;
-    position:sticky; top:0; z-index:1000; box-sizing:border-box;
-  }
-  .mobile-bar.shrink{height:var(--header-height-shrink, 74px); padding:0 1.5rem}
-  .mobile-logo img{height:32px; width:auto; display:block}
-  .mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:0;cursor:pointer;position:relative}
-  .mobile-menu-toggle .line{position:absolute;left:6px;right:6px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .25s}
-  .mobile-menu-toggle .line:nth-child(1){top:12px}.mobile-menu-toggle .line:nth-child(2){top:20px}.mobile-menu-toggle .line:nth-child(3){top:28px}
-  .mobile-menu-toggle.active .line:nth-child(1){transform:translateY(8px) rotate(45deg)}
-  .mobile-menu-toggle.active .line:nth-child(2){opacity:0}
-  .mobile-menu-toggle.active .line:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+  /* ---------- footer (desktop/web unchanged) ---------- */
+/* Allow adjustable extra padding at the very bottom of the footer */
+:root{ --footer-extra-bottom: 0px; } /* default; change per-page if desired */
 
-  .mobile-menu{
-    position:fixed; left:0; right:0; top:var(--header-height,96px); bottom:0;
-    display:none; flex-direction:column; gap:.25rem; padding:.75rem 1rem 1rem;
-    pointer-events:auto; z-index:999; background-color: var(--mobile-menu-bg, rgba(25,25,30,.6)); backdrop-filter: blur(4px);
-  }
-  .mobile-bar.shrink + .mobile-menu{ top:var(--header-height-shrink, 74px); }
-  .mobile-menu.open{ display:flex }
-  .mobile-menu a{
-    opacity:1; transform:translateY(-15px) scale(.97);
-    padding:.6rem .5rem; border-radius:8px; text-align:center;
-    text-transform:uppercase; letter-spacing:.03em; font-family:var(--font-sans);
-    color:#fff; background:transparent; text-shadow:0 0 6px var(--nav-glow, rgba(255,255,255,.30));
-    transition:transform .15s ease,opacity .15s ease;
-  }
-  .mobile-menu a.plopped{ animation:plop-in .28s cubic-bezier(.2,.8,.2,1) forwards }
-  @keyframes plop-in{0%{opacity:.0;transform:translateY(-15px) scale(.97)}70%{opacity:.9;transform:translateY(2px) scale(1.04)}100%{opacity:1;transform:translateY(0) scale(1)}}
+.site-footer-main{
+  padding: 1rem 1.25rem calc(1rem + var(--footer-extra-bottom));
+  margin-top: 2rem;
+  border-top: 1px solid var(--color-border);
+  background: transparent;
+}
 
-  /* ===== FOOTER (10vw | 60vw | 30vw) ===== */
-  .site-footer-main{ padding:1rem 1.25rem; margin-top:2rem; border-top:1px solid var(--color-border); background:transparent; }
   .footer-inner{
     max-width:90vw; margin:0 auto;
     display:grid; grid-template-columns: 15vw 40vw 30vw; align-items:center; gap:.5rem; width:100%;
-    box-sizing:border-box; overflow:hidden;
+    box-sizing:border-box; overflow:visible;
   }
-
   .footer-spin{ display:flex; align-items:center; justify-content:flex-start; }
   .spin-btn{ display:inline-flex; align-items:center; justify-content:center; width:10vw; max-width:16rem; min-width:40px; aspect-ratio:1/1; background:transparent; border:0; padding:0; cursor:pointer; }
   .spin-btn img{ width:70%; height:70%; display:block; }
-
-  .footer-left{
-    display:grid; grid-template-columns: repeat(3, 1fr);
-    gap:.25rem; align-items:center; justify-items:start; min-width:0;
-  }
+  .footer-left{ display:grid; grid-template-columns: repeat(3, 1fr); gap:.25rem; align-items:center; justify-items:start; min-width:0; }
   .footer-block{ min-width:0; }
-  .footer-title{ color:var(--color-subtle); font-family:var(--font-sans); font-size:.9rem; text-transform:none; }
+  .footer-title{ color:var(--color-subtle); font-family:var(--font-sans); font-size:.9rem; }
   .footer-value{ font-weight:700; font-family:var(--font-folio); white-space:nowrap; }
-  /* Use main font for date + coordinates per request */
   .footer-value.footer-mainfont{ font-family:var(--font-serif); }
-
   .footer-right{ display:flex; align-items:center; justify-content:flex-end; gap:.75rem; white-space:nowrap; min-width:0; }
   .footer-books{ width:min(6vw, 90px); height:auto; display:block; }
 
-  @media (max-width:900px){
-    .footer-inner{ grid-template-columns:1fr; gap:1rem; }
-    .spin-btn{ width:min(20vw, 120px); }
-    .footer-right{ justify-content:flex-start; }
+  /* ---------- MOBILE-ONLY OVERRIDES (desktop untouched) ---------- */
+  @media (max-width:1023px){
+    .desktop-only{ display:none !important; }
+    .mobile-only{ display:block !important; }
+
+    /* mobile header + menu */
+    .mobile-bar{
+      display:flex; align-items:center; justify-content:space-between; gap:.5rem; width:100%;
+      height:var(--header-height, 96px); background:var(--nav-bg, #000); color:#fff; padding:0 1.25rem;
+      position:sticky; top:0; z-index:1000; box-sizing:border-box;
+    }
+    .mobile-logo img{height:32px; width:auto; display:block}
+    .mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:0;cursor:pointer;position:relative;z-index:1001}
+    .mobile-menu-toggle .line{position:absolute;left:6px;right:6px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .25s}
+    .mobile-menu-toggle .line:nth-child(1){top:12px}.mobile-menu-toggle .line:nth-child(2){top:20px}.mobile-menu-toggle .line:nth-child(3){top:28px}
+    .mobile-menu-toggle.active .line:nth-child(1){transform:translateY(8px) rotate(45deg)}
+    .mobile-menu-toggle.active .line:nth-child(2){opacity:0}
+    .mobile-menu-toggle.active .line:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+    .mobile-menu{
+      position:fixed; inset:var(--header-height,96px) 0 0 0;
+      display:none; flex-direction:column; gap:.25rem; padding:.75rem 1rem 1rem;
+      background-color: rgba(25,25,30,.6); backdrop-filter: blur(4px);
+      z-index:1000;
+    }
+    .mobile-menu.open{ display:flex }
+    .mobile-menu a.nav-item{
+      padding:.85rem .7rem; text-align:center; text-transform:uppercase; letter-spacing:.03em; font-family:var(--font-sans);
+      color:#fff; text-shadow:0 0 6px rgba(255,255,255,.30);
+    }
+
+    /* folio: hide 3-col grid; show centered two items; remove date */
+    .folio-inner{ display:none !important; }
+    .folio-mobile{
+      display:flex !important; align-items:center; justify-content:center; gap:.6rem;
+      width:100%; padding:0 .9rem;
+      font-family:var(--font-folio, var(--font-serif));
+    }
+    .folio-dot{ opacity:.45; }
+
+    /* footer never clipped on small screens */
+    .site-footer-main{ padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+    .footer-inner{
+      grid-template-columns: auto 1fr auto;  /* spin | stacked blocks | books */
+      align-items:center; gap:.75rem; max-width:95vw;
+    }
+    .footer-left{ grid-template-columns: 1fr; gap:.35rem; justify-items:start; }
+    .spin-btn{ width:60px; min-width:44px; }
+    .footer-books{ width:70px; }
   }
+
+/* ===== DESKTOP-FIRST VISIBILITY FIX (put at very end of <style>) ===== */
+
+/* Defaults = desktop */
+.desktop-only{ display:block; }
+.mobile-only{ display:none; }
+.folio-inner{ display:grid; }     /* desktop 3-col folio with date */
+.folio-mobile{ display:none; }    /* mobile-only centered row */
+
+/* Force desktop behavior on wide viewports */
+@media (min-width:1024px){
+  .desktop-only{ display:block !important; }
+  .mobile-only{ display:none !important; }
+  .folio-inner{ display:grid !important; }
+  .folio-mobile{ display:none !important; }
+}
+
+/* Mobile overrides */
+@media (max-width:1023px){
+  .desktop-only{ display:none !important; }
+  .mobile-only{ display:block !important; }
+
+  /* Folio: use centered two items on mobile, hide date row */
+  .folio-inner{ display:none !important; }
+  .folio-mobile{
+    display:flex !important;
+    align-items:center; justify-content:center; gap:.6rem;
+    width:100%; padding:0 .9rem;
+    font-family:var(--font-folio, var(--font-serif));
+  }
+}
+
 </style>
 
 <script>
-/* ===== Move footer to page bottom ===== */
+/* Move footer to body end (keeps it after content, not fixed) */
 (function(){
   const f = document.getElementById('global-footer');
   if (f && f.parentElement !== document.body) document.body.appendChild(f);
 })();
 
-/* ===== Folio date ===== */
+/* Folio date (desktop only; mobile uses two-item row) */
 (function(){
   const el = document.getElementById('folio-date');
   if (!el) return;
@@ -238,44 +284,40 @@
   el.textContent = `${wd}, ${m} ${d}, ${y}`;
 })();
 
-/* ===== Footer clock (kept) ===== */
+/* Footer clock with seconds (web + mobile) + Berkeley Time toggle */
 (function(){
   const clockEl = document.getElementById('berkeley-time');
   const titleEl = document.getElementById('time-title');
-  const yearEl  = document.getElementById('year');
-  if (yearEl) yearEl.textContent = new Date().getFullYear();
-
   const tz = 'America/Los_Angeles';
-  const nowLA = () => new Date(new Date().toLocaleString('en-US',{ timeZone: tz }));
 
   const fmt = (d) => {
     const m = d.toLocaleString('en-US', { month: 'short', timeZone: tz });
     const day = String(d.getDate()).padStart(2,'0');
-    const t = d.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: tz });
+    const t = d.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true, timeZone: tz });
     return `${m} ${day} · ${t}`;
   };
 
   let plus10 = false;
-  (function tick(){
-    const base = nowLA();
-    const display = plus10 ? new Date(base.getTime() + 10*60000) : base;
-    if (clockEl) clockEl.textContent = fmt(display);
-    requestAnimationFrame(tick);
-  })();
+  function tick(){
+    const base = new Date(new Date().toLocaleString('en-US',{ timeZone: tz }));
+    const show = plus10 ? new Date(base.getTime()+10*60000) : base;
+    if (clockEl) clockEl.textContent = fmt(show);
+  }
+  setInterval(tick, 250); tick();
 
   const block = document.getElementById('block-time');
   const prefersTouch = matchMedia('(hover: none)').matches;
-  function start(){ plus10 = true; titleEl && (titleEl.textContent = 'BERKELEY TIME'); }
-  function end(){ plus10 = false; titleEl && (titleEl.textContent = 'Berkeley, CA'); }
+  function start(){ plus10 = true; titleEl && (titleEl.textContent='BERKELEY TIME'); }
+  function end(){ plus10 = false; titleEl && (titleEl.textContent='Berkeley, CA'); }
   if (!prefersTouch){
     block?.addEventListener('mouseenter', start);
     block?.addEventListener('mouseleave', end);
   } else {
-    block?.addEventListener('click', ()=>{ plus10 = !plus10; titleEl.textContent = plus10 ? 'BERKELEY TIME' : 'Berkeley, CA'; });
+    block?.addEventListener('click', ()=>{ plus10=!plus10; titleEl.textContent = plus10 ? 'BERKELEY TIME' : 'Berkeley, CA'; });
   }
 })();
 
-/* ===== Desktop nav GIFs: replay every hover; smaller overlay ===== */
+/* Desktop nav GIFs (original size; do not change desktop layout) */
 (function(){
   if (!matchMedia('(min-width:1024px)').matches) return;
   if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
@@ -289,35 +331,20 @@
     if (!gifSrc) return;
 
     a.addEventListener('mouseenter', ()=>{
-      // Remove any existing overlay
-      const old = a.querySelector('img.nav-gif');
-      if (old) old.remove();
-
-      // Create a fresh <img> so the GIF always restarts
+      const old = a.querySelector('img.nav-gif'); if (old) old.remove();
       const img = new Image();
-      img.className = 'nav-gif';
-      img.alt = '';
-      img.decoding = 'async';
+      img.className = 'nav-gif'; img.alt = ''; img.decoding = 'async';
       img.src = gifSrc + '?t=' + Date.now();
       a.appendChild(img);
-
-      // Auto-fade after ~1.2s
-      setTimeout(()=>{
-        if (!img.isConnected) return;
-        img.classList.add('fadeout');
-        setTimeout(()=> img.remove(), 160);
-      }, 1200);
+      setTimeout(()=>{ if (!img.isConnected) return; img.classList.add('fadeout'); setTimeout(()=> img.remove(), 160); }, 1200);
     });
-
-    // Clean up on quick mouseout
     a.addEventListener('mouseleave', ()=>{
-      const old = a.querySelector('img.nav-gif');
-      if (old){ old.classList.add('fadeout'); setTimeout(()=> old.remove(), 160); }
+      const old = a.querySelector('img.nav-gif'); if (old){ old.classList.add('fadeout'); setTimeout(()=> old.remove(), 160); }
     });
   });
 })();
 
-/* ===== Mobile dropdown (unchanged) ===== */
+/* Mobile menu toggle (fixed: z-index & default display none) */
 (function(){
   if (!matchMedia('(max-width:1023px)').matches) return;
   const btn  = document.getElementById('mobile-menu-toggle');
@@ -328,16 +355,10 @@
     const open = menu.classList.toggle('open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     btn.classList.toggle('active', open);
-    if (open){
-      menu.querySelectorAll('a').forEach((a,i)=>{
-        a.style.animationDelay = `${i*60}ms`;
-        a.classList.remove('plopped'); void a.offsetWidth; a.classList.add('plopped');
-      });
-    }
   });
 })();
 
-/* ===== Spin site + play spiral GIF once ===== */
+/* Spin site + play spiral GIF once (robust reset) */
 (function(){
   const trigger = document.getElementById('spin-trigger');
   const img = document.getElementById('spin-gif');
@@ -345,24 +366,17 @@
 
   function spinOnce(){
     const root = document.documentElement;
-    if (root.classList.contains('spin-once-anim')) return;
+    root.classList.remove('spin-once-anim'); void root.offsetWidth;
     root.classList.add('spin-once-anim');
-    function end(){ root.classList.remove('spin-once-anim'); root.removeEventListener('animationend', end); }
-    root.addEventListener('animationend', end, { once: true });
+    root.addEventListener('animationend', ()=>{ root.classList.remove('spin-once-anim'); }, { once:true });
   }
-
   function playGifOnce(){
     const still = img.getAttribute('data-still') || img.src;
     const anim  = img.getAttribute('data-anim')  || img.src;
     const durMs = parseInt(img.getAttribute('data-duration') || '1200', 10);
-    img.src = `${anim}?t=${Date.now()}`; // restart
+    img.src = `${anim}?t=${Date.now()}`;
     setTimeout(()=>{ img.src = still; }, durMs);
   }
-
-  trigger.addEventListener('click', (e)=>{
-    e.preventDefault();
-    playGifOnce();
-    spinOnce();
-  });
+  trigger.addEventListener('click', (e)=>{ e.preventDefault(); playGifOnce(); spinOnce(); });
 })();
 </script>
