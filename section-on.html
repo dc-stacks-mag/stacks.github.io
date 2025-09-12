@@ -41,7 +41,7 @@
 
     .section-header h1 {
         font-family: var(--font-sans);
-        font-size: 2.5rem;
+        font-size: 2.75rem;
         margin: 0 0 0.5rem;
     }
     
@@ -51,7 +51,7 @@
     }
 
     img {
-        max-width: 100%;
+        max-width: 80%;
         height: auto;
         display: block;
     }
@@ -66,11 +66,12 @@
     .article-card {
       display: flex;
       flex-direction: row;
-      gap: 1rem;
+      gap: calc(1rem + 2px); /* MODIFIED: Increased gap */
       border-bottom: 1px solid var(--color-border);
       padding-bottom: 2rem;
       text-decoration: none;
       color: inherit;
+      align-items: flex-start; /* ADDED: Aligns text and image to the top */
     }
 
     .article-card:last-child {
@@ -81,7 +82,7 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      justify-content: center;
+      /* REMOVED: justify-content: center; */
     }
     
     .article-card-image {
@@ -98,7 +99,7 @@
     }
     
     .article-card-category {
-        font-size: 0.8rem;
+        font-size: 1rem;
         color: var(--color-subtle);
         text-transform: uppercase;
         font-family: var(--font-sans);
@@ -107,16 +108,26 @@
 
     .article-card-title {
       font-family: var(--font-sans);
+      font-size: 2rem;
+      font-weight: bold;
+      margin: 0 0 0.5rem;
+      line-height: 1.2;
+    }
+
+    .article-card-sub-title {
+      font-family: var(--font-sans);
       font-size: 1.75rem;
       font-weight: bold;
       margin: 0 0 0.5rem;
       line-height: 1.2;
     }
 
+
     .article-card-excerpt {
       font-family: var(--font-serif);
       color: var(--color-text);
       margin: 0;
+      font-size: 1.25rem;
     }
 
     /* Responsive adjustments */
@@ -131,7 +142,6 @@
   </style>
 </head>
 <body>
-  <!-- Shared nav + footer -->
   <div data-include="nav-footer.html"></div>
 
   <div id="main-content" class="visible">
@@ -142,44 +152,39 @@
       </header>
 
       <div class="article-list">
-        <!-- Article Card 1 -->
-        <a href="article.html" class="article-card">
+        <a href="a-agentic-ai-summit.html" class="article-card">
           <div class="article-card-text">
-            <p class="article-card-category">Film & Television</p>
-            <h3 class="article-card-title">A mix of both highs and lows in “Highest 2 Lowest”</h3>
-            <p class="article-card-excerpt">An interesting theme begins to peek through. Can King accept being, for the first time in his recent memory, not on top, but below?</p>
+            <h3 class="article-card-title">Agents of abundance and the apocalypse</h3>
+            <p class="article-card-excerpt">Over the past couple of years, artificial intelligence, or AI, advocates have dreamt of an abundant future. Recently, a counter narrative has been gaining momentum.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://placehold.co/400x300/CCCCCC/FFFFFF?text=Article+Image" alt="Placeholder">
+            <img src="https://files.catbox.moe/vi3clj.jpg" alt="Placeholder">
           </div>
         </a>
-        <!-- Article Card 2 -->
         <a href="article.html" class="article-card">
           <div class="article-card-text">
-            <p class="article-card-category">Album Reviews</p>
-            <h3 class="article-card-title">Amaarae’s ‘Black Star’ intoxicates with ecstasy, eroticism and eternal dancing</h3>
-            <p class="article-card-excerpt">Black Star is a declaration of Amaarae as a star, a Black star, and she's here to have a good time.</p>
+            <h3 class="article-card-title">Nerd Rants</h3>
+            <h3 class="article-card-sub-title">Why your rent is $2000</h3>
+            <p class="article-card-excerpt">In a letter sent to the Berkeley City Council ahead of its June 26th zoning meeting, a homeowner concerned about the city’s new Middle Housing Ordinance expressed a familiar fear: they wrote that the new change wouldn’t help “ordinary working people” and that “solar panels will be shadowed.”</p>
           </div>
           <div class="article-card-image">
             <img src="https://placehold.co/400x300/DDDDDD/FFFFFF?text=Article+Image" alt="Placeholder">
           </div>
         </a>
-        <!-- Article Card 3 -->
         <a href="article.html" class="article-card">
           <div class="article-card-text">
-            <p class="article-card-category">Film & Television</p>
-            <h3 class="article-card-title">Creating “Severance”: An interview with casting director Rachel Tenner</h3>
-            <p class="article-card-excerpt">“This is a group of highly skilled actors, so I think we instinctively knew that they would be able to navigate both worlds of it,” said casting director Rachel Tenner.</p>
+            <h3 class="article-card-title">Sex, Huey Newton and the National Guard</h3>
+            <h3 class="article-card-sub-title">My time with the Berkeley Barb</h3>
+            <p class="article-card-excerpt">It was through a reunion and conversations with former Berkeley Barb members that I began to understand how the city came to be constructed and captured, in part by the Barb, as a “cartoonishly leftist” place.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://placehold.co/400x300/EEEEEE/FFFFFF?text=Article+Image" alt="Placeholder">
+            <img src="https://files.catbox.moe/5fv5r9.jpg" alt="A portrait of Clara Brownstein">
           </div>
         </a>
       </div>
     </main>
   </div>
 
-  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
   <script>
   (async function includePartials(){
     const nodes = document.querySelectorAll('[data-include]');
@@ -199,4 +204,3 @@
   </script>
 </body>
 </html>
-

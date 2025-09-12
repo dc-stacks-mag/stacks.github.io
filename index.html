@@ -16,7 +16,7 @@
 
     /* Layout frame for index content */
     .site-main{padding:1.5rem;max-width:1200px;margin:0 auto}
-    .issue-block{padding:2rem 0;border-bottom:1px solid var(--color-border)}
+    .issue-block{padding:2rem 0;}
     .issue-block:last-of-type{border-bottom:none}
 
     /* Two-column hero: cover | toc */
@@ -32,18 +32,22 @@
     .issue-toc{font-size:1rem; display:flex; flex-direction:column}
     .issue-toc h3{margin:0 0 .75rem}
     .issue-toc ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.5rem; }
-    .issue-toc li{ padding:.25rem 0; border-bottom:1px solid var(--color-border); }
+    .issue-toc li{ padding:.25rem 0; }
     .issue-toc li:last-child{ border-bottom:none; }
     .toc-category{ display:block; font-size:.8rem; color:var(--color-subtle); margin-bottom:.15rem; }
-    .toc-title{ display:block; font-weight:700; font-family:var(--font-sans); padding:.15rem .25rem .15rem 0; }
+    .toc-title{ display:block; font-weight:700; font-family:var(--font-sans); padding:.15rem .25rem .15rem 0; border-bottom:1px solid var(--color-border)}
     .toc-title + .toc-title{ border-top:none; margin-top:.1rem; } /* no lines between titles in same group */
     .issue-toc a.toc-title:hover{ font-style:italic; }
+        /* Add this new rule to remove the border from the very last title */
+.issue-toc li:last-child .toc-title:last-child {
+  border-bottom: none;
+}
 
     /* “about stacks” box: centered and wider */
     .mission-statement{ margin-top:1.5rem; }
     @media (min-width:1024px){
       .mission-statement{
-        max-width:75ch; margin:1.5rem auto 0; padding-top:1rem; text-align:center;
+        max-width:85%; margin:1.5rem auto 0; padding-top:1rem; text-align:center; font-size: 1.5rem;
       }
     }
     .mission-statement h3{ margin:0 0 .5rem; text-transform:lowercase; }
@@ -87,34 +91,25 @@
             <ul>
               <li class="toc-group">
                 <span class="toc-category">On Background</span>
-                <a class="toc-title" href="article.html">First Story Placeholder</a>
-                <a class="toc-title" href="article.html">Second Story Placeholder</a>
+                <a class="toc-title" href="article.html">Agents of abundance and the apocalypse</a>
+                <a class="toc-title" href="article.html">Nerd Rants</a>
+                <a class="toc-title" href="article.html">Sex, Huey Newton and the National Guard</a>
               </li>
 
               <li class="toc-group">
                 <span class="toc-category">Off the Record</span>
-                <a class="toc-title" href="article.html">Title Placeholder</a>
-              </li>
-
-              <li class="toc-group">
-                <span class="toc-category">Commentary</span>
-                <a class="toc-title" href="article.html">Title Placeholder</a>
-                <a class="toc-title" href="article.html">Another Commentary</a>
+                <a class="toc-title" href="article.html">World of mouth</a>
+                <a class="toc-title" href="article.html">I used ChatGPT to resurrect my dead dad</a>
               </li>
 
               <li class="toc-group">
                 <span class="toc-category">Notes</span>
-                <a class="toc-title" href="article.html">Title Placeholder</a>
-              </li>
-
-              <li class="toc-group">
-                <span class="toc-category">Photo Essay</span>
-                <a class="toc-title" href="article.html">Title Placeholder</a>
+                <a class="toc-title" href="article.html">The Berkeley Women’s Music Collective never really ended</a>
               </li>
 
               <li class="toc-group">
                 <span class="toc-category">From the Stacks</span>
-                <a class="toc-title" href="article.html">Title Placeholder</a>
+                <a class="toc-title" href="article.html">From the Stacks, Issue I</a>
               </li>
             </ul>
           </div>
@@ -122,10 +117,10 @@
 
         <!-- “about stacks” (renamed & centered; wider) -->
         <div class="mission-statement">
-          <h3>about stacks</h3>
-          <p>We’re building an index that prizes primary documents and everyday testimony. The stacks are shelves and also layers — history, policy, memory — and we’re trying to read across them.</p>
+          <h2>About</h2>
+          <p><i>Stacks</i> is the Daily Cal’s official magazine. It’s home to longform journalism, commentaries, creative writing and more. In short, <i>Stacks</i> is your guide to Berkeley as it is, as we think it is and as we want it to be.</p>
         </div>
-      </section>
+
     </main>
   </div>
 
