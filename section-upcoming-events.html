@@ -82,7 +82,6 @@
       flex: 1;
       display: flex;
       flex-direction: column;
-      /* REMOVED: justify-content: center; */
     }
     
     .article-card-image {
@@ -118,7 +117,7 @@
       font-family: var(--font-sans);
       font-size: 1.75rem;
       font-weight: bold;
-      margin: 0 0 0.5rem;
+      margin: 0 0 1rem;
       line-height: 1.2;
     }
 
@@ -128,6 +127,49 @@
       color: var(--color-text);
       margin: 0;
       font-size: 1.25rem;
+    }
+
+    /* ADDED: Styles for Events List */
+    .events-container {
+        padding-top: 1.5rem;
+    }
+
+    .events-container .intro-text {
+        text-align: center;
+        color: var(--color-subtle);
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .events-list {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2.5rem 0;
+    }
+
+    .events-list li {
+        font-size: 1.2rem;
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid #e0e0e0;
+        line-height: 1.7;
+    }
+
+    .events-list li:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+    .events-container a {
+        font-weight: bold;
+        text-decoration: none;
+        color: var(--color-border);
+        transition: color 0.2s ease-in-out;
+    }
+
+    .events-container a:hover {
+        color: var(--color-text);
+        text-decoration: underline;
     }
 
     /* Responsive adjustments */
@@ -149,7 +191,45 @@
       <header class="section-header">
         <h1>Upcoming Events</h1>
       </header>
-    </main>
+      
+      <div class="events-container">
+        <p class="intro-text">This list will be updated continuously. Email <a href="mailto:stacksmag@dailycal.org">stacksmag@dailycal.org</a> with events to add to our calendar!</p>
+
+        <h2 class="article-card-sub-title">September</h2>
+        <ul class="events-list">
+            <li><a href="https://events.berkeley.edu/ah/event/302579-uc-berkeley-symphony-orchestra" target="_blank" rel="noopener noreferrer">September 16</a> — UC Berkeley Symphony Orchestra concert, Hertz Hall, 8 p.m.</li>
+            <li><a href="https://www.downtownberkeley.com/events/" target="_blank" rel="noopener noreferrer">September 15-19</a> — Berkeley Busker “Sidewalk Sessions,” Downtown Berkeley, 4:30 - 7:30 p.m.</li>
+            <li><a href="https://roxie.com/film/in-the-mood-for-love/" target="_blank" rel="noopener noreferrer">September 17</a> — <em>In the Mood for Love</em> 25th Anniversary screening, Roxie Theater, San Francisco, 9 p.m.</li>
+            <li><a href="https://ra.co/events/2242359" target="_blank" rel="noopener noreferrer">September 18</a> — Program Audio Label Release Party, San Francisco, Secret Location, 21+, 8 p.m.</li>
+            <li><a href="https://portolamusicfestival.com/general-info/" target="_blank" rel="noopener noreferrer">September 20-21</a> — Portola Music Festival, Pier 80, San Francisco. 21+</li>
+            <li><a href="https://www.eventbrite.com/e/april-magazine-mo-dotti-demora-tickets-1557266358599" target="_blank" rel="noopener noreferrer">September 22</a> — April Magazine, Mo Dotti and Demora, 4 Star Theater, San Francisco, 7 p.m.</li>
+        </ul>
+
+        <h2 class="article-card-sub-title">October</h2>
+        <ul class="events-list">
+            <li><a href="https://calperformances.org/events/2025-26/dance/paris-opera-ballet-red-carpet-a-north-american-premiere-by-hofesh-shechter/" target="_blank" rel="noopener noreferrer">October 2-4</a> — Paris Opera Ballet @ Zellerbach Hall</li>
+            <li><a href="https://www.oaklandfirstfridays.org/" target="_blank" rel="noopener noreferrer">October 3</a> — First Friday, Downtown Oakland, 5-9:30 p.m.</li>
+            <li><a href="https://www.eventbrite.com/e/carabiner-comedy-tickets-1422727910479?aff=ebdssbdestsearch&fbclid=PAZXh0bgNhZW0CMTEAAadx0dcjrky7bb1Udy2Q4Rot-tmKQLb4vXJQx_Z_9ZaFKQ83TTh1MK6uS26VFw_aem_eBeDNYC1Rrt6NQZUzXV-4Q" target="_blank" rel="noopener noreferrer">October 6</a> — Carabiner Comedy, Friends & Family Bar, 8 p.m.</li>
+            <li><a href="https://berkeleybirdfestival.org/about-us/" target="_blank" rel="noopener noreferrer">October 18</a> — Berkeley Bird Festival</li>
+            <li><a href="https://apeconcerts.com/events/water-from-your-eyes-251029/" target="_blank" rel="noopener noreferrer">October 29</a> — Water From Your Eyes and Dutch Interior @ The Independent, San Francisco, 8 p.m.</li>
+            <li><a href="https://bampfa.org/event/apocalypse-now-final-cut" target="_blank" rel="noopener noreferrer">October 31</a> — <em>Apocalypse Now</em> final cut @ BAMPFA, 6:30 p.m.</li>
+            <li><a href="https://theuctheatre.org/events/rocky-horror-picture-show-4/detail" target="_blank" rel="noopener noreferrer">October 31</a> — <em>Rocky Horror Picture Show</em> @ The UC Theater, 8 p.m.</li>
+        </ul>
+
+        <h2 class="article-card-sub-title">Weekly events around town</h2>
+        <ul class="events-list">
+            <li><a href="https://www.elismilehighclub.com/?fbclid=PAZXh0bgNhZW0CMTEAAaduA1CubBZ9gFRfV1GeTwNMDoaknSEcCEI70ptyinnlnZzZ04NKnLW82t7fkg_aem_ZDCRPv_0J7IkdCHWKAtWCA" target="_blank" rel="noopener noreferrer">Monday</a> — Blues night @ Eli’s</li>
+            <li><a href="https://thestarryplough.com/calendar/" target="_blank" rel="noopener noreferrer">Monday</a> — Irish Céili dancing @ The Starry Plough, 7:30 p.m.</li>
+            <li><a href="https://thestarryplough.com/calendar/" target="_blank" rel="noopener noreferrer">Tuesday</a> — Open mic night @ The Starry Plough, 7:30 p.m.</li>
+            <li><a href="https://www.waystationberkeley.com/wednesday-night-trivia/" target="_blank" rel="noopener noreferrer">Wednesday</a> — Trivia night @ Waystation Brew 7 p.m.</li>
+            <li><a href="https://bobbygspizzeria.com/trivia" target="_blank" rel="noopener noreferrer">Wednesday</a> — Trivia night @ Bobby G’s Pizzeria, every other Wednesday, 7 p.m.</li>
+            <li><a href="https://www.oaklandfirstfridays.org/" target="_blank" rel="noopener noreferrer">Friday</a> — First Fridays in Oakland, first Friday of each month, 5 - 9:30 p.m.</li>
+            <li><a href="https://www.visitoakland.com/event/grand-lake-farmers-market/28965/" target="_blank" rel="noopener noreferrer">Saturday</a> — Grand Lake farmer’s market, Oakland, 9 a.m - 2 p.m.</li>
+            <li><a href="https://thestarryplough.com/event/berkeley-balkan-bacchanal-14/the-starry-plough-pub/california/" target="_blank" rel="noopener noreferrer">Saturday</a> — Berkeley Balkan Bacchanal @ The Starry Plough, every third Saturday, 8 p.m.</li>
+            <li><a href="https://www.instagram.com/p/DOcsndnEfcl/?img_index=5" target="_blank" rel="noopener noreferrer">Sunday</a> — Karaoke @ Eli’s Mile High Club, 2nd and 4th Sundays, 8 p.m.</li>
+        </ul>
+      </div>
+      </main>
   </div>
 
   <script>
