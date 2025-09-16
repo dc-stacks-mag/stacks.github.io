@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Cal Archives: Oski sued, Main Stacks moves underground — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="stacks-logo-favicon.png">
+  <style>
+    /* Custom styles for this article */
+    .archive-item {
+      margin: 3rem auto;
+      max-width: min(800px, 92vw);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .archive-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .archive-date {
+      font-family: var(--font-serif);
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    
+    .archive-image {
+      width: 100%;
+      border: 1px solid #000;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+    
+    .archive-image:hover {
+      transform: scale(1.01);
+    }
+    
+    .archive-caption {
+      font-family: var(--font-serif);
+      font-size: 0.9rem;
+      color: #666;
+      margin-top: 0.5rem;
+      text-align: center;
+      font-style: italic;
+      line-height: 1.5;
+    }
+    
+    /* Desktop specific styles */
+    @media (min-width: 1024px) {
+      .archive-image {
+        width: 85%;
+      }
+    }
+    
+    /* Mobile specific styles */
+    @media (max-width: 1023px) {
+      .archive-item {
+        margin: 3.5rem auto;
+      }
+      
+      .archive-date {
+        font-size: 1rem;
+      }
+      
+      .archive-caption {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+    
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.92);
+      z-index: 1000;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    
+    .lightbox-content {
+      max-width: 90%;
+      max-height: 90%;
+      position: relative;
+      text-align: center;
+    }
+    
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 80vh;
+      border: 2px solid #fff;
+      box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+    }
+    
+    .lightbox-date {
+      color: #fff;
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      margin-top: 15px;
+      text-align: center;
+    }
+    
+    .lightbox-caption {
+      color: #fff;
+      text-align: center;
+      margin-top: 10px;
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.5;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    
+    /* Zoom effect for lightbox image */
+    .lightbox-img.zoomed {
+      transform: scale(1.5);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Loading animation for archive items */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-kicker">From the Stacks</div>
+
+          <!-- Headline -->
+          <h1 class="article-headline">Daily Cal Archives: Oski sued, Main Stacks moves underground</h1>
+
+          <!-- Byline -->
+          <p class="article-byline">
+            By <strong>Elise Fisher</strong> &middot; <time datetime="2025-09-12">Sep 12, 2025</time>
+          </p>
+
+          <!-- Blurb/Dek -->
+          <p class="article-dek">Metaphorically dig through archived issues of the Daily Cal to get a glimpse of life in Berkeley, from noteworthy headlines to everyday reporting that has been otherwise lost in the stacks.</p>
+        </header>
+
+        <section class="article-body">
+          <div class="archive-item" data-date="Sept. 25, 1923">
+            <div class="archive-date">Sept. 25, 1923</div>
+            <figure>
+              <img src="https://files.catbox.moe/p4agja.jpg" alt="Daily Cal front page from 1923" class="archive-image" data-caption="There was little discernment made by the Daily Cal’s front pages at this point to distinguish between unimportant and essential headlines. Here, in the more than 20 that made the front page, applications for seats at the Big Game got more space than a recent fire." />
+              <figcaption class="archive-caption">There was little discernment made by the Daily Cal’s front pages at this point to distinguish between unimportant and essential headlines. Here, in the more than 20 that made the front page, applications for seats at the Big Game got more space than a recent fire.</figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Sept. 25, 1956">
+            <div class="archive-date">Sept. 25, 1956</div>
+            <figure>
+              <img src="https://files.catbox.moe/mr80ix.jpg" alt="Daily Cal front page from 1956" class="archive-image" data-caption="If you think Oski is frightening, imagine being 12 years old and trampled as you ran to this ’50s version of Cal’s mascot to get ice cream from him. This event prompted a lawsuit against Oski and the ASUC, as reported by this issue." />
+              <figcaption class="archive-caption">If you think Oski is frightening, imagine being 12 years old and trampled as you ran to this ’50s version of Cal’s mascot to get ice cream from him. This event prompted a lawsuit against Oski and the ASUC, as reported by this issue.</figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Sept. 21, 1965">
+            <div class="archive-date">Sept. 21, 1965</div>
+            <figure>
+              <img src="https://files.catbox.moe/vt0xad.jpg" alt="Daily Cal front page from 1965" class="archive-image" data-caption="One protest that made this front cover feels like it could happen today – a boycott of the ASUC’s bookstore to make it a co-op. The other is more indicative of the year: students against the training of Vietnam troops in Berkeley." />
+              <figcaption class="archive-caption">One protest that made this front cover feels like it could happen today – a boycott of the ASUC’s bookstore to make it a co-op. The other is more indicative of the year: students against the training of Vietnam troops in Berkeley.</figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Sept. 6, 1994">
+            <div class="archive-date">Sept. 6, 1994</div>
+            <figure>
+              <img src="https://files.catbox.moe/hcz2sz.jpg" alt="Daily Cal front page from 1994" class="archive-image" data-caption="In issues from the ’90s, there was much talk of the Internet and new classes on blogging. Yet, a revamped, old technology — and the namesake of our magazine — is the focus of this cover." />
+              <figcaption class="archive-caption">In issues from the ’90s, there was much talk of the Internet and new classes on blogging. Yet, a revamped, old technology — and the namesake of our magazine — is the focus of this cover.</figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Sept. 24, 1974">
+            <div class="archive-date">Sept. 24, 1974</div>
+            <figure>
+              <img src="https://files.catbox.moe/ke0ah1.jpg" alt="Daily Cal front page from 1974" class="archive-image" data-caption="During and after World War II and the Vietnam War, national news often made the front page, but it was paired with notable Berkeley events. We see an example of this in 1974, where news of former President Richard Nixon’s illness follows a report that the Police Review Commission subpoenaed records from Berkeley Police to investigate complaints against officers." />
+              <figcaption class="archive-caption">During and after World War II and the Vietnam War, national news often made the front page, but it was paired with notable Berkeley events. We see an example of this in 1974, where news of former President Richard Nixon’s illness follows a report that the Police Review Commission subpoenaed records from Berkeley Police to investigate complaints against officers.</figcaption>
+            </figure>
+          </div>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-img" id="lightbox-img">
+      <div class="lightbox-date" id="lightbox-date"></div>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  
+  // Lightbox functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxDate = document.getElementById('lightbox-date');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const archiveImages = document.querySelectorAll('.archive-image');
+    const archiveItems = document.querySelectorAll('.archive-item');
+    
+    // Open lightbox when image is clicked
+    archiveImages.forEach(img => {
+      img.addEventListener('click', function() {
+        lightboxImg.src = this.src;
+        lightboxDate.textContent = this.closest('.archive-item').getAttribute('data-date');
+        lightboxCaption.textContent = this.getAttribute('data-caption');
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      });
+    });
+    
+    // Close lightbox when close button is clicked
+    lightboxClose.addEventListener('click', function() {
+      lightbox.classList.remove('active');
+      lightboxImg.classList.remove('zoomed');
+      document.body.style.overflow = ''; // Re-enable scrolling
+    });
+    
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+        lightboxImg.classList.remove('zoomed');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Zoom image on double click in lightbox
+    lightboxImg.addEventListener('dblclick', function() {
+      this.classList.toggle('zoomed');
+    });
+    
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        lightbox.classList.remove('active');
+        lightboxImg.classList.remove('zoomed');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Scroll animation for archive items
+    function checkScroll() {
+      archiveItems.forEach(item => {
+        const position = item.getBoundingClientRect();
+        
+        // If element is in viewport
+        if(position.top < window.innerHeight - 100 && position.bottom >= 0) {
+          item.classList.add('visible');
+        }
+      });
+    }
+    
+    // Initial check
+    checkScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', checkScroll);
+  });
+  </script>
+</body>
+</html>
