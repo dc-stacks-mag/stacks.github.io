@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Article — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="stacks-logo-favicon.png">
+
+</head>
+<body>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-kicker">Headlines</div>
+
+          <!-- 1) Headline -->
+          <h1 class="article-headline">Who holds the cards?</h1>
+
+          <!-- 2) Byline (moved directly under headline) -->
+          <p class="article-byline">
+            By <strong>Romie Asplund</strong> &middot; <time datetime="2025-09-12">Sep 12, 2025</time>
+          </p>
+
+          <!-- 3) Blurb/Dek (now below the byline) -->
+          <p class="article-dek">[Excerpt] A short dek that frames the story in two lines at most.</p>
+
+          <!-- Feature image -->
+          <figure class="article-featured-image">
+            <img src="https://placehold.co/1400x840/eeeeee/111111?text=Feature+Image" alt="Feature art" />
+            <figcaption>Photo by Staff</figcaption>
+          </figure>
+        </header>
+
+        <section class="article-body">
+          <p>
+            Opening graf: set the stakes, the place, the rhythm. Keep sentences varied, keep the verbs working. Readers decide
+            in the first paragraph whether to stay.
+          </p>
+          <p>
+          </p>
+          <blockquote>
+            “Pull the line that hums and trims the rest,” an editor once said. Good advice for writing; better advice for living.
+          </blockquote>
+          <p>
+          </p>
+          <p>
+          </p>
+        </section>
+
+        <figure class="article-featured-image">
+          <img src="https://placehold.co/1400x840/eeeeee/111111?text=Feature+Image" alt="Feature art" />
+          <figcaption>Photo by Staff</figcaption>
+        </figure>
+      </article>
+    </main>
+  </div>
+
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
