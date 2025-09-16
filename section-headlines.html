@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Notes — Stacks Magazine</title>
+  <title>Headlines — Stacks Magazine</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     /* Basic Styles from original CSS */
@@ -114,20 +114,20 @@
       line-height: 1.2;
     }
 
+    /* CHANGED: sub-title size = excerpt size across desktop & mobile */
     .article-card-sub-title {
       font-family: var(--font-sans);
-      font-size: 1.75rem;
+      font-size: 1.25rem; /* now matches .article-card-excerpt */
       font-weight: bold;
       margin: 0 0 0.5rem;
       line-height: 1.2;
     }
 
-
     .article-card-excerpt {
       font-family: var(--font-serif);
       color: var(--color-text);
       margin: 0;
-      font-size: 1.25rem;
+      font-size: 1.25rem; /* reference size to match */
     }
 
     /* Responsive adjustments */
@@ -137,6 +137,19 @@
       }
       .article-card-image {
         flex-basis: auto;
+        width: 100%; /* ensure the container spans the card width */
+      }
+      /* CHANGED: mobile-only — image spans full article-card width */
+      .article-card-image img {
+        width: 100%;
+        height: auto;      /* prevent over-stretching on tall screens */
+        aspect-ratio: auto;/* don't force desktop ratio on mobile */
+        max-width: 100%;   /* ignore the global img max-width */
+        display: block;
+      }
+      /* Make global <img> rule not cap content images on mobile */
+      .site-main img {
+        max-width: 100%;
       }
     }
   </style>
@@ -147,18 +160,28 @@
   <div id="main-content" class="visible">
     <main class="site-main">
       <header class="section-header">
-        <h1>Notes</h1>
-        <p>Local arts and culture.</p>
+        <h1>Headlines</h1>
+        <p>Longform commentary and news analysis.</p>
       </header>
 
       <div class="article-list">
-        <a href="a-the-berkeley-womens.html" class="article-card">
+        <a href="a-agentic-ai-summit.html" class="article-card">
           <div class="article-card-text">
-            <h3 class="article-card-title">The Berkeley Women’s Music Collective never really ended </h3>
-            <p class="article-card-excerpt">The collective founded back in 1970s Berkeley is among the earliest of the Women’s Music genre and one of the earliest out lesbian bands.</p>
+            <h3 class="article-card-title">Agents of abundance and the apocalypse</h3>
+            <p class="article-card-excerpt">Over the past couple of years, artificial intelligence, or AI, advocates have dreamt of an abundant future. Recently, a counter narrative has been gaining momentum.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://files.catbox.moe/yqxdq2.jpg" alt="Safwat Omar">
+            <img src="https://files.catbox.moe/vi3clj.jpg" alt="Placeholder">
+          </div>
+        </a>
+        <a href="a-sex-huey-newton.html" class="article-card">
+          <div class="article-card-text">
+            <h3 class="article-card-title">Sex, Huey Newton and the National Guard</h3>
+            <h3 class="article-card-sub-title">My time with the Berkeley Barb</h3>
+            <p class="article-card-excerpt">It was through a reunion and conversations with former Berkeley Barb members that I began to understand how the city came to be constructed and captured, in part by the Barb, as a “cartoonishly leftist” place.</p>
+          </div>
+          <div class="article-card-image">
+            <img src="https://files.catbox.moe/5fv5r9.jpg" alt="A portrait of Clara Brownstein">
           </div>
         </a>
       </div>

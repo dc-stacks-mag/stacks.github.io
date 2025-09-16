@@ -1,10 +1,10 @@
 <!-- nav-footer.html -->
 
-<!-- ================= DESKTOP / WEB (unchanged from your original) ================ -->
+<!-- ================= DESKTOP / WEB ================ -->
 <header class="site-header desktop-only" role="banner" aria-label="Site navigation">
   <nav id="nav-scroll" class="nav-scroll" aria-label="Primary sections">
     <!-- Left items -->
-    <a href="section-on.html"  class="nav-item" data-gif="animations/on-background.gif">On Background</a>
+    <a href="section-headlines.html"  class="nav-item" data-gif="animations/on-background.gif">Headlines</a>
     <a href="section-off.html" class="nav-item" data-gif="animations/off-the-record.gif">Off the Record</a>
     <a href="section-notes.html" class="nav-item" data-gif="animations/notes.gif">Notes</a>
 
@@ -20,7 +20,7 @@
   </nav>
 </header>
 
-<!-- ================= MOBILE (separate markup; flat list) ================ -->
+<!-- ================= MOBILE ================ -->
 <div class="mobile-only" role="banner" aria-label="Mobile navigation">
   <div class="mobile-bar">
     <a class="mobile-logo" href="index.html" aria-label="Stacks">
@@ -32,7 +32,7 @@
   </div>
 
   <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile menu">
-    <a href="section-on.html"  class="nav-item">On Background</a>
+    <a href="section-headlines.html"  class="nav-item">Headlines</a>
     <a href="section-off.html" class="nav-item">Off the Record</a>
     <a href="section-notes.html" class="nav-item">Notes</a>
     <a href="section-upcoming-events.html" class="nav-item">Upcoming Events</a>
@@ -43,7 +43,7 @@
 
 <!-- ================= FOLIO ================= -->
 <div class="folio" role="contentinfo" aria-label="Folio">
-  <!-- Desktop/web folio (unchanged) -->
+  <!-- Desktop/web folio -->
   <div class="folio-inner">
     <div class="folio-left">
       <span id="folio-date" class="folio-item"></span>
@@ -58,7 +58,7 @@
     </div>
   </div>
 
-  <!-- Mobile-only folio row (centered two items) -->
+  <!-- Mobile-only folio row -->
   <div class="folio-mobile">
     <a class="folio-item" href="https://dailycal.org" target="_blank" rel="noopener">The Daily Californian</a>
     <span class="folio-dot" aria-hidden="true">●</span>
@@ -69,16 +69,9 @@
 <!-- ================= FOOTER ================= -->
 <footer class="site-footer-main" id="global-footer" role="contentinfo">
   <div class="footer-inner">
-    <!-- Left: spiral -->
+    <!-- Left: empty space to maintain symmetry -->
     <div class="footer-spin">
-      <button class="spin-btn" id="spin-trigger" type="button" aria-label="Spin Mode" title="Spin Mode">
-        <img id="spin-gif"
-             src="spiral-still-1.png"
-             data-still="spiral-still-1.png"
-             data-anim="spiral.gif"
-             data-duration="1200"
-             alt="Spiral" />
-      </button>
+      <!-- Empty space for symmetry -->
     </div>
 
     <!-- Middle: two blocks -->
@@ -101,7 +94,11 @@
   </div>
 </footer>
 
-<!-- ================= SCOPED STYLES ================= -->
+<!-- ================= FLOATING SPIN BUTTON ================= -->
+<button id="floating-spin-btn" class="floating-spin-btn" aria-label="Spin website">
+  <img id="spin-gif-btn" src="spiral-still-1.png" alt="Spin" data-still="spiral-still-1.png" data-anim="spiral.gif" />
+</button>
+
 <style>
   /* ---------- base toggles ---------- */
   .mobile-only{display:none}
@@ -126,7 +123,7 @@
   .folio-sep{ font-size:0; color:transparent; }
   .folio-sep::before{ content:"●"; font-size:.8rem; color:var(--color-text); opacity:1; }
 
-  /* ---------- header/nav (desktop/web; matches your original) ---------- */
+  /* ---------- header/nav (desktop/web) ---------- */
   .site-header{
     position:sticky; top:0; z-index:1000; height:var(--header-height, 96px);
     display:flex; align-items:center; background:var(--nav-bg, #000); color:#fff;
@@ -145,7 +142,7 @@
   .nav-logo{ display:flex; align-items:center; justify-content:center; padding:0 .75rem; }
   .nav-logo img{ width:280px; height:75px; object-fit:contain; display:block; }
 
-  /* Desktop GIF overlays (original size so they don’t disturb layout) */
+  /* Desktop GIF overlays */
   @media (hover:hover) and (pointer:fine){
     .nav-item .nav-gif {
       position: absolute;
@@ -153,43 +150,49 @@
       left: 50%;
       transform: translate(-50%, -50%);
       height: 95px;
-      width: auto; /* Default to auto width */
-      min-width: calc(100% + 40px); /* Force width to be at least 100% + 5px */
+      width: auto;
+      min-width: calc(100% + 30px);
       opacity: 1;
       pointer-events: none;
       mix-blend-mode: screen;
       filter: invert(1) brightness(1.35) contrast(1.1) saturate(0);
       transition: opacity .5s ease;
-      box-sizing: content-box; /* Ensure padding/border don't affect dimensions */
+      box-sizing: content-box;
     }
   }
 
-  /* ---------- footer (desktop/web unchanged) ---------- */
-/* Allow adjustable extra padding at the very bottom of the footer */
-:root{ --footer-extra-bottom: 0px; } /* default; change per-page if desired */
+  /* ---------- footer (desktop/web) ---------- */
+  :root{ --footer-extra-bottom: 0px; }
 
-.site-footer-main{
-  padding: 1rem 1.25rem calc(1rem + var(--footer-extra-bottom));
-  margin-top: 1.5rem;
-  border-top: 1px solid var(--color-border);
-  background: transparent;
-}
+  .site-footer-main{
+    padding: 1rem 1.25rem calc(1rem + var(--footer-extra-bottom));
+    margin-top: 1.5rem;
+    border-top: 1px solid var(--color-border);
+    background: transparent;
+  }
 
-.footer-inner {
-  max-width: 50vw; /* Decreased max-width to 70vw */
-  margin: 0 auto; 
-  display: grid; 
-  grid-template-columns: 15vw 45vw 15vw; 
-  align-items: center; 
-  gap: .5rem; 
-  width: 100%; 
-  box-sizing: border-box; 
-  overflow: visible;
-  justify-content: center; /* Center the grid items */
-}
-  .footer-spin{ display:flex; align-items:center; justify-content:flex-start; }
-  .spin-btn{ display:inline-flex; align-items:center; justify-content:center; width:10vw; max-width:16rem; min-width:40px; aspect-ratio:1/1; background:transparent; border:0; padding:0; cursor:pointer; }
-  .spin-btn img{ width:80%; height:80%; display:block; }
+  .footer-inner {
+    max-width: 50vw;
+    margin: 0 auto; 
+    display: grid; 
+    grid-template-columns: 15vw 45vw 15vw; 
+    align-items: center; 
+    gap: .5rem; 
+    width: 100%; 
+    box-sizing: border-box; 
+    overflow: visible;
+    justify-content: center;
+  }
+  .footer-spin{ 
+    display:flex; 
+    align-items:center; 
+    justify-content:flex-start; 
+    position: relative;
+    height: 100%;
+    width: 10vw;
+    max-width: 16rem;
+    min-width: 40px;
+  }
   .footer-left{ display:grid; grid-template-columns: repeat(3, 1fr); gap:.25rem; align-items:center; justify-items:start; min-width:0; }
   .footer-block{ min-width:0; }
   .footer-title{ color:var(--color-subtle); font-family:var(--font-sans); font-size:.9rem; }
@@ -198,7 +201,69 @@
   .footer-right{ display:flex; align-items:center; justify-content:flex-end; gap:.75rem; white-space:nowrap; min-width:0; }
   .footer-books{ width:min(6vw, 90px); height:auto; display:block; }
 
-  /* ---------- MOBILE-ONLY OVERRIDES (desktop untouched) ---------- */
+  /* Floating spin button */
+  .floating-spin-btn {
+    position: fixed;
+    z-index: 2147483647;
+    cursor: pointer;
+    border: none;
+    background: transparent;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+  }
+  
+  /* Desktop positioning */
+  @media (min-width: 769px) {
+    .floating-spin-btn {
+      left: max(24px, env(safe-area-inset-left));
+      bottom: max(24px, env(safe-area-inset-bottom));
+      width: 72px;
+      height: 72px;
+    }
+    .floating-spin-btn img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /* Mobile positioning */
+  @media (max-width: 768px) {
+    .floating-spin-btn {
+      left: max(16px, env(safe-area-inset-left));
+      bottom: max(16px, env(safe-area-inset-bottom));
+      width: 64px;
+      height: 64px;
+    }
+    .floating-spin-btn img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  /* Spin animation */
+  @keyframes stacks-spin-once{
+    from{ transform: rotate(0deg); }
+    to  { transform: rotate(360deg); }
+  }
+
+  html.spin-once{
+    animation: stacks-spin-once 900ms linear 1;
+    transform-origin: 50% 50%;
+  }
+
+  html.spin-once .floating-spin-btn{
+    transform: rotate(-360deg);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html.spin-once{ animation: none !important; }
+    html.spin-once .floating-spin-btn{ transform: none !important; }
+  }
+
+  /* ---------- MOBILE-ONLY OVERRIDES ---------- */
   @media (max-width:1023px){
     .desktop-only{ display:none !important; }
     .mobile-only{ display:block !important; }
@@ -229,7 +294,7 @@
       color:#fff; text-shadow:0 0 6px rgba(255,255,255,.30);
     }
 
-    /* folio: hide 3-col grid; show centered two items; remove date */
+    /* folio */
     .folio-inner{ display:none !important; }
     .folio-mobile{
       display:flex !important; align-items:center; justify-content:center; gap:.6rem;
@@ -238,58 +303,55 @@
     }
     .folio-dot{ opacity:.45; }
 
-    /* footer never clipped on small screens */
+    /* footer */
     .site-footer-main{ padding-bottom: max(18px, env(safe-area-inset-bottom)); }
     .footer-inner{
-      grid-template-columns: auto 1fr auto;  /* spin | stacked blocks | books */
+      grid-template-columns: auto 1fr auto;
       align-items:center; gap:.75rem; max-width:95vw;
     }
     .footer-left{ grid-template-columns: 1fr; gap:.35rem; justify-items:start; }
-    .spin-btn{ width:60px; min-width:44px; }
+    .footer-spin{ 
+      width: 60px;
+      min-width: 44px;
+      height: 60px;
+    }
     .footer-books{ width:70px; }
   }
 
-/* ===== DESKTOP-FIRST VISIBILITY FIX (put at very end of <style>) ===== */
+  /* ===== DESKTOP-FIRST VISIBILITY FIX ===== */
+  .desktop-only{ display:block; }
+  .mobile-only{ display:none; }
+  .folio-inner{ display:grid; }
+  .folio-mobile{ display:none; }
 
-/* Defaults = desktop */
-.desktop-only{ display:block; }
-.mobile-only{ display:none; }
-.folio-inner{ display:grid; }     /* desktop 3-col folio with date */
-.folio-mobile{ display:none; }    /* mobile-only centered row */
-
-/* Force desktop behavior on wide viewports */
-@media (min-width:1024px){
-  .desktop-only{ display:block !important; }
-  .mobile-only{ display:none !important; }
-  .folio-inner{ display:grid !important; }
-  .folio-mobile{ display:none !important; }
-}
-
-/* Mobile overrides */
-@media (max-width:1023px){
-  .desktop-only{ display:none !important; }
-  .mobile-only{ display:block !important; }
-
-  /* Folio: use centered two items on mobile, hide date row */
-  .folio-inner{ display:none !important; }
-  .folio-mobile{
-    display:flex !important;
-    align-items:center; justify-content:center; gap:.6rem;
-    width:100%; padding:0 .9rem;
-    font-family:var(--font-folio, var(--font-serif));
+  @media (min-width:1024px){
+    .desktop-only{ display:block !important; }
+    .mobile-only{ display:none !important; }
+    .folio-inner{ display:grid !important; }
+    .folio-mobile{ display:none !important; }
   }
-}
 
+  @media (max-width:1023px){
+    .desktop-only{ display:none !important; }
+    .mobile-only{ display:block !important; }
+    .folio-inner{ display:none !important; }
+    .folio-mobile{
+      display:flex !important;
+      align-items:center; justify-content:center; gap:.6rem;
+      width:100%; padding:0 .9rem;
+      font-family:var(--font-folio, var(--font-serif));
+    }
+  }
 </style>
 
 <script>
-/* Move footer to body end (keeps it after content, not fixed) */
+// Move footer to body end
 (function(){
   const f = document.getElementById('global-footer');
   if (f && f.parentElement !== document.body) document.body.appendChild(f);
 })();
 
-/* Folio date (desktop only; mobile uses two-item row) */
+// Folio date
 (function(){
   const el = document.getElementById('folio-date');
   if (!el) return;
@@ -301,7 +363,7 @@
   el.textContent = `${wd}, ${m} ${d}, ${y}`;
 })();
 
-/* Footer clock with seconds (web + mobile) + Berkeley Time toggle */
+// Footer clock with seconds + Berkeley Time toggle
 (function(){
   const clockEl = document.getElementById('berkeley-time');
   const titleEl = document.getElementById('time-title');
@@ -334,7 +396,7 @@
   }
 })();
 
-/* Desktop nav GIFs (original size; do not change desktop layout) */
+// Desktop nav GIFs
 (function(){
   if (!matchMedia('(min-width:1024px)').matches) return;
   if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
@@ -361,7 +423,7 @@
   });
 })();
 
-/* Mobile menu toggle (fixed: z-index & default display none) */
+// Mobile menu toggle
 (function(){
   if (!matchMedia('(max-width:1023px)').matches) return;
   const btn  = document.getElementById('mobile-menu-toggle');
@@ -375,25 +437,43 @@
   });
 })();
 
-/* Spin site + play spiral GIF once (robust reset) */
+// Spin functionality for floating button
 (function(){
-  const trigger = document.getElementById('spin-trigger');
-  const img = document.getElementById('spin-gif');
-  if (!trigger || !img) return;
+  const btn = document.getElementById('floating-spin-btn');
+  const img = document.getElementById('spin-gif-btn');
+  if(!btn || !img) return;
 
-  function spinOnce(){
+  // Keep a clean base URL so we can cache-bust to restart the GIF each click
+  const baseStillSrc = img.getAttribute('data-still');
+  const baseAnimSrc = img.getAttribute('data-anim');
+
+  function restartGif(){
+    // Show the animated GIF
+    const sep = baseAnimSrc.includes('?') ? '&' : '?';
+    img.src = baseAnimSrc + sep + 'r=' + Date.now();
+    
+    // After 1.2 seconds, revert to still image
+    setTimeout(() => {
+      img.src = baseStillSrc;
+    }, 1200);
+  }
+
+  function spinOnce() {
     const root = document.documentElement;
-    root.classList.remove('spin-once-anim'); void root.offsetWidth;
-    root.classList.add('spin-once-anim');
-    root.addEventListener('animationend', ()=>{ root.classList.remove('spin-once-anim'); }, { once:true });
+    root.classList.remove('spin-once');
+    // Force reflow
+    void root.offsetWidth;
+    root.classList.add('spin-once');
+    
+    // Clean up after animation
+    root.addEventListener('animationend', () => {
+      root.classList.remove('spin-once');
+    }, { once: true });
   }
-  function playGifOnce(){
-    const still = img.getAttribute('data-still') || img.src;
-    const anim  = img.getAttribute('data-anim')  || img.src;
-    const durMs = parseInt(img.getAttribute('data-duration') || '1200', 10);
-    img.src = `${anim}?t=${Date.now()}`;
-    setTimeout(()=>{ img.src = still; }, durMs);
-  }
-  trigger.addEventListener('click', (e)=>{ e.preventDefault(); playGifOnce(); spinOnce(); });
+
+  btn.addEventListener('click', function(){
+    restartGif(); // play the GIF again
+    spinOnce();   // spin the whole website once
+  });
 })();
 </script>
