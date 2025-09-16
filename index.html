@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Stacks Magazine</title>
   <link rel="stylesheet" href="style.css"/>
+  <link rel="icon" type="image/png" href="stacks-logo-favicon.png">
 
   <!-- Index-only styles -->
   <style>
@@ -15,7 +16,7 @@
     }
 
     /* Layout frame for index content */
-    .site-main{padding:1.25rem;max-width:1200px;margin:0 auto}
+    .site-main{padding:1rem;max-width:1300px;margin:0 auto}
     .issue-block{padding:2rem 0;}
     .issue-block:last-of-type{border-bottom:none}
 
@@ -29,8 +30,8 @@
     .issue-cover img{width:100%;height:auto;max-height:65vh;object-fit:contain}
 
     /* TOC: allow multiple titles per category (no lines between titles) */
-    .issue-toc{font-size:1.1rem; display:flex; flex-direction:column}
-    .issue-toc h3{margin:0 0 .75rem}
+    .issue-toc{font-size:1.2rem; display:flex; flex-direction:column; line-height: 1.3;}
+    .issue-toc h2{margin:0 0 .75rem; font-size: 1.25rem;}
     .issue-toc ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.75rem; }
     .issue-toc li{ padding:.5rem 0; }
     .issue-toc li:last-child{ border-bottom:none; }
@@ -46,24 +47,41 @@
     .mission-statement {
       margin-top: 0.25rem;
   }
+
+  .about-statement {
+    margin-top: 0.25rem;
+}
   
   @media (min-width: 1024px) {
       .mission-statement {
           max-width: 80%; 
-          margin: 0.5rem auto 0; 
-          padding-top: 1rem; 
+          margin: 0.25rem auto 0; 
+          padding-top: 0.5rem; 
           text-align: center; 
           font-size: 1.25rem;
       }
   }
+
+  @media (min-width: 1024px) {
+    .about-statement {
+        max-width: 80%; 
+        margin: 0.25rem auto 0; 
+        padding-top: 1rem; 
+        text-align: center; 
+        font-size: 1.25rem;
+        border-bottom: 1px solid var(--color-border);
+    }
+}
+
+
   
-  .mission-statement h2 {
-      margin: 0 0 0.1rem; /* Decreased bottom margin */
-      font-size: 1.5rem; 
+  .mission-statement .about-statement h2 {
+      margin: 0 0 0.5rem; /* Decreased bottom margin */
+      font-size: 1.25rem; 
       font-family: var(--font-sans); 
   }
   
-  .mission-statement p {
+  .mission-statement.about-statement p {
       margin: 0; /* Ensure there's no margin on the paragraph */
   }
   </style>
@@ -76,7 +94,22 @@
     #main-content{opacity:0; transform:translateY(6px); transition: opacity .35s ease, transform .35s ease}
     #main-content.fading{opacity:.95; transform:translateY(0)}
     #main-content.visible{opacity:1; transform:translateY(0)}
+    /* If we've already shown the loader this session, skip it entirely */
+  html.skip-loader #loader-wrapper { display: none !important; }
+  html.skip-loader #main-content   { opacity: 1 !important; transform: none !important; }
+
   </style>
+
+  <script>
+    /* Loader: play only once per session */
+    (function () {
+      try {
+        if (sessionStorage.getItem('stacksLoaderShown')) {
+          document.documentElement.classList.add('skip-loader');
+        }
+      } catch (e) {}
+    })();
+    </script>
 </head>
 <body class="index-page">
 
@@ -102,12 +135,14 @@
 
           <!-- RIGHT: TOC (grouped by category; multiple titles per group) -->
           <div class="issue-toc">
-            <h3>In This Issue</h3>
+            <h2>In This Issue</h2>
             <ul>
               <li class="toc-group">
-                <span class="toc-category">On Background</span>
+                <span class="toc-category">Headlines</span>
                 <a class="toc-title" href="a-agentic-ai-summit.html">Agents of abundance and the apocalypse</a>
                 <a class="toc-title" href="a-sex-huey-newton.html">Sex, Huey Newton and the National Guard</a>
+                <a class="toc-title" href="a-who-holds-the-cards.html">Who holds the cards?</a>
+                <a class="toc-title" href="a-who-holds-the-cards.html">Progressive aesthetics, nostalgic realities:<br>Why your rent is $2000</a>
               </li>
 
               <li class="toc-group">
@@ -123,14 +158,14 @@
 
               <li class="toc-group">
                 <span class="toc-category">From the Stacks</span>
-                <a class="toc-title" href="a-from-the-stacks.html">Daily Cal Archives: Oski sued, Main Stacks moves underground</a>
+                <a class="toc-title" href="a-from-the-stacks.html">Daily Cal Archives:<br> Oski sued, Main Stacks moves underground</a>
               </li>
             </ul>
           </div>
         </div>
 
         <!-- “about stacks” (renamed & centered; wider) -->
-        <div class="mission-statement">
+        <div class="about-statement">
           <h2>About</h2>
           <p><i>Stacks</i> is the Daily Cal’s official magazine. It’s home to longform journalism, commentaries, creative writing and more. <i>Stacks</i> is your guide to Berkeley as it is, as we think it is and as we want it to be.</p>
         </div>
@@ -144,11 +179,10 @@
     </main>
   </div>
 
-  <!-- Loader → Main handoff & partial include -->
   <script>
     const loaderWrapper = document.getElementById('loader-wrapper');
     const mainContent   = document.getElementById('main-content');
-
+  
     let began = false;
     function startContentFade(){
       if (began) return;
@@ -156,15 +190,23 @@
       mainContent.classList.add('fading');
       setTimeout(()=> mainContent.classList.add('visible'), 450);
     }
-
+  
+    // If we've marked this session to skip the loader, immediately show content.
+    if (document.documentElement.classList.contains('skip-loader')) {
+      if (loaderWrapper) loaderWrapper.classList.add('hidden');
+      startContentFade();
+    }
+  
     window.addEventListener('message', (event) => {
       if (event.data === 'beginFade'){ startContentFade(); }
       if (event.data === 'hideLoader'){
-        loaderWrapper.classList.add('hidden');
+        if (loaderWrapper) loaderWrapper.classList.add('hidden');
         startContentFade();
+        // Mark as shown so we skip the loader next time this session.
+        try { sessionStorage.setItem('stacksLoaderShown', '1'); } catch (e) {}
       }
     });
-
+  
     // Include partials (nav + footer)
     (async function includePartials(){
       const nodes = document.querySelectorAll('[data-include]');
@@ -173,7 +215,7 @@
         const res  = await fetch(file);
         const html = await res.text();
         host.innerHTML = html;
-
+  
         // Re-run any scripts inside the partial
         host.querySelectorAll('script').forEach(old => {
           const s = document.createElement('script');
@@ -185,5 +227,7 @@
       }
     })();
   </script>
+  
+
 </body>
 </html>
