@@ -25,9 +25,32 @@
       display:grid; grid-template-columns:1fr; gap:1.5rem; font-size:1rem;
     }
     @media (min-width:1024px){
-      .issue-content{ grid-template-columns:1fr 1fr; gap:1.5rem; align-items:stretch; }
+      /* two equal columns, stretch both sides to the same row height */
+      .issue-content{
+        grid-template-columns:1fr 1fr;
+        gap:1.5rem;
+        align-items:stretch;
+      }
+    
+      /* make the cover column stretch to the row height */
+      .issue-cover{ 
+        display:flex;           /* allow its child to grow to full height */
+      }
+      .issue-cover a{
+        display:flex; 
+        flex:1;                 /* anchor fills the column height */
+      }
+    
+      /* match the height of the TOC while preserving aspect ratio */
+      .issue-cover img{
+        width:100%;
+        height:100%;            /* take the full column height (matches .issue-toc) */
+        object-fit:contain;     /* preserve the “good” ratio without cropping */
+        max-height:none;        /* override the 80vh cap on desktop */
+      }
     }
-    .issue-cover img{width:100%;height:auto;max-height:78vh;object-fit:contain}
+    
+    .issue-cover img{width:100%;height:auto;max-height:80vh;object-fit:contain}
 
     /* TOC: allow multiple titles per category (no lines between titles) */
     .issue-toc{font-size:1.2rem; display:flex; flex-direction:column; line-height: 1.3;}
