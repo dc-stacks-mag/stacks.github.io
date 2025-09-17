@@ -24,31 +24,32 @@
     .issue-content{
       display:grid; grid-template-columns:1fr; gap:1.5rem; font-size:1rem;
     }
-    @media (min-width:1024px){
-      /* two equal columns, stretch both sides to the same row height */
-      .issue-content{
-        grid-template-columns:1fr 1fr;
-        gap:1.5rem;
-        align-items:stretch;
-      }
-    
-      /* make the cover column stretch to the row height */
-      .issue-cover{ 
-        display:flex;           /* allow its child to grow to full height */
-      }
-      .issue-cover a{
-        display:flex; 
-        flex:1;                 /* anchor fills the column height */
-      }
-    
-      /* match the height of the TOC while preserving aspect ratio */
-      .issue-cover img{
-        width:100%;
-        height:100%;            /* take the full column height (matches .issue-toc) */
-        object-fit:contain;     /* preserve the “good” ratio without cropping */
-        max-height:none;        /* override the 80vh cap on desktop */
-      }
-    }
+
+@media (min-width:1024px){
+  /* two equal columns, stretch both sides to the same row height */
+  .issue-content{
+    grid-template-columns:1fr 1fr;
+    gap:1.5rem;
+    align-items:stretch; /* forces both columns to the same row height */
+  }
+
+  /* Make the cover column stretch and crop internally */
+  .issue-cover{
+    display:flex;           /* lets the child fill the full column height */
+    overflow:hidden;        /* crop edges when we "cover" + tiny zoom */
+  }
+
+  /* Fill the entire area, match .issue-toc height, allow slight zoom */
+  .issue-cover img{
+    width:100%;
+    height:100%;            /* key: matches .issue-toc because columns stretch */
+    object-fit:cover;       /* fill the box; no empty space */
+    object-position:center; /* center crop */
+    max-height:none;        /* override the mobile cap */
+    transform:scale(1.02);  /* tiny zoom to guarantee edge-to-edge fill */
+  }
+}
+
     
     .issue-cover img{width:100%;height:auto;max-height:80vh;object-fit:contain}
 
@@ -150,9 +151,7 @@
         <div class="issue-content">
           <!-- LEFT: Cover -->
           <div class="issue-cover">
-            <a href="article.html">
               <img src="issue-1-cover.png" alt="Cover for Issue 1">
-            </a>
           </div>
 
           <!-- RIGHT: TOC (grouped by category; multiple titles per group) -->
