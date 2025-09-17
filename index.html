@@ -16,7 +16,7 @@
     }
 
     /* Layout frame for index content */
-    .site-main{padding:1rem;max-width:1300px;margin:0 auto}
+    .site-main{padding:2rem;max-width:1400px;margin:0 auto}
     .issue-block{padding:2rem 0;}
     .issue-block:last-of-type{border-bottom:none}
 
@@ -27,18 +27,16 @@
     @media (min-width:1024px){
       .issue-content{ grid-template-columns:1fr 1fr; gap:1.5rem; align-items:stretch; }
     }
-    .issue-cover img{width:100%;height:auto;max-height:65vh;object-fit:contain}
+    .issue-cover img{width:100%;height:auto;max-height:78vh;object-fit:contain}
 
     /* TOC: allow multiple titles per category (no lines between titles) */
     .issue-toc{font-size:1.2rem; display:flex; flex-direction:column; line-height: 1.3;}
-    .issue-toc h2{margin:0 0 .75rem; font-size: 1.25rem;}
+    .issue-toc h2{margin:0 0 1rem; font-size: 1.25rem;}
     .issue-toc ul{ list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:.75rem; }
     .issue-toc li{ padding:.5rem 0; }
     .issue-toc li:last-child{ border-bottom:none; }
     .toc-category{ display:block; font-size:.8rem; color:var(--color-subtle); margin-bottom:.25rem; }
-    .toc-title{ display:block; font-size: 1rem; font-weight:700; font-family:var(--font-sans); padding:.15rem .25rem .15rem 0; border-bottom:1px solid var(--color-border)}
-    .toc-sub-title{ display:block; font-size: 0.75rem; font-weight:400; font-family:var(--font-sans); padding:.15rem .25rem .15rem 0; border-bottom:1px solid var(--color-border)}
-
+    .toc-title{ font-size: 1.3rem; display:block; font-weight:700; font-family:var(--font-sans); padding:.88rem .25rem .25rem 0; border-bottom:1px solid var(--color-border)}
     .issue-toc a.toc-title:hover{ font-style:italic; }
         /* Add this new rule to remove the border from the very last title */
 .issue-toc li:last-child .toc-title:last-child {
@@ -57,7 +55,7 @@
   @media (min-width: 1024px) {
       .mission-statement {
           max-width: 80%; 
-          margin: 0.25rem auto 0; 
+          margin: 0.5rem auto 0; 
           padding-top: 0.5rem; 
           text-align: center; 
           font-size: 1.25rem;
@@ -68,17 +66,15 @@
     .about-statement {
         max-width: 80%; 
         margin: 0.25rem auto 0; 
-        padding-top: 1rem; 
+        padding-top: 1.5rem; 
         text-align: center; 
         font-size: 1.25rem;
         border-bottom: 1px solid var(--color-border);
     }
 }
-
-
   
   .mission-statement .about-statement h2 {
-      margin: 0 0 0.5rem; /* Decreased bottom margin */
+      margin: 0 0 0.05rem; /* Decreased bottom margin */
       font-size: 1.25rem; 
       font-family: var(--font-sans); 
   }
@@ -86,6 +82,7 @@
   .mission-statement.about-statement p {
       margin: 0; /* Ensure there's no margin on the paragraph */
   }
+
   </style>
 
   <!-- Loader iframe wrapper (index-only) -->
@@ -130,7 +127,9 @@
         <div class="issue-content">
           <!-- LEFT: Cover -->
           <div class="issue-cover">
+            <a href="article.html">
               <img src="issue-1-cover.png" alt="Cover for Issue 1">
+            </a>
           </div>
 
           <!-- RIGHT: TOC (grouped by category; multiple titles per group) -->
@@ -139,10 +138,18 @@
             <ul>
               <li class="toc-group">
                 <span class="toc-category">Headlines</span>
-                <a class="toc-title" href="a-who-holds-the-cards.html">Who holds the cards?</a>
-                <a class="toc-title" href="a-agentic-ai-summit.html">Agents of abundance and the apocalypse</a>
-                <a class="toc-title" href="a-sex-huey-newton.html">Sex, Huey Newton and the National Guard</a>
-                <a class="toc-title" href="a-progressive-aesthetics.html">Progressive aesthetics, nostalgic realities</a>
+                <a class="toc-title" href="a-who-holds-the-cards.html">Who holds the cards?
+                  <br><span style="font-size:.8em; font-weight:500; line-height:1.2; display:inline-block; font-style: italic">In conversation with Rich Lyons and Abigail Verino on the state of UC Berkeley</a>
+
+                <a class="toc-title" href="a-agentic-ai-summit.html">Agents of abundance and the apocalypse
+                <br><span style="font-size:.8em; font-weight:500; line-height:1.2; display:inline-block; font-style: italic">My day at an agentic AI summit</a>
+
+
+                <a class="toc-title" href="a-sex-huey-newton.html">Sex, Huey Newton and the National Guard
+                <br><span style="font-size:.8em; font-weight:500; line-height:1.2; display:inline-block; font-style: italic">My time with the Berkeley Barb</a>
+
+                <a class="toc-title" href="a-progressive-aesthetics.html">Progressive aesthetics, nostalgic realities
+                  <br><span style="font-size:.8em; font-weight:500; line-height:1.2; display:inline-block; font-style: italic">Why your rent is $2000</span></a>
               </li>
 
               <li class="toc-group">
@@ -158,7 +165,7 @@
 
               <li class="toc-group">
                 <span class="toc-category">From the Stacks</span>
-                <a class="toc-title" href="a-from-the-stacks.html">Daily Cal Archives:<br> Oski sued, Main Stacks moves underground</a>
+                <a class="toc-title" href="a-from-the-stacks.html">Daily Cal Archives: Oski sued, Main Stacks moves underground</a>
               </li>
             </ul>
           </div>

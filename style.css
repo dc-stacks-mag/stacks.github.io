@@ -343,3 +343,149 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
   .article-card-title{ font-size: 1.02rem; } /* maintain slight bump */
   .article-card-byline{ font-size: .88rem; }
 }
+
+/* =========================================================
+   EMBEDDED MEDIA THAT LINES UP WITH TEXT
+   - Use var(--article-measure) so photos share the same left/right
+     bounds as paragraphs (flush edges).
+   - Featured image remains on var(--article-width); everything else below
+     opts into var(--article-measure).
+   ========================================================= */
+
+/* A) Single embedded figure that aligns with text */
+.article-body figure.figure-embed{
+  max-width: var(--article-measure);
+  margin: 1.1rem auto;         /* centered within the text column */
+}
+.article-body figure.figure-embed img{
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--color-border);
+  background: #f9f9f9;
+}
+.article-body figure.figure-embed figcaption{
+  font-size: .9rem; color: var(--color-subtle); margin-top: .35rem;
+}
+
+/* B) Portrait with text wrap — keep the container on the text column width */
+.wrap-portrait{
+  max-width: var(--article-measure);
+  margin: 1.25rem auto;
+}
+.wrap-portrait .photo-left,
+.wrap-portrait .photo-right{
+  width: min(44%, 320px);
+  margin: 0 var(--gutter, 18px) var(--gutter, 18px) 0;
+  float: left;
+  shape-outside: inset(0 round 6px);
+  shape-margin: 6px;
+}
+.wrap-portrait .photo-right{
+  float: right;
+  margin: 0 0 var(--gutter, 18px) var(--gutter, 18px);
+}
+.wrap-portrait figure{ margin: 0; }
+.wrap-portrait img{
+  width: 100%; height: auto; display: block;
+  border: 1px solid var(--color-border); background: #f9f9f9;
+}
+.wrap-portrait::after{ content:""; display:block; clear:both; }
+
+/* C) Side-by-side (photo + text) constrained to the text column */
+.media-side.within-text{
+  max-width: var(--article-measure);
+  margin: 1.25rem auto;
+  display: grid;
+  grid-template-columns: minmax(200px, 40%) 1fr; /* portrait-friendly */
+  gap: clamp(12px, 2vw, 20px);
+  align-items: start;
+}
+.media-side.within-text.reverse{
+  grid-template-columns: 1fr minmax(200px, 40%);
+}
+.media-side.within-text figure{ margin: 0; }
+.media-side.within-text .text > *{ margin: 0 0 1rem 0; }
+
+/* Optional seam alignment + equal heights (use with .seam, .equal-height) */
+.media-side.within-text.seam{ gap: 0; --col-inset: clamp(10px, 1.8vw, 18px); }
+.media-side.within-text.seam:not(.reverse) figure{ padding-right: var(--col-inset); }
+.media-side.within-text.seam:not(.reverse) .text { padding-left:  var(--col-inset); }
+.media-side.within-text.seam.reverse figure{ padding-left: var(--col-inset); }
+.media-side.within-text.seam.reverse .text  { padding-right: var(--col-inset); }
+
+.media-side.within-text.equal-height{ align-items: stretch; }
+.media-side.within-text.equal-height figure,
+.media-side.within-text.equal-height .text{
+  height: 100%; display:flex; flex-direction:column; box-sizing:border-box;
+}
+.media-side.within-text.equal-height figure img{
+  width: 100%; height: 100%; object-fit: cover; /* use .no-crop to preserve */
+}
+.media-side.within-text.equal-height.no-crop figure img{ object-fit: contain; background:#fff; }
+
+/* D) Two-up and three-up galleries also constrained to text column */
+.photo-duo.narrow,
+.photo-trio.narrow{
+  max-width: var(--article-measure);
+  margin: 1.25rem auto;
+}
+.photo-duo.narrow{ display:grid; grid-template-columns: 1fr 1fr; gap: clamp(12px, 2vw, 20px); }
+.photo-trio.narrow{ display:grid; grid-template-columns: repeat(3, 1fr); gap: clamp(12px, 2vw, 20px); }
+.photo-duo.narrow figure,
+.photo-trio.narrow figure{ margin:0; }
+.photo-duo.narrow img,
+.photo-trio.narrow img{ width:100%; display:block; border:1px solid var(--color-border); background:#f9f9f9; }
+
+/* Mobile behavior: stack & breathe */
+@media (max-width: 900px){
+  .media-side.within-text,
+  .media-side.within-text.reverse{ grid-template-columns: 1fr; }
+  .media-side.within-text.seam{ gap: var(--col-inset); }
+  .media-side.within-text.seam figure,
+  .media-side.within-text.seam .text{ padding: 0; }
+}
+@media (max-width: 700px){
+  .wrap-portrait .photo-left,
+  .wrap-portrait .photo-right{ float:none; width:100%; margin: 0 0 .75rem 0; }
+  .photo-duo.narrow{ grid-template-columns: 1fr; }
+}
+@media (max-width: 600px){
+  .photo-trio.narrow{ grid-template-columns: 1fr; }
+}
+
+/* ===== STRICT FLUSH HELPERS (align with article paragraph column) ===== */
+
+/* For side-by-side blocks already using .within-text (max-width: var(--article-measure)) */
+.media-side.within-text.strict-flush{
+  gap: 0;                     /* photo + text meet at the grid seam */
+}
+.media-side.within-text.strict-flush .text > *{
+  /* ensure copy hugs the column edge; no extra auto-centering */
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* If you combine with .seam, kill any inset so it stays perfectly flush */
+.media-side.within-text.strict-flush.seam{
+  --col-inset: 0;
+}
+
+/* Wrapped portrait block aligned to the same measure as paragraphs */
+.wrap-portrait.strict-flush{
+  max-width: var(--article-measure);
+  margin-left: auto;
+  margin-right: auto;
+}
+.wrap-portrait.strict-flush p{
+  margin-left: 0;
+  margin-right: 0;
+}
+
+/* Make sure the *outer* edge of a left-floating photo sits on the same x-axis as text */
+.wrap-portrait.strict-flush .photo-left{  margin-left: 0; }   /* image’s left edge = paragraph left edge */
+.wrap-portrait.strict-flush .photo-right{ margin-right: 0; }  /* text’s left edge = paragraph left edge */
+
+/* Safety: figures/columns respect padding without growing */
+.media-side figure,
+.media-side .text,
+.wrap-portrait figure{ box-sizing: border-box; }
+
