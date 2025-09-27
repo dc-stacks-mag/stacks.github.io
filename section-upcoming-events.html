@@ -266,12 +266,11 @@
               <a
                 class="rave-link"
                 id="fuzz-noise-rave"
-                href="https://joinpoppin.com/app/event/facd9cf7-ab8d-49da-b57b-52ebb4646f7a?fbclid=PAZXh0bgNhZW0CMTEAAafZnG6gNhMatMupXNgkdgdNDnVxS8YwsGMqCWb9bjIjstWWKhY03rQwQIpdPw_aem_mNyi9ZVpTvgYiIUti9y4lA&_branch_match_id=1441886330934114775&utm_source=general&utm_medium=event&_branch_referrer=H4sIAAAAAAAAAw3IzQqCMAAA4LfpqIMiMpAYFiKhKJlTL%2BJ0bvNnW3NpXnr2%2Bo4fM0bNZ9sexWD1kgsllbK4sMlChLEbPToduHS4GXnrxrDMGcA0YiUCXpjeIKy7UvjH%2F4S1Cd8qj%2BjQ0ja6iuzzOBXr7IcvD2EH90E%2FG4TurAB7naxJoNp4rWoyVVO0cafMVLrQggdPw53tMMLdV5OOaM0FrbCW60y06zEtJ%2FID7h9VDrEAAAA%3D"
-                target="_blank"
-                rel="noopener noreferrer"
-                data-rave-gif="animations/rave-overlay-2.gif">
-              September 25-26</a>
-              — Fuzz Noise x Golden Records Rave, Address drops 09/25, 9 p.m. - 2 a.m.
+                href="https://www.instagram.com/fuzznoise/"
+                rel="noopener"
+                data-rave-gif="animations/rave-overlay-2.gif"
+              >September 25-26</a>
+              — Fuzz Noise x Golden Records Rave, Address drops day of, 9 p.m. - 2 a.m.
             </li>
         </ul>
 
@@ -310,17 +309,16 @@
       const link = document.getElementById('fuzz-noise-rave');
       if (!link) return;
     
-      let isRaving = false;
+      const DEST = link.getAttribute('href') || "https://www.instagram.com/fuzznoise/";
+      const DURATION = 6000; // 6 seconds
     
       function triggerTextRave() {
         link.classList.add('rave-active');
-        setTimeout(() => link.classList.remove('rave-active'), 6000);
+        setTimeout(() => link.classList.remove('rave-active'), DURATION);
       }
     
       function showOverlayThenNavigate(e) {
         e.preventDefault();
-        if (isRaving) return;
-        isRaving = true;
     
         triggerTextRave();
     
@@ -329,29 +327,33 @@
         if (!overlay) {
           overlay = document.createElement('div');
           overlay.id = 'rave-overlay';
+          overlay.style.cssText = `
+            position:fixed; inset:-6vmax; z-index:999999; pointer-events:none;
+            display:grid; place-items:center;
+          `;
           const img = document.createElement('img');
           img.src = src;
           img.alt = "";
-          img.setAttribute('draggable','false');
+          img.style.cssText = `
+            width:calc(100vw + 12vmax); height:calc(100vh + 12vmax);
+            object-fit:cover; opacity:.5;
+          `;
           overlay.appendChild(img);
         }
         document.body.appendChild(overlay);
     
-        // No scroll lock: user can scroll and use site normally while GIF shows.
+        const html = document.documentElement;
+        const prevOverflow = html.style.overflow;
+        html.style.overflow = 'hidden';
+    
         setTimeout(() => {
-          overlay.remove();
-          // Navigate after 6 seconds
-          if (link.target === '_blank') {
-            // Note: delayed window.open may be blocked by some browsers.
-            window.open(link.href, '_blank', 'noopener');
-          } else {
-            window.location.href = link.href;
-          }
-          isRaving = false;
-        }, 6000); // 6 seconds
+          html.style.overflow = prevOverflow || '';
+          // Navigate in the same tab to avoid popup blockers
+          window.location.assign(DEST);
+        }, DURATION);
       }
     
-      // Click (both desktop & mobile)
+      // Click (desktop & mobile)
       link.addEventListener('click', showOverlayThenNavigate, { passive: false });
     })();
     </script>
