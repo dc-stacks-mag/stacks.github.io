@@ -183,82 +183,62 @@
         flex-basis: auto;
       }
     }
-    
-    /* Rave effect (Fuzz Noise x Golden Records) */
-    .events-container a.rave-link{
-      --rave-purple: var(--color-border);
-      position: relative;
-      display: inline-block;
-      font-weight: 800;
-      text-decoration: none;
-      transition: transform .12s linear;
-    }
-    
-    @keyframes raveSlide {
-      from { background-position: 0% 0; }
-      to   { background-position: 100% 0; }
-    }
-    @keyframes raveGlow {
-      0%,100% { text-shadow: 0 0 2px #000, 0 0 6px var(--rave-purple); }
-      50%     { text-shadow: 0 0 4px #fff, 0 0 12px var(--rave-purple); }
-    }
-    @keyframes pulseZoom {
-      0%,100% { transform: scale(1); }
-      50%     { transform: scale(2); }
-    }
-    
-    /* Desktop: pulsating on hover */
-    @media (hover:hover) {
-      .events-container a.rave-link:hover{
-        color: transparent;
-        background-image: repeating-linear-gradient(
-          90deg,
-          #000 0 8px,
-          #fff 8px 16px,
-          var(--rave-purple) 16px 24px,
-          #fff 24px 32px
-        );
-        -webkit-background-clip: text;
-        background-clip: text;
-        animation:
-                   raveGlow 1s ease-in-out infinite,
-                   pulseZoom .8s ease-in-out infinite;
-      }
-      .events-container a.rave-link:hover { text-decoration: none; }
-    }
-    
-    /* Mobile (or when clicked): same effect via .rave-active */
-    .events-container a.rave-link.rave-active{
-      color: transparent;
-      background-image: repeating-linear-gradient(
-        90deg,
-        #000 0 8px,
-        #fff 8px 16px,
-        var(--rave-purple) 16px 24px,
-        #fff 24px 32px
-      );
-      -webkit-background-clip: text;
-      background-clip: text;
-      animation: raveSlide .5s linear infinite,
-                 raveGlow 1s ease-in-out infinite,
-                 pulseZoom .8s ease-in-out infinite;
-    }
-    
-    /* Full-screen GIF overlay */
-    #rave-overlay{
-      position: fixed;
-      inset: -6vmax;                 /* extend past edges to guarantee full coverage */
-      z-index: 999999;
-      pointer-events: none;
-      display: grid;
-      place-items: center;
-    }
-    #rave-overlay img{
-      width: calc(100vw);
-      height: calc(100vh);
-      object-fit: cover;
-      opacity: .5;                   /* 50% opacity */
-    }
+  
+/* Rave effect (letters-only color pulse; no bars/stripes) */
+.events-container a.rave-link{
+  --rave-purple: var(--accent-purple, #7b61ff);
+  position: relative;
+  display: inline-block;
+  font-weight: 800;
+  text-decoration: none;
+  transition: transform .12s linear;
+}
+
+@keyframes raveColorPulse {
+  0%   { color:#000; text-shadow: 0 0 0 transparent; }
+  33%  { color:#fff; text-shadow: 0 0 8px var(--rave-purple); }
+  66%  { color:var(--rave-purple); text-shadow: 0 0 6px var(--rave-purple); }
+  100% { color:#000; text-shadow: 0 0 0 transparent; }
+}
+@keyframes pulseZoom {
+  0%,100% { transform: scale(1); }
+  50%     { transform: scale(1.03); }
+}
+
+/* Desktop: pulse on hover (letters only) */
+@media (hover:hover) {
+  .events-container a.rave-link:hover{
+    animation: raveColorPulse .9s linear infinite,
+               pulseZoom 1.2s ease-in-out infinite;
+    text-decoration: none;
+  }
+}
+
+/* Mobile (or click): trigger via .rave-active */
+.events-container a.rave-link.rave-active{
+  animation: raveColorPulse .9s linear infinite,
+             pulseZoom 1.2s ease-in-out infinite;
+}
+
+/* Full-screen GIF overlay (visible but non-interactive) */
+#rave-overlay{
+  position: fixed;
+  inset: -6vmax;          /* extend past edges to guarantee full coverage */
+  z-index: 999999;
+  display: grid;
+  place-items: center;
+  pointer-events: none;   /* don't block clicks/scroll */
+}
+#rave-overlay img{
+  width: calc(100vw + 12vmax);
+  height: calc(100vh + 12vmax);
+  object-fit: cover;
+  opacity: .5;            /* ~50% opacity */
+  pointer-events: none;   /* not touchable */
+  -webkit-user-drag: none;
+  user-select: none;
+}
+
     </style>
 </head>
 <body>
@@ -289,7 +269,7 @@
                 href="https://joinpoppin.com/app/event/facd9cf7-ab8d-49da-b57b-52ebb4646f7a?fbclid=PAZXh0bgNhZW0CMTEAAafZnG6gNhMatMupXNgkdgdNDnVxS8YwsGMqCWb9bjIjstWWKhY03rQwQIpdPw_aem_mNyi9ZVpTvgYiIUti9y4lA&_branch_match_id=1441886330934114775&utm_source=general&utm_medium=event&_branch_referrer=H4sIAAAAAAAAAw3IzQqCMAAA4LfpqIMiMpAYFiKhKJlTL%2BJ0bvNnW3NpXnr2%2Bo4fM0bNZ9sexWD1kgsllbK4sMlChLEbPToduHS4GXnrxrDMGcA0YiUCXpjeIKy7UvjH%2F4S1Cd8qj%2BjQ0ja6iuzzOBXr7IcvD2EH90E%2FG4TurAB7naxJoNp4rWoyVVO0cafMVLrQggdPw53tMMLdV5OOaM0FrbCW60y06zEtJ%2FID7h9VDrEAAAA%3D"
                 target="_blank"
                 rel="noopener noreferrer"
-                data-rave-gif="animations/rave-overlay.gif">
+                data-rave-gif="animations/rave-overlay-2.gif">
               September 25-26</a>
               — Fuzz Noise x Golden Records Rave, Address drops 09/25, 9 p.m. - 2 a.m.
             </li>
@@ -330,18 +310,21 @@
       const link = document.getElementById('fuzz-noise-rave');
       if (!link) return;
     
+      let isRaving = false;
+    
       function triggerTextRave() {
-        // for mobile: animate text after tap
         link.classList.add('rave-active');
         setTimeout(() => link.classList.remove('rave-active'), 6000);
       }
     
       function showOverlayThenNavigate(e) {
         e.preventDefault();
+        if (isRaving) return;
+        isRaving = true;
     
         triggerTextRave();
     
-        const src = link.dataset.raveGif || 'animations/rave-overlay.gif';
+        const src = link.dataset.raveGif || 'animations/rave-overlay-2.gif';
         let overlay = document.getElementById('rave-overlay');
         if (!overlay) {
           overlay = document.createElement('div');
@@ -349,26 +332,23 @@
           const img = document.createElement('img');
           img.src = src;
           img.alt = "";
+          img.setAttribute('draggable','false');
           overlay.appendChild(img);
         }
         document.body.appendChild(overlay);
     
-        // lock scroll while overlay plays
-        const html = document.documentElement;
-        const prevOverflow = html.style.overflow;
-        html.style.overflow = 'hidden';
-    
+        // No scroll lock: user can scroll and use site normally while GIF shows.
         setTimeout(() => {
-          html.style.overflow = prevOverflow || '';
           overlay.remove();
-    
-          // keep your current behavior: open in new tab if target="_blank"
+          // Navigate after 6 seconds
           if (link.target === '_blank') {
+            // Note: delayed window.open may be blocked by some browsers.
             window.open(link.href, '_blank', 'noopener');
           } else {
             window.location.href = link.href;
           }
-        }, 15000); // 15 seconds
+          isRaving = false;
+        }, 6000); // 6 seconds
       }
     
       // Click (both desktop & mobile)
