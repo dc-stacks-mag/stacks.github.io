@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Article — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-kicker">Headlines</div>
+
+          <!-- 1) Headline -->
+          <h1 class="article-headline">Inside the beehive: The political inefficacy of CALPIRG</h1>
+          <h1 class="article-sub-headline">In conversation with Rich Lyons and Abigail Verino on the state of UC Berkeley</h1>
+
+
+          <!-- 2) Byline (moved directly under headline) -->
+          <p class="article-byline">
+            By <strong>Tariq Ravasia</strong> &middot; <time datetime="2025-11-07">Nov. 07, 2025</time>
+          </p>
+
+          <!-- 3) Blurb/excerpt (now below the byline) -->
+
+          <!-- Feature image -->
+          <figure class="article-featured-image">
+            <img src="https://files.catbox.moe/zca26d.jpg" alt="Feature art" />
+            <figcaption>Photo by Hayes Gaboury</figcaption>
+          </figure>
+        </header>
+
+        <section class="article-body">
+          <p>
+            I get bored often, and oftentimes, when I get bored, I imagine unhinging my jaw. 
+          </p>
+
+          <p>
+            Last April, a team of AI  <a href="https://ai-2027.com/">AI 2027</a>, a strangely compelling..
+          </p>
+
+          <div class="wrap-portrait strict-flush">
+            <figure class="photo-right">
+                <img src="https://files.catbox.moe/77k6c6.jpg" alt="Vertical photo" />
+              <figcaption>Photo of Richard Lyons, by Hayes Gaboury</figcaption>
+            </figure>
+                <p>
+                    Two years later, Lyons, a Bay Area local, entered his first year as an undergraduate at UC Berkeley. Our now-chancellor graduated from the Haas School of Business in 1982 before finding his way back to the school after a career on Wall Street. Lyons climbed the ranks as a professor and eventual dean almost 30 years later.
+                </p>
+
+                <p>
+                    The incoming chancellor promised to uphold university policy, suggesting he would take a strong line against future encampments while protecting free expression.
+                </p>
+            </div>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  </script>
+</body>
+</html>

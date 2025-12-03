@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Issues Archive — Stacks Magazine</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="stacks-logo-favicon.png" />
+
+  <style>
+    /* ============================
+       Issues archive layout
+       ============================ */
+
+    body.issues-page .article-full{
+      --article-width: min(1100px, 92vw);
+      padding-top: 1.75rem;
+      padding-bottom: 4rem;
+    }
+
+    body.issues-page .article-header{
+      text-align: center;
+      margin-bottom: 2.4rem;
+    }
+
+    body.issues-page .article-header .article-kicker{
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      font-size: .9rem;
+    }
+
+    body.issues-page .article-header .article-excerpt{
+      max-width: 40rem;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .issues-section{
+      max-width: var(--article-width);
+      margin: 0 auto 4rem;
+    }
+
+    /* Thumbnail shared styling */
+    .issue-thumb{
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .issue-thumb-img-wrap{
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 18px 35px rgba(0,0,0,0.24);
+      transition:
+        transform 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+        box-shadow 0.35s cubic-bezier(0.22, 0.61, 0.36, 1),
+        filter 0.2s ease;
+      background:#000;
+    }
+
+    .issue-thumb-img-wrap img{
+      display:block;
+      width:100%;
+      height:auto;
+      object-fit:cover;
+    }
+
+    .issue-thumb:hover .issue-thumb-img-wrap,
+    .issue-thumb:focus-within .issue-thumb-img-wrap{
+      transform: translateY(-6px) scale(1.01);
+      box-shadow: 0 26px 45px rgba(0,0,0,0.34);
+      filter: brightness(0.98);
+    }
+
+    .issue-thumb-caption{
+      text-align:center;
+      margin-top: .85rem;
+      font-size: .95rem;
+    }
+
+    .issue-thumb-kicker{
+      font-family: var(--font-folio, var(--font-sans));
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      font-size: .82rem;
+      color: var(--color-subtle);
+      margin-bottom: .2rem;
+    }
+
+    .issue-thumb-title{
+      font-family: var(--font-sans);
+      font-size: 1rem;
+      font-weight: 500;
+    }
+
+    /* ============================
+       Desktop: hero state
+       ============================ */
+
+    .issues-hero{
+      display:flex;
+      justify-content:center;
+      margin: 2.8rem 0 3.2rem;
+      transition: opacity .35s ease, transform .35s ease;
+    }
+
+    .issues-hero .issue-thumb{
+      width: min(360px, 80vw);
+    }
+
+    /* ============================
+       Desktop: two-column shell (no longer used visually)
+       ============================ */
+
+    .issues-shell{
+      display: none;
+    }
+
+    .issues-shell.is-visible{
+      display: none; /* keep disabled so old viewer never shows */
+    }
+
+    .issues-list{
+      border-right: 1px solid var(--color-border);
+      padding-right: 1.5rem;
+      display:flex;
+      flex-direction:column;
+      gap:.45rem;
+    }
+
+    .issue-list-item{
+      border: none;
+      background: transparent;
+      padding: .55rem .1rem;
+      text-align:left;
+      font: inherit;
+      font-family: var(--font-sans);
+      cursor:pointer;
+      display:flex;
+      flex-direction:column;
+      gap:.05rem;
+      position:relative;
+      transition:
+        background .18s ease,
+        transform .18s ease,
+        color .18s ease;
+    }
+
+    .issue-list-item::before{
+      content:"";
+      position:absolute;
+      left:-0.5rem;
+      top:0.5rem;
+      bottom:0.5rem;
+      width:2px;
+      border-radius:999px;
+      background:transparent;
+      transition: background .18s ease;
+    }
+
+    .issue-list-name{
+      font-size:.93rem;
+      text-transform: uppercase;
+      letter-spacing:.12em;
+      font-family: var(--font-folio, var(--font-sans));
+    }
+
+    .issue-list-sub{
+      font-size:.9rem;
+      color: var(--color-subtle);
+    }
+
+    .issue-list-item:hover,
+    .issue-list-item:focus-visible{
+      background: rgba(0,0,0,0.028);
+      transform: translateX(2px);
+    }
+
+    .issue-list-item.is-active{
+      transform: translateX(4px);
+      background: rgba(0,0,0,0.045);
+    }
+
+    .issue-list-item.is-active::before{
+      background:#000;
+    }
+
+    .issues-viewer{
+      border:1px solid var(--color-border);
+      border-radius:4px;
+      background:#f9f7f2;
+      min-height: 60vh;
+      max-height: 82vh;
+      display:none; /* disabled */
+      align-items:stretch;
+      justify-content:center;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .issues-viewer-placeholder{
+      display:none;
+    }
+
+    .issues-viewer-frame-wrap{
+      flex:1;
+      display:none;
+    }
+
+    .issues-viewer-frame-wrap.is-active{
+      display:none;
+    }
+
+    .issues-pdf{
+      width:100%;
+      height:100%;
+      border:none;
+      background:#fff;
+    }
+
+    /* When expanded, gently send hero off-screen (kept just in case) */
+    .issues-section.is-expanded .issues-hero{
+      opacity:0;
+      transform: translateX(-48px);
+      pointer-events:none;
+    }
+
+    /* ============================
+       Mobile layout
+       ============================ */
+
+    .issues-mobile{
+      display:flex;
+      flex-direction:column;
+      gap: 2.2rem;
+      margin-top: 2.4rem;
+    }
+
+    .issue-block-mobile{
+      max-width: 480px;
+      margin: 0 auto;
+    }
+
+    .issue-mobile-viewer{
+      margin-top: 1.1rem;
+      border-radius:4px;
+      border:1px solid var(--color-border);
+      background:#f9f7f2;
+      overflow:hidden;
+    }
+
+    .issues-pdf-mobile{
+      width:100%;
+      height: 65vh;
+      border:none;
+      background:#fff;
+      display:block;
+    }
+
+    /* ============================
+       PDF overlay modal
+       ============================ */
+
+    .issues-overlay-backdrop{
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.55);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+
+    .issues-overlay-backdrop.is-open{
+      display:flex;
+    }
+
+    .issues-overlay-frame{
+      position: relative;
+      width: min(1200px, 96vw);
+      height: min(1000px, 86vh);
+      background:#000;
+      border-radius:6px;
+      box-shadow: 0 22px 55px rgba(0,0,0,0.6);
+      overflow:hidden;
+      top: 40px;
+    }
+
+    .issues-overlay-iframe{
+      width:100%;
+      height:100%;
+      border:none;
+      background:#fff;
+      display:block;
+    }
+
+    .issues-overlay-close{
+      position:absolute;
+      top: 0.7rem;
+      right:.7rem;
+      z-index:2;
+      width:42px;
+      height:42px;
+      border-radius:999px;
+      border:none;
+      background: rgba(0,0,0,0.6);
+      color:#fff;
+      cursor:pointer;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:1.4rem;
+      line-height:1;
+    }
+
+    .issues-overlay-close:hover,
+    .issues-overlay-close:focus-visible{
+      background: rgba(0,0,0,0.8);
+    }
+
+    body.issues-overlay-open{
+      overflow:hidden;
+    }
+
+    /* ============================
+       Responsive rules
+       ============================ */
+
+    @media (max-width: 899px){
+      .issues-hero,
+      .issues-shell{
+        display:none !important;
+      }
+
+      body.issues-page .article-full{
+        padding-inline: 0.9rem;
+      }
+
+      .issues-overlay-frame{
+        width: 100vw;
+        height: 90vh;
+        border-radius:0;
+      }
+    }
+
+    @media (min-width: 900px){
+      .issues-mobile{
+        display:none;
+      }
+    }
+
+    @media (max-width: 600px){
+      .issue-thumb-caption{
+        font-size:.9rem;
+      }
+      .issue-thumb-title{
+        font-size:.95rem;
+      }
+    }
+  </style>
+</head>
+
+<body class="issues-page">
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-kicker">Stacks Magazine</div>
+          <h1 class="article-headline">Issues</h1>
+          <p class="article-excerpt">
+          </p>
+        </header>
+
+        <section class="article-body issues-section">
+          <!-- Desktop / web: hero cover first -->
+          <div class="issues-hero">
+            <figure class="issue-thumb issue-thumb-hero"
+                    data-issue-id="issue-01"
+                    data-pdf="issues-archive/stacks-issue-1.pdf">
+              <div class="issue-thumb-img-wrap">
+                <!-- TODO: swap src for your real cover image -->
+                <img src="issue-1-cover.png"
+                     alt="Stacks Magazine Issue 01 cover"/>
+              </div>
+              <figcaption class="issue-thumb-caption">
+                <div class="issue-thumb-title">Issue 01 · Volume 1 · Nov. 2025</div>
+              </figcaption>
+            </figure>
+          </div>
+
+          <!-- Desktop / web: two-column shelf (kept for future, but viewer disabled) -->
+          <div class="issues-shell" aria-label="Issues and PDF viewer">
+            <div class="issues-viewer">
+              <div class="issues-viewer-placeholder">
+                Hover or click an issue on the left to open its PDF.
+              </div>
+              <div class="issues-viewer-frame-wrap">
+                <iframe class="issues-pdf"
+                        src=""
+                        title="Stacks issue PDF"
+                        loading="lazy"></iframe>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mobile: stacked issues with inline viewers -->
+          <div class="issues-mobile" aria-label="Issues">
+            <article class="issue-block-mobile"
+                     data-issue-id="issue-01"
+                     data-pdf="issues-archive/stacks-issue-1.pdf">
+              <figure class="issue-thumb">
+                <div class="issue-thumb-img-wrap">
+                  <img src="issue-01-cover.jpg"
+                       alt="Stacks Magazine Issue 01 cover" />
+                </div>
+              </figure>
+              <!-- JS will inject the PDF viewer below on tap -->
+            </article>
+
+            <!-- Future issues: duplicate article.issue-block-mobile for each issue -->
+          </div>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <!-- Issues overlay -->
+  <div class="issues-overlay-backdrop" aria-hidden="true">
+    <div class="issues-overlay-frame" role="dialog" aria-modal="true" aria-label="Stacks issue PDF">
+      <button class="issues-overlay-close" type="button" aria-label="Close issue">×</button>
+      <iframe class="issues-overlay-iframe"
+              src=""
+              title="Stacks issue PDF"
+              loading="lazy"></iframe>
+    </div>
+  </div>
+
+  <!-- Partial include loader (for nav-footer.html) -->
+  <script>
+    (async function includePartials(){
+      const nodes = document.querySelectorAll('[data-include]');
+      for (const host of nodes){
+        const file = host.getAttribute('data-include');
+        if (!file) continue;
+        try{
+          const res  = await fetch(file);
+          if (!res.ok) continue;
+          const html = await res.text();
+          host.innerHTML = html;
+          host.querySelectorAll('script').forEach(old => {
+            const s = document.createElement('script');
+            if (old.src) s.src = old.src;
+            else s.textContent = old.textContent;
+            document.body.appendChild(s);
+            old.remove();
+          });
+        }catch(err){
+          console.error('Include failed for', file, err);
+        }
+      }
+    })();
+  </script>
+
+  <!-- Issues interactions -->
+  <script>
+    (function(){
+      function initIssues(){
+        const section = document.querySelector('.issues-section');
+        if (!section) return;
+
+        const mobileBlocks = Array.from(section.querySelectorAll('.issue-block-mobile'));
+        const listItems = Array.from(section.querySelectorAll('.issue-list-item'));
+
+        const overlay = document.querySelector('.issues-overlay-backdrop');
+        const overlayFrame = overlay ? overlay.querySelector('.issues-overlay-iframe') : null;
+        const overlayClose = overlay ? overlay.querySelector('.issues-overlay-close') : null;
+
+        const desktopQuery = window.matchMedia('(min-width: 900px)');
+        const canHover = window.matchMedia('(hover: hover)').matches;
+
+        function isDesktop(){
+          return desktopQuery.matches;
+        }
+
+        function openIssueDesktop(issueId, pdfSrc){
+          if (!overlay || !overlayFrame || !pdfSrc) return;
+
+          if (overlayFrame.src !== pdfSrc){
+            overlayFrame.src = pdfSrc;
+          }
+
+          if (listItems.length){
+            listItems.forEach(btn => {
+              const active = btn.dataset.issueId === issueId;
+              btn.classList.toggle('is-active', active);
+            });
+          }
+
+          overlay.classList.add('is-open');
+          overlay.setAttribute('aria-hidden', 'false');
+          document.body.classList.add('issues-overlay-open');
+        }
+
+        function closeOverlay(){
+          if (!overlay) return;
+          overlay.classList.remove('is-open');
+          overlay.setAttribute('aria-hidden', 'true');
+          document.body.classList.remove('issues-overlay-open');
+
+          if (listItems.length){
+            listItems.forEach(btn => btn.classList.remove('is-active'));
+          }
+        }
+
+        // Overlay close interactions
+        if (overlay){
+          overlay.addEventListener('click', function(e){
+            if (e.target === overlay){
+              closeOverlay();
+            }
+          });
+        }
+
+        if (overlayClose){
+          overlayClose.addEventListener('click', function(e){
+            e.preventDefault();
+            closeOverlay();
+          });
+        }
+
+        document.addEventListener('keydown', function(e){
+          if (e.key === 'Escape'){
+            closeOverlay();
+          }
+        });
+
+        function openIssueMobile(block, pdfSrc){
+          if (!block || !pdfSrc) return;
+
+          // Remove viewers from other issues so only one is open
+          mobileBlocks.forEach(other => {
+            if (other === block) return;
+            const existing = other.querySelector('.issue-mobile-viewer');
+            if (existing) existing.remove();
+          });
+
+          let viewer = block.querySelector('.issue-mobile-viewer');
+          if (!viewer){
+            viewer = document.createElement('div');
+            viewer.className = 'issue-mobile-viewer';
+            const iframe = document.createElement('iframe');
+            iframe.className = 'issues-pdf-mobile';
+            iframe.loading = 'lazy';
+            iframe.title = 'Stacks issue PDF';
+            viewer.appendChild(iframe);
+            block.appendChild(viewer);
+          }
+
+          const iframe = viewer.querySelector('iframe');
+          if (iframe && iframe.src !== pdfSrc){
+            iframe.src = pdfSrc;
+          }
+
+          // Scroll so the issue and viewer are nicely in view
+          const rect = block.getBoundingClientRect();
+          const offset = window.scrollY + rect.top - 80;
+          window.scrollTo({ top: offset, behavior: 'smooth' });
+        }
+
+        // Desktop triggers: hero and future list items
+        const desktopTriggers = Array.from(
+          section.querySelectorAll('.issue-thumb-hero, .issue-list-item')
+        );
+
+        desktopTriggers.forEach(trigger => {
+          const issueId = trigger.dataset.issueId;
+          const pdfSrc = trigger.dataset.pdf;
+          if (!pdfSrc) return;
+
+          if (canHover){
+            trigger.addEventListener('mouseenter', function(){
+              if (!isDesktop()) return;
+              openIssueDesktop(issueId, pdfSrc);
+            });
+          }
+
+          trigger.addEventListener('click', function(e){
+            e.preventDefault();
+            if (isDesktop()){
+              openIssueDesktop(issueId, pdfSrc);
+            }else{
+              const block = section.querySelector('.issue-block-mobile[data-issue-id="' + issueId + '"]');
+              openIssueMobile(block, pdfSrc);
+            }
+          });
+        });
+
+        // Mobile blocks (tap to open PDF below)
+        mobileBlocks.forEach(block => {
+          const pdfSrc = block.dataset.pdf;
+          block.addEventListener('click', function(){
+            if (isDesktop()) return;
+            openIssueMobile(block, pdfSrc);
+          });
+        });
+      }
+
+      if (document.readyState === 'loading'){
+        document.addEventListener('DOMContentLoaded', initIssues);
+      }else{
+        initIssues();
+      }
+    })();
+  </script>
+</body>
+</html>

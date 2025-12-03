@@ -68,7 +68,7 @@
     .article-card {
       display: flex;
       flex-direction: row;
-      gap: calc(1rem + 2px); /* MODIFIED: Increased gap */
+      gap: calc(1rem + 10px); /* MODIFIED: Increased gap */
       border-bottom: 1px solid var(--color-border);
       padding-bottom: 2rem;
       text-decoration: none;
@@ -88,14 +88,14 @@
     }
     
     .article-card-image {
-      flex-basis: 350px;
+      flex-basis: 415px;
       flex-shrink: 0;
     }
 
     .article-card-image img {
       width: 100%;
       height: 100%;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 4.75 / 3;
       object-fit: cover;
       border: 1px solid var(--color-border);
     }
@@ -154,24 +154,39 @@
       </header>
 
       <div class="article-list">
+
+        <a href="a-subhuman.html" class="article-card">
+          <div class="article-card-text">
+            <h3 class="article-card-title">Subhuman: Why devaluing men devalues us</h3>
+            <p class="article-card-excerpt">Before my first meaningful sexual encounter with a boy, I called one of my best friends across the country.</p>
+          </div>
+          <div class="article-card-image">
+            <img src="article-images/subhuman-Milan Rafaelov.jpg" alt="">
+          </div>
+        </a>
+
         <a href="a-world-of-mouth.html" class="article-card">
           <div class="article-card-text">
             <h3 class="article-card-title">World of mouth</h3>
             <p class="article-card-excerpt">When I imagine America, all 50 of its united states, I can never manage to fit it into my mouth.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://files.catbox.moe/zca26d.jpg" alt="Safwat Omar">
+            <img src="article-images/09.2025-issue-photos/america_Hayes Gaboury_SS.jpg" alt="Safwat Omar">
           </div>
         </a>
+
+
         <a href="a-i-used-chat.html" class="article-card">
           <div class="article-card-text">
             <h3 class="article-card-title">I used ChatGPT to resurrect my dead dad</h3>
             <p class="article-card-excerpt">Part of me was hoping that my dead father might hijack the technology and speak to me through artificial intelligence like the stories I’d read on the medium subreddit.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://files.catbox.moe/c5ooeb.jpg" alt="Romie Asplund">
+            <img src="article-images/09.2025-issue-photos/voice_Rosie Asplund_Courtesy.jpg" alt="Romie Asplund">
           </div>
         </a>
+
+
       </div>
     </main>
   </div>

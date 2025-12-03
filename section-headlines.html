@@ -66,7 +66,7 @@
     .article-card {
       display: flex;
       flex-direction: row;
-      gap: calc(1rem + 2px); /* MODIFIED: Increased gap */
+      gap: calc(1rem + 10px); /* MODIFIED: Increased gap */
       border-bottom: 1px solid var(--color-border);
       padding-bottom: 2rem;
       text-decoration: none;
@@ -86,14 +86,14 @@
     }
     
     .article-card-image {
-      flex-basis: 350px;
+      flex-basis: 415px;
       flex-shrink: 0;
     }
 
     .article-card-image img {
       width: 100%;
       height: 100%;
-      aspect-ratio: 4 / 3;
+      aspect-ratio: 4.75 / 3;
       object-fit: cover;
       border: 1px solid var(--color-border);
     }
@@ -114,20 +114,20 @@
       line-height: 1.2;
     }
 
-    /* CHANGED: sub-title size = excerpt size across desktop & mobile */
     .article-card-sub-title {
       font-family: var(--font-sans);
-      font-size: 1.25rem; /* now matches .article-card-excerpt */
+      font-size: 1.75rem;
       font-weight: bold;
       margin: 0 0 0.5rem;
       line-height: 1.2;
     }
 
+
     .article-card-excerpt {
       font-family: var(--font-serif);
       color: var(--color-text);
       margin: 0;
-      font-size: 1.25rem; /* reference size to match */
+      font-size: 1.25rem;
     }
 
     /* Responsive adjustments */
@@ -137,19 +137,6 @@
       }
       .article-card-image {
         flex-basis: auto;
-        width: 100%; /* ensure the container spans the card width */
-      }
-      /* CHANGED: mobile-only — image spans full article-card width */
-      .article-card-image img {
-        width: 100%;
-        height: auto;      /* prevent over-stretching on tall screens */
-        aspect-ratio: auto;/* don't force desktop ratio on mobile */
-        max-width: 100%;   /* ignore the global img max-width */
-        display: block;
-      }
-      /* Make global <img> rule not cap content images on mobile */
-      .site-main img {
-        max-width: 100%;
       }
     }
   </style>
@@ -168,6 +155,38 @@
 
       <div class="article-list">
 
+        <a href="a-calpirg.html" class="article-card">
+          <div class="article-card-text">
+            <h3 class="article-card-title">Inside the beehive</h3>
+            <h3 class="article-card-sub-title">The political inefficacy of CALPIRG</h3>
+            <p class="article-card-excerpt">When CALPIRG’s hiring team approached me in the spring of my freshman year, I was as bright-eyed and enthusiastic about the work as anyone.</p>
+          </div>
+          <div class="article-card-image">
+            <img src="article-images/calpirg_Milan_Rafaelov.jpg" alt="A portrait   ">
+          </div>
+        </a>
+
+        <a href="a-aipac.html" class="article-card">
+          <div class="article-card-text">
+            <h3 class="article-card-title">‘A chilling effect’</h3>
+            <h3 class="article-card-sub-title">California lawmakers’ silent war on campus speech</h3>
+            <p class="article-card-excerpt">If you’re a UC Berkeley student reading this, open CalCentral. You will notice that there is a new task waiting for you called “Civil Rights and Open Expression.”</p>
+          </div>
+          <div class="article-card-image">
+            <img src="article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="A portrait   ">
+          </div>
+        </a>
+
+        <a href="a-cults.html" class="article-card">
+          <div class="article-card-text">
+            <h3 class="article-card-title">Inside UC Berkeley’s Christian ‘cults’</h3>
+            <p class="article-card-excerpt">For all its Nobel Prizes, research opportunities and history of activism, UC Berkeley wrestles with the realities of its size.</p>
+          </div>
+          <div class="article-card-image">
+            <img src="article-images/cults-Cristina_Couch.jpg" alt="A portrait">
+          </div>
+        </a>
+
         <a href="a-who-holds-the-cards.html" class="article-card">
           <div class="article-card-text">
             <h3 class="article-card-title">Who holds the cards?</h3>
@@ -175,7 +194,7 @@
             <p class="article-card-excerpt">Over the past year, higher education in the United States has come under attack.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://files.catbox.moe/r1epe1.jpg" alt="A portrait   ">
+            <img src="article-images/09.2025-issue-photos/cards1_Hayes Gaboury_SS.jpg" alt="A portrait   ">
           </div>
         </a>
 
@@ -186,7 +205,7 @@
             <p class="article-card-excerpt">Over the past couple of years, artificial intelligence, or AI, advocates have dreamt of an abundant future. Recently, a counter narrative has been gaining momentum.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://files.catbox.moe/vi3clj.jpg" alt="Placeholder">
+            <img src="article-images/09.2025-issue-photos/agentic_Sam Grotenstein_Staff.jpg" alt="Placeholder">
           </div>
         </a>
 
@@ -197,7 +216,7 @@
             <p class="article-card-excerpt">It was through a reunion and conversations with former Berkeley Barb members that I began to understand how the city came to be constructed and captured, in part by the Barb, as a “cartoonishly leftist” place.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://files.catbox.moe/5fv5r9.jpg" alt="A portrait   ">
+            <img src="article-images/09.2025-issue-photos/barb_Clara Brownstein_SS.jpg" alt="A portrait   ">
           </div>
         </a>
 
@@ -208,7 +227,7 @@
             <p class="article-card-excerpt">A clear disconnect has emerged between Berkeley’s progressive aesthetics and the reality of living in the city without access to enormous wealth.</p>
           </div>
           <div class="article-card-image">
-            <img src="https://files.catbox.moe/lpyza5.jpg" alt="A portrait   ">
+            <img src="article-images/09.2025-issue-photos/aesthetics_Lisi Ludwig_SS.jpg" alt="A portrait   ">
           </div>
         </a>
       </div>

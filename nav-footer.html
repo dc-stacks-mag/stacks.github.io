@@ -7,16 +7,23 @@
     <a href="section-headlines.html"  class="nav-item" data-gif="animations/on-background.gif">Headlines</a>
     <a href="section-off.html" class="nav-item" data-gif="animations/off-the-record.gif">Off the Record</a>
     <a href="section-notes.html" class="nav-item" data-gif="animations/notes.gif">Notes</a>
+    <a href="section-from-the-stacks.html" class="nav-item">From the Stacks</a>
 
     <!-- Center logo -->
     <a class="nav-logo" href="index.html" aria-label="Stacks">
-      <img src="stacks-logo.png" alt="Stacks" width="270" height="80">
+      <img src="stacks-logo.png" alt="Stacks" width="220" height="70">
     </a>
 
     <!-- Right items -->
     <a href="section-upcoming-events.html" class="nav-item">Upcoming Events</a>
-    <a href="section-from-the-stacks.html" class="nav-item">From the Stacks</a>
-    <a href="about.html"       class="nav-item">About</a>
+    <a href="section-photo-essay.html" class="nav-item">Photo Essays</a>
+    <a href="section-editorial-cartoons.html" class="nav-item">Editorial Cartoons</a>
+    <div class="nav-item-group">
+      <a href="about.html" class="nav-item nav-item-parent">About</a>
+      <div class="nav-dropdown" aria-label="About submenu">
+        <a href="issues.html" class="nav-item nav-item-sub">Issues</a>
+      </div>
+    </div>  
   </nav>
 </header>
 
@@ -45,16 +52,20 @@
 <div class="folio" role="contentinfo" aria-label="Folio">
   <!-- Desktop/web folio -->
   <div class="folio-inner">
-    <div class="folio-left">
-      <span id="folio-date" class="folio-item"></span>
-    </div>
-    <div class="folio-center" aria-label="Publication">
-      <span class="folio-sep" aria-hidden="true">●</span>
-      <a class="folio-item" href="https://dailycal.org" target="_blank" rel="noopener">The Daily Californian</a>
-      <span class="folio-sep" aria-hidden="true">●</span>
-    </div>
-    <div class="folio-right">
-      <span class="folio-item">Issue I</span>
+    <div id="folio-cluster" class="folio-cluster">
+      <div class="folio-left">
+        <span id="folio-date" class="folio-item"></span>
+      </div>
+      
+      <div class="folio-center" aria-label="Publication">
+        <span class="folio-sep" aria-hidden="true">●</span>
+        <a class="folio-item" href="https://dailycal.org" target="_blank" rel="noopener">The Daily Californian</a>
+        <span class="folio-sep" aria-hidden="true">●</span>
+      </div>
+      
+      <div class="folio-right">
+        <span class="folio-item">Issue I</span>
+      </div>
     </div>
   </div>
 
@@ -103,26 +114,50 @@
   /* ---------- base toggles ---------- */
   .mobile-only{display:none}
 
-  /* ---------- folio (desktop/web) ---------- */
-  .folio{
-    height:var(--folio-h, 36px);
-    display:flex;align-items:center;border-bottom:1px solid var(--color-border);background:#fff;
-    font-family:var(--font-folio-2, var(--font-serif));
-  }
-  /* spreads letters and words visually */
-  .folio-item { letter-spacing: 0.125em; word-spacing: 0.1em; }
+/* ---------- folio (desktop/web) ---------- */
+.folio {
+  height: var(--folio-h, 60px);
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--color-border);
+  background: #fff;
+  font-family: var(--font-folio-2, var(--font-serif));
+  font-size: 1.05rem;
+  /* Removed overflow:hidden since we aren't shifting things off-screen anymore */
+}
 
-  .folio-inner{
-    width:100%; max-width:1200px; margin:0 auto; padding:0 1rem;
-    display:grid; grid-template-columns:1fr auto 1fr; gap:0.9em; align-items:center; justify-items:center;
-    font-size:.96rem;
-  }
-  .folio-left{ justify-self:end; white-space:nowrap; }
-  .folio-center{ display:flex; align-items:center; gap:.6rem; white-space:nowrap; }
-  .folio-right{ justify-self:start; white-space:nowrap; }
-  .folio-sep{ font-size:0; color:transparent; }
-  .folio-sep::before{ content:"●"; font-size:.8rem; color:var(--color-text); opacity:1; }
+.folio-inner {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center; /* This locks the cluster to the center */
+  align-items: center;
+  font-size: 1.05rem;
+  position: relative;
+}
 
+.folio-cluster {
+  display: flex;
+  align-items: center;
+  gap: 0.9em;
+  white-space: nowrap;
+  /* Removed transition/transform properties as JS is no longer moving it */
+}
+
+.folio-left, .folio-center, .folio-right {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.folio-center { gap: .6rem; }
+
+/* spreads letters and words visually */
+.folio-item { letter-spacing: 0.125em; word-spacing: 0.1em; }
+.folio-sep { font-size: 0; color: transparent; }
+.folio-sep::before { content: "●"; font-size: .8rem; color: var(--color-text); opacity: 1; }
   /* ---------- header/nav (desktop/web) ---------- */
   .site-header{
     position:sticky; top:0; z-index:1000; height:var(--header-height, 96px);
@@ -130,17 +165,80 @@
     border-bottom:1px solid rgba(255,255,255,.12);
   }
   .nav-scroll{
-    display:flex; align-items:center; justify-content:center; gap:1.25rem;
-    width:100%; padding:0 12px; overflow:visible;
+    display:flex; align-items:center; justify-content:center; gap:0.8rem;
+    width:100%; padding:0 -20px; overflow:visible;
   }
   .nav-scroll a{
     position:relative; display:inline-flex; align-items:center; justify-content:center;
-    padding:.8rem 1rem; white-space:nowrap; text-transform:uppercase; letter-spacing:.03em;
+    padding:.6rem 0.6rem; white-space:nowrap; text-transform:uppercase; letter-spacing:.03em;
     color:#fff; text-shadow:0 0 6px var(--nav-glow, rgba(255,255,255,.30));
     font-family:var(--font-sans);
   }
-  .nav-logo{ display:flex; align-items:center; justify-content:center; padding:0 .75rem; }
-  .nav-logo img{ width:280px; height:75px; object-fit:contain; display:block; }
+  .nav-logo img { 
+    /* 1. Allows growth: Occupy 18% of the viewport width */
+    width: 15vw; 
+    
+    /* 2. Cap the size: Don't let it get larger than 350px (adjust as desired) */
+    max-width: 250px; 
+    
+    /* 3. Prevent crushing: Don't let it scale below 160px */
+    min-width: 160px; 
+    
+    height: auto; 
+    object-fit: contain; 
+    display: block; 
+  }
+  
+  /* Update .nav-logo to prevent flex-shrinking */
+  .nav-logo { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+    padding: 0 .75rem;
+    /* This ensures the logo wrapper refuses to shrink below its content size */
+    flex-shrink: 0; 
+  }
+
+    /* --- About dropdown --- */
+    .nav-item-group{
+      position: relative;
+      display: flex;
+      align-items: stretch;
+    }
+  
+  
+    .nav-dropdown{
+      position: absolute;
+      top: 100%;               /* directly below About */
+      left: 0;
+      background: var(--nav-bg, #000);  /* match header color */
+      min-width: 100%;
+      padding: 0;
+      margin: 0;
+      display: none;
+      z-index: 100;
+      /* room for more items later */
+      white-space: nowrap;
+    }
+  
+    .nav-item-group:hover .nav-dropdown,
+    .nav-item-group:focus-within .nav-dropdown{
+      display: block;
+    }
+  
+    .nav-dropdown .nav-item-sub{
+      /* reuse base nav-item styling, but as block items in the dropdown */
+      display: block;
+      padding: .55rem 0.8rem;
+      text-align: left;
+    }
+  
+    /* if/when you add more items, separate them with a subtle line */
+    .nav-dropdown .nav-item-sub + .nav-item-sub{
+      border-top: 1px solid rgba(255,255,255,.18);
+    }
+  
+  
 
   /* Desktop GIF overlays */
   @media (hover:hover) and (pointer:fine){
@@ -149,9 +247,9 @@
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      height: 95px;
+      height: 90px;
       width: auto;
-      min-width: calc(100% + 30px);
+      min-width: calc(90% + 20px);
       opacity: 1;
       pointer-events: none;
       mix-blend-mode: screen;
@@ -183,7 +281,12 @@
     box-sizing: border-box; 
     overflow: visible;
     justify-content: center;
+    
+    /* --- The Shift (Using Transform) --- */
+    /* This forces the element 10px to the left, ignoring layout rules */
+    transform: translateX(-50px); 
   }
+
   .footer-spin{ 
     display:flex; 
     align-items:center; 
@@ -205,7 +308,7 @@
   /* Floating spin button */
   .floating-spin-btn {
     position: fixed;
-    z-index: 2147483647;
+    z-index: 200;
     cursor: pointer;
     border: none;
     background: transparent;
@@ -352,18 +455,24 @@
   if (f && f.parentElement !== document.body) document.body.appendChild(f);
 })();
 
-// Folio date
+// Folio date (Smart periods)
 (function(){
   const el = document.getElementById('folio-date');
   if (!el) return;
   const nowLA = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
   const wd = nowLA.toLocaleString('en-US', { weekday: 'long' });
-  const m  = nowLA.toLocaleString('en-US', { month: 'short' });
+  
+  let m = nowLA.toLocaleString('en-US', { month: 'short' });
+  // Only add period if the month name is actually abbreviated (longer than 3 letters originally)
+  // Or simply checking if it's NOT "May" is usually sufficient for English short months
+  if (m !== 'May') m += '.';
+
   const d  = String(nowLA.getDate()).padStart(2,'0');
   const y  = nowLA.getFullYear();
   el.textContent = `${wd}, ${m} ${d}, ${y}`;
 })();
 
+// Footer clock with seconds + Berkeley Time toggle
 // Footer clock with seconds + Berkeley Time toggle
 (function(){
   const clockEl = document.getElementById('berkeley-time');
@@ -371,9 +480,15 @@
   const tz = 'America/Los_Angeles';
 
   const fmt = (d) => {
-    const m = d.toLocaleString('en-US', { month: 'short', timeZone: tz });
+    // Get the short month
+    let m = d.toLocaleString('en-US', { month: 'short', timeZone: tz });
+    
+    // Add period if it's not "May"
+    if (m !== 'May') m += '.';
+
     const day = String(d.getDate()).padStart(2,'0');
     const t = d.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true, timeZone: tz });
+    
     return `${m} ${day} · ${t}`;
   };
 
@@ -477,4 +592,5 @@
     spinOnce();   // spin the whole website once
   });
 })();
+
 </script>
