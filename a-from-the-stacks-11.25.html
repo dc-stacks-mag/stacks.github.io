@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Cal Archives: Oski sued, Main Stacks moves underground — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="stacks-logo-favicon.png">
+  <style>
+    .archive-item {
+      margin: 3rem auto;
+      margin-bottom: 5rem;
+      max-width: min(800px, 92vw);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .archive-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .archive-title-date {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: #000000;
+      margin-bottom: 0.25rem;
+      text-align: center;
+    }
+    
+    .archive-image {
+      width: 100%;
+      border: 1px solid #000;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      margin-bottom: 0.5rem;
+    }
+    
+    .archive-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .archive-caption {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: #666;
+      margin-top: 1rem;
+      text-align: center;
+      font-style: italic;
+      line-height: 1.5;
+
+    }
+    
+    /* Desktop specific styles */
+    @media (min-width: 1024px) {
+      .archive-image {
+        width: 85%;
+      }
+    }
+    
+    /* Mobile specific styles */
+    @media (max-width: 1023px) {
+      .archive-item {
+        margin: 3rem auto;
+      }
+      
+      .archive-title-date {
+        font-size: 1rem;
+      }
+      
+      .archive-caption {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+    
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 15, 15, 0.89);
+      z-index: 5;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+    
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    
+    .lightbox-content {
+      max-width: 80vw;
+      max-height: 80vh;
+      position: fixed;
+      text-align: center;
+    }
+    
+    .lightbox-img {
+      max-width: 80vw;
+      max-height: 60vh;
+      border: 1px solid #555555;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    
+    .lightbox-date {
+      color: #fff;
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      margin-top: 15px;
+      text-align: center;
+    }
+    
+    .lightbox-caption {
+      color: #fff;
+      text-align: center;
+      margin-top: 10px;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    
+    /* Zoom effect for lightbox image */
+    .lightbox-img.zoomed {
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Loading animation for archive items */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-kicker">From the Stacks</div>
+
+          <!-- Headline -->
+          <h1 class="article-headline">Daily Cal Archives: Proposition 209 protested, Cal wins Big Game</h1>
+
+          <!-- Byline -->
+          <p class="article-byline">
+            By <strong>Elise Fisher</strong> &middot; <time datetime="2025-12-03">Dec. 03, 2025</time>
+          </p>
+
+          <!-- Blurb/Dek -->
+          <p class="article-byline">Metaphorically dig through archived issues of the Daily Cal to get a glimpse of life in Berkeley, from noteworthy headlines to everyday reporting that has been otherwise lost in the stacks.</p>
+        </header>
+
+        <section class="article-body">
+          
+          <div class="archive-item" data-date="Nov. 24, 1919">
+            <div class="archive-title-date">November 24, 1919: Cal wins the Big Game</div>
+            <figure>
+              <img src="article-images/from-the-stacks/Nov.1919.jpg" alt="" class="archive-image"
+              data-caption="The month of November brings an important tradition: the Big Game. The Daily Californian has long been Berkeley’s sports news source, and sports took the whole front page in 1919 to declare the Bear’s victory. In 1982, the rivalry extended to the two campus’ newspapers, when the Stanford Daily put out a replica of the Daily Cal with the headline “NCAA awards Big Game to Stanford,” days after Cal had actually won — upsetting students and fans alike." />
+              <figcaption class="archive-caption">The month of November brings an important tradition: the Big Game. The Daily Californian has long been Berkeley’s sports news source, and sports took the whole front page in 1919 to declare the Bear’s victory. In 1982, the rivalry extended to the two campus’ newspapers, when the Stanford Daily put out a replica of the Daily Cal with the headline “NCAA awards Big Game to Stanford,” days after Cal had actually won — upsetting students and fans alike.</figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Nov. 28, 1972">
+            <div class="archive-title-date">November 28, 1972: Liberation Front party wins ASUC seats</div>
+            <figure>
+              <img src="article-images/from-the-stacks/Nov.1972.jpg" alt="" class="archive-image" 
+              data-caption="November also means election season, which used to include the ASUC elections for UC Berkeley students. In this election cycle, the Berkeley Liberation Front party secured the most ASUC Senate seats, and only one independent candidate was elected. In a morning session, city council members were set to discuss street vendor rules for the holiday rush and easing the enforcement of marijuana laws. " />
+              <figcaption class="archive-caption">November also means election season, which used to include the ASUC elections for UC Berkeley students. In this election cycle, the Berkeley Liberation Front party secured the most ASUC Senate seats, and only one independent candidate was elected. In a morning session, city council members were set to discuss street vendor rules for the holiday rush and easing the enforcement of marijuana laws.               </figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Nov. 3, 1983">
+            <div class="archive-title-date">November 3, 1983</div>
+            <figure>
+              <img src="article-images/from-the-stacks/Nov.1983.jpg" alt="" class="archive-image"
+              data-caption="In local news, Berkeley City Council members upheld their rent control ordinance, voting to appeal a State Court of Appeal’s ruling that it was unconstitutional, and in favor of the majority vote that it got from the public. At the state level, the governor, who a Berkeley council member called a “Reaganite” in another front page piece, ordered a 3% job cut after a yearlong hiring freeze, which had already meant the loss of 6,000 positions in the state." />
+              <figcaption class="archive-caption">In local news, Berkeley City Council members upheld their rent control ordinance, voting to appeal a State Court of Appeal’s ruling that it was unconstitutional, and in favor of the majority vote that it got from the public. At the state level, the governor, who a Berkeley council member called a “Reaganite” in another front page piece, ordered a 3% job cut after a yearlong hiring freeze, which had already meant the loss of 6,000 positions in the state.</figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Nov. 8, 1996">
+            <div class="archive-title-date">November 8, 1996: Protests continue after Prop. 209 passes</div>
+            <figure>
+              <img src="article-images/from-the-stacks/Nov.1996.jpg" alt="" class="archive-image"
+              data-caption="Three days after the presidential election, students continued to protest the passage of Proposition 209, which banned affirmative action in California public schools. They besieged the Campanile to demand campus not adhere to the proposition and spent the day in discussions with administrators who told students there were “ways to maintain the campus’s cultural diversity.” In the years following, UC campuses saw a dramatic decrease in the Black and Latine student population and are still struggling to achieve the campus diversity they saw before Prop. 209 was implemented. " />
+              <figcaption class="archive-caption">Three days after the presidential election, students continued to protest the passage of Proposition 209, which banned affirmative action in California public schools. They besieged the Campanile to demand campus not adhere to the proposition and spent the day in discussions with administrators who told students there were “ways to maintain the campus’s cultural diversity.” In the years following, UC campuses saw a dramatic decrease in the Black and Latine student population and are still struggling to achieve the campus diversity they saw before Prop. 209 was implemented.               </figcaption>
+            </figure>
+          </div>
+
+          <div class="archive-item" data-date="Nov. 5, 2008">
+            <div class="archive-title-date">November 5, 2008: Campus reacts to Obama’s ‘historic win’</div>
+            <figure>
+              <img src="article-images/from-the-stacks/Nov.2008.jpg" alt="" class="archive-image"
+              data-caption="A photo essay in the center spread of this issue shows students lining up to vote and behind polls. Most photos focus on students celebrating former President Barack Obama’s historic victory, jumping up on the sign outside of the Free Speech Movement Café and crowding the spiral staircase in Gardner Main Stacks. " />
+              <figcaption class="archive-caption">A photo essay in the center spread of this issue shows students lining up to vote and behind polls. Most photos focus on students celebrating former President Barack Obama’s historic victory, jumping up on the sign outside of the Free Speech Movement Café and crowding the spiral staircase in Gardner Main Stacks. 
+              </figcaption>
+            </figure>
+          </div>
+
+          <div class="archive-item" data-date="Nov. 12, 2010">
+            <div class="archive-title-date">November 12, 2010</div>
+            <figure>
+              <img src="article-images/from-the-stacks/Nov.2010.jpg" alt="" class="archive-image"
+              data-caption="From just 15 years ago, this issue has headlines that may be familiar to some readers. Plans for the revitalization of Downtown Berkeley are debated, contract negotiations between the UC system and the graduate student instructors’ union are stalled. In other news, software that dispersed financial aid was causing delays — with serious implications for some students, especially student parents." />
+              <figcaption class="archive-caption">From just 15 years ago, this issue has headlines that may be familiar to some readers. Plans for the revitalization of Downtown Berkeley are debated, contract negotiations between the UC system and the graduate student instructors’ union are stalled. In other news, software that dispersed financial aid was causing delays — with serious implications for some students, especially student parents. </figcaption>
+            </figure>
+          </div>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-img" id="lightbox-img">
+      <div class="lightbox-date" id="lightbox-date"></div>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  
+  // Lightbox functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxDate = document.getElementById('lightbox-date');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const archiveImages = document.querySelectorAll('.archive-image');
+    const archiveItems = document.querySelectorAll('.archive-item');
+    
+    // Open lightbox when image is clicked
+    archiveImages.forEach(img => {
+      img.addEventListener('click', function() {
+        lightboxImg.src = this.src;
+        lightboxDate.textContent = this.closest('.archive-item').getAttribute('data-date');
+        lightboxCaption.textContent = this.getAttribute('data-caption');
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      });
+    });
+    
+    // Close lightbox when close button is clicked
+    lightboxClose.addEventListener('click', function() {
+      lightbox.classList.remove('active');
+      lightboxImg.classList.remove('zoomed');
+      document.body.style.overflow = ''; // Re-enable scrolling
+    });
+    
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+        lightboxImg.classList.remove('zoomed');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Zoom image on double click in lightbox
+    lightboxImg.addEventListener('dblclick', function() {
+      this.classList.toggle('zoomed');
+    });
+    
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        lightbox.classList.remove('active');
+        lightboxImg.classList.remove('zoomed');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Scroll animation for archive items
+    function checkScroll() {
+      archiveItems.forEach(item => {
+        const position = item.getBoundingClientRect();
+        
+        // If element is in viewport
+        if(position.top < window.innerHeight - 100 && position.bottom >= 0) {
+          item.classList.add('visible');
+        }
+      });
+    }
+    
+    // Initial check
+    checkScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', checkScroll);
+  });
+  </script>
+</body>
+</html>

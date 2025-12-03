@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Photo Essays — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-kicker">Photo Essays</div>
+
+          <!-- 1) Headline -->
+          <h1 class="article-headline">Stuck in the Stacks</h1>
+
+
+          <!-- 2) Byline (moved directly under headline) -->
+          <p class="article-byline"> <time datetime="2025-12-03">Dec. 03, 2025</time>
+          </p>
+
+          <!-- Feature image -->
+
+        </header>
+
+        <section class="article-body">
+          <p>
+            Main Stacks was never meant for humans. Quietly constructed in the 1990s, the behemoth exists first and foremost to house the written word. The narrow halls and fluorescent lights hardly provide even the bare minimum for human existence. 
+
+            It is impossible to know all of Main Stacks. Even after exploring all its nooks and crannies, shifting shelves and innumerable storage rooms, you’d still have to contend with the trillions of words among its shelves.
+            
+            Stacks inhabitants will come and go, but it will stay here — haunted by the absence of the authors and poets that shaped its skeleton and gave it blood.                       </p>
+
+
+          <figure class="article-featured-image">
+            <img src="article-images/photo-essays/STACKS 1_Sam_Clayton_staff.jpg" alt="" />
+            <figcaption>Photo by Sam Clayton</figcaption>
+          </figure>
+
+          <figure class="article-featured-image">
+            <img src="article-images/photo-essays/STACKS 2_Joe_Noriega_staff.jpg" alt="" />
+            <figcaption>Photo by Joe Noriega</figcaption>
+          </figure>
+
+
+          <figure class="article-featured-image">
+            <img src="article-images/photo-essays/STACKS 3_Joe_Noriega_staff.jpg" alt="" />
+            <figcaption>Photo by Joe Noriega</figcaption>
+          </figure>
+
+
+          <figure class="article-featured-image">
+            <img src="article-images/photo-essays/STACKS 4_Joe_Noriega_staff.jpg" alt="" />
+            <figcaption>Photo by Joe Noriega</figcaption>
+          </figure>
+
+          <figure class="article-featured-image">
+            <img src="article-images/photo-essays/STACKS 5_Hayes_Gaboury_senior_staff.jpg" alt="" />
+            <figcaption>Photo by Hayes Gaboury</figcaption>
+          </figure>
+
+
+          <figure class="article-featured-image">
+            <img src="article-images/photo-essays/STACKS 6_Tressa_Davies_staff.jpg" alt="" />
+            <figcaption>Photo by Tressa Davies</figcaption>
+          </figure>
+
+          <figure class="article-featured-image">
+            <img src="article-images/photo-essays/STACKS 7_Alison_Yang_staff.jpg" alt="" />
+            <figcaption>Photo by Alison Yang</figcaption>
+          </figure>
+
+
+          <figure class="article-featured-image">
+            <img src="article-images/photo-essays/STACKS 8_Alison_Yang_staff.jpg" alt="" />
+            <figcaption>Photo by Alison Yang</figcaption>
+          </figure>
+
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
