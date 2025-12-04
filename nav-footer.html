@@ -42,9 +42,12 @@
     <a href="section-headlines.html"  class="nav-item">Headlines</a>
     <a href="section-off.html" class="nav-item">Off the Record</a>
     <a href="section-notes.html" class="nav-item">Notes</a>
-    <a href="section-upcoming-events.html" class="nav-item">Upcoming Events</a>
     <a href="section-from-the-stacks.html" class="nav-item">From the Stacks</a>
-    <a href="about.html"       class="nav-item">About</a>
+    <a href="section-upcoming-events.html" class="nav-item">Upcoming Events</a>
+    <a href="section-upcoming-events.html" class="nav-item">Photo Essays</a>
+    <a href="section-upcoming-events.html" class="nav-item">Editorial Cartoons</a>
+    <a href="about.html" class="nav-item">About</a>
+    <a href="about.html" class="nav-item">— Issues</a>
   </nav>
 </div>
 
@@ -143,7 +146,7 @@
   align-items: center;
   gap: 0.9em;
   white-space: nowrap;
-  /* Removed transition/transform properties as JS is no longer moving it */
+  transform: translateX(clamp(-60px, -4vw, -25px));
 }
 
 .folio-left, .folio-center, .folio-right {
@@ -162,42 +165,55 @@
   .site-header{
     position:sticky; top:0; z-index:1000; height:var(--header-height, 96px);
     display:flex; align-items:center; background:var(--nav-bg, #000); color:#fff;
-    border-bottom:1px solid rgba(255,255,255,.12);
+    border-bottom:1px solid rgba(255,255,255,.12);   
+    width: 100%;
+    min-width: 100%;
   }
-  .nav-scroll{
-    display:flex; align-items:center; justify-content:center; gap:0.8rem;
-    width:100%; padding:0 -20px; overflow:visible;
-  }
-  .nav-scroll a{
-    position:relative; display:inline-flex; align-items:center; justify-content:center;
-    padding:.6rem 0.6rem; white-space:nowrap; text-transform:uppercase; letter-spacing:.03em;
-    color:#fff; text-shadow:0 0 6px var(--nav-glow, rgba(255,255,255,.30));
-    font-family:var(--font-sans);
-  }
-  .nav-logo img { 
-    /* 1. Allows growth: Occupy 18% of the viewport width */
-    width: 15vw; 
-    
-    /* 2. Cap the size: Don't let it get larger than 350px (adjust as desired) */
-    max-width: 250px; 
-    
-    /* 3. Prevent crushing: Don't let it scale below 160px */
-    min-width: 160px; 
-    
-    height: auto; 
-    object-fit: contain; 
-    display: block; 
-  }
+
+
+/* ========================================= */
+/* FLUID NAV  */
+/* ========================================= */
+.nav-scroll {
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  width: 100%; 
+  padding: 0 -20px; 
+  /* ensure overflow is visible so gifs don't get clipped */
+  overflow: visible; 
+
+  /* fluid Gap: shrinks to 0.2rem, grows to 1.5rem */
+  gap: clamp(0.2rem, 1.5vw, 1.5rem); 
+}
+
+.nav-scroll a {
+  /* Essential for positioning the absolute GIF inside */
+  position: relative; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center;
+  white-space: nowrap; 
+  text-transform: uppercase; 
+  color: #fff; 
+  font-family: var(--font-sans);
   
-  /* Update .nav-logo to prevent flex-shrinking */
-  .nav-logo { 
-    display: flex; 
-    align-items: center; 
-    justify-content: center; 
-    padding: 0 .75rem;
-    /* This ensures the logo wrapper refuses to shrink below its content size */
-    flex-shrink: 0; 
-  }
+  /* fluid Font: shrinks to 0.75rem, grows to 1.1rem */
+  font-size: clamp(0.85rem, 1.1vw, 1.4rem);
+  
+  /* Fluid Padding: prevents overlap on small screens */
+  padding: 0.6rem clamp(0.2rem, 0.5vw, 0.8rem);
+}
+
+.nav-logo img { 
+  /* Fluid Width: 15% of screen */
+  width: 15vw; 
+  max-width: 220px; 
+  /* Reduce min-width so it doesn't break small laptops */
+  min-width: 100px; 
+  height: auto; 
+  display: block; 
+}
 
     /* --- About dropdown --- */
     .nav-item-group{
@@ -249,7 +265,7 @@
       transform: translate(-50%, -50%);
       height: 90px;
       width: auto;
-      min-width: calc(90% + 20px);
+      min-width: calc(90% + 18px);
       opacity: 1;
       pointer-events: none;
       mix-blend-mode: screen;
@@ -258,6 +274,59 @@
       box-sizing: content-box;
     }
   }
+
+  /* -------------------------------------------------------------------------- */
+/* FLUID APPROACH: Smoothly scales from small laptops to big screens          */
+/* -------------------------------------------------------------------------- */
+
+/* 1. Update the container to have a flexible gap */
+.nav-scroll {
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  width: 100%; 
+  padding: 0 -20px; 
+  overflow: visible;
+
+  /* GAP: Scales between 0.2rem (small screen) and 1.5rem (large screen) */
+  gap: clamp(0.2rem, 1.5vw, 1.5rem); 
+}
+
+/* 2. Update the Nav Items with default font-size and flexible padding */
+.nav-scroll a {
+  position: relative; 
+  display: inline-flex; 
+  align-items: center; 
+  justify-content: center;
+  white-space: nowrap; 
+  text-transform: uppercase; 
+  letter-spacing: .03em;
+  color: #fff; 
+  text-shadow: 0 0 6px var(--nav-glow, rgba(255,255,255,.30));
+  font-family: var(--font-sans);
+
+  /* FONT SIZE: Minimum 0.75rem, Preferred 0.9vw, Maximum 1.1rem */
+  font-size: clamp(0.75rem, 0.9vw, 1.1rem);
+
+  /* PADDING: Shrinks horizontally on small screens to prevent overlap */
+  padding: 0.6rem clamp(0.2rem, 0.5vw, 0.8rem);
+}
+
+/* 3. Update the Logo to allow it to get smaller on small laptops */
+.nav-logo img { 
+  /* Occupy 15% of viewport width */
+  width: 15vw; 
+  
+  /* Cap the size for big screens */
+  max-width: 220px; 
+  
+  /* LOWER this value (was 140px) so it fits on 1024px/13-inch laptops */
+  min-width: 100px; 
+  
+  height: auto; 
+  object-fit: contain; 
+  display: block; 
+}
 
   /* ---------- footer (desktop/web) ---------- */
   :root{ --footer-extra-bottom: 10px; }
@@ -378,7 +447,7 @@
       height:var(--header-height, 75px); background:var(--nav-bg, #000); color:#fff; padding:0 1.25rem;
       position:sticky; top:0; z-index:1000; box-sizing:border-box;
     }
-    .mobile-logo img{height:36px; width:auto; display:block}
+    .mobile-logo img{height:48px; width:auto; display:block}
     .mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:0;cursor:pointer;position:relative;z-index:1001}
     .mobile-menu-toggle .line{position:absolute;left:6px;right:6px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .25s}
     .mobile-menu-toggle .line:nth-child(1){top:12px}.mobile-menu-toggle .line:nth-child(2){top:20px}.mobile-menu-toggle .line:nth-child(3){top:28px}
