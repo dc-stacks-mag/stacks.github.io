@@ -3,12 +3,13 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Notes — Stacks Magazine</title>
+  <title>Editorial Cartoons — Stacks Magazine</title>
   <link rel="stylesheet" href="style.css" />
+  <link rel="icon" type="image/png" href="stacks-logo-favicon.png">
   <style>
-    /* Basic Styles from original CSS */
-    @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,700;1,400&family=Playfair+Display:wght@700&display=swap');
-    
+    /* ========================================= */
+    /* 1. GLOBAL LAYOUT (Sticky Footer Fix)      */
+    /* ========================================= */
     :root {
       --color-bg: #fff;
       --color-text: #111;
@@ -18,176 +19,265 @@
       --font-serif: 'Georgia', serif;
     }
 
-    body {
+    html, body {
+      height: 100%;
       margin: 0;
-      color: var(--color-text);
-      background: var(--color-bg);
-      line-height: 1.6;
-      font-family: var(--font-serif);
+      padding: 0;
     }
 
+    body {
+      display: flex;
+      flex-direction: column;
+      background: var(--color-bg);
+      color: var(--color-text);
+      font-family: var(--font-serif);
+      line-height: 1.6;
+    }
+
+    /* Expands to push footer down */
     .site-main {
-      padding: 1.5rem;
+      flex: 1;
+      width: 100%;
       max-width: 1200px;
       margin: 0 auto;
+      padding: 1.5rem;
+      box-sizing: border-box;
     }
 
+    /* ========================================= */
+    /* 2. SECTION HEADER & FEATURED IMAGE        */
+    /* ========================================= */
     .section-header {
       text-align: center;
       margin-bottom: 2.5rem;
       border-bottom: 1px solid var(--color-border);
       padding-bottom: 1.5rem;
     }
-
     .section-header h1 {
-        font-family: var(--font-sans);
-        font-size: 2.75rem;
-        margin: 0 0 0.5rem;
-    }
-    
-    .section-header p {
-        color: var(--color-subtle);
-        margin: 0;
-    }
-
-    img {
-        max-width: 80%;
-        height: auto;
-        display: block;
-    }
-
-    /* Styles for Horizontal Layout */
-    .article-list {
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
-
-    .article-card {
-      display: flex;
-      flex-direction: row;
-      gap: calc(1rem + 2px); /* MODIFIED: Increased gap */
-      border-bottom: 1px solid var(--color-border);
-      padding-bottom: 2rem;
-      text-decoration: none;
-      color: inherit;
-      align-items: flex-start; /* ADDED: Aligns text and image to the top */
-    }
-
-    .article-card:last-child {
-      border-bottom: none;
-    }
-
-    .article-card-text {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      /* REMOVED: justify-content: center; */
-    }
-    
-    .article-card-image {
-      flex-basis: 350px;
-      flex-shrink: 0;
-    }
-
-    .article-card-image img {
-      width: 100%;
-      height: 100%;
-      aspect-ratio: 4 / 3;
-      object-fit: cover;
-      border: 1px solid var(--color-border);
-    }
-    
-    .article-card-category {
-        font-size: 1rem;
-        color: var(--color-subtle);
-        text-transform: uppercase;
-        font-family: var(--font-sans);
-        margin-bottom: 0.5rem;
-    }
-
-    .article-card-title {
       font-family: var(--font-sans);
-      font-size: 2rem;
-      font-weight: bold;
+      font-size: 2.75rem;
       margin: 0 0 0.5rem;
-      line-height: 1.2;
     }
-
-    .article-card-sub-title {
-      font-family: var(--font-sans);
-      font-size: 1.75rem;
-      font-weight: bold;
-      margin: 0 0 0.5rem;
-      line-height: 1.2;
-    }
-
-
-    .article-card-excerpt {
-      font-family: var(--font-serif);
-      color: var(--color-text);
-      margin: 0;
-      font-size: 1.25rem;
-    }
-
-        /* Responsive adjustments */
-
-
-    .article-featured-image-cartoon{
+    
+    /* Feature Image on Page */
+    .article-featured-image-cartoon {
       margin: 0 auto 1.25rem auto;
+      text-align: center;
+      width: 100%;
     }
-    .article-featured-image-cartoon img{
+    .article-featured-image-cartoon img {
       display: inline-block;       
+      max-width: 95%;
       height: auto;
       border: 1px solid var(--color-border);
       background: #f9f9f9;
+      cursor: pointer;
+      transition: transform 0.3s ease;
     }
+    .article-featured-image-cartoon img:hover { transform: scale(1.02); }
 
-    .article-featured-image-cartoon figcaption{
-      font-size: 1rem;
-      color: var(--color-subtle);
-      margin-top: .25rem;
-    }
-
-    .article-featured-image-cartoon figcaption-title{
+    .article-featured-image-cartoon figcaption-title {
       font-size: 1.5rem;
       color: var(--color-text);
       margin-top: .5rem;
+      display: block;
+      font-weight: bold;
+      max-width: 95%;
+      margin-left: auto; margin-right: auto;
+      line-height: 1.3;
+    }
+    .article-featured-image-cartoon figcaption {
+      font-size: 1rem;
+      color: var(--color-subtle);
+      margin-top: .25rem;
+      max-width: 95%;
+      margin-left: auto; margin-right: auto;
+    }
+
+    /* ========================================= */
+    /* 3. LIGHTBOX STYLES (Fixed Logic)          */
+    /* ========================================= */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background-color: rgba(15, 15, 15, 0.96);
+      z-index: 9999;
+      justify-content: center;
+      align-items: center; /* Center vertically */
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      overflow: hidden;
+    }
+    .lightbox.active { display: flex; opacity: 1; }
+
+    /* The vertical stack: Controls -> Image -> Caption */
+    .lightbox-stack {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      max-height: 100%;
+      position: relative;
+      /* Shift up slightly to look centered visually */
+      transform: translateY(-20px); 
+    }
+
+    /* CONTROLS (Top) */
+    .lightbox-controls {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 10px;
+      z-index: 10;
+      width: 90vw; /* Match image width */
+      justify-content: flex-end; /* Align right */
+    }
+    .lightbox-btn {
+      color: #fff;
+      font-size: 28px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      padding: 0;
+      line-height: 1;
+      opacity: 0.8;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+      transition: opacity 0.2s;
+    }
+    .lightbox-btn:hover { opacity: 1; transform: scale(1.1); }
+
+    /* IMAGE WRAPPER (Middle) */
+    /* This wrapper reserves the space so buttons/caption don't overlap */
+    .img-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      
+      /* DEFAULT STATE (Landscape/Normal) */
+      width: 95vw;
+      height: auto;
+      min-height: 30vh;
+      transition: width 0.3s, height 0.3s;
+    }
+
+    .lightbox-img {
+      display: block;
+      border: 1px solid #555;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.1);
+      transition: transform 0.4s ease;
+      /* Default sizing */
+      max-width: 100%;
+      max-height: 70vh;
+      width: auto;
+      height: auto;
+    }
+
+    /* CAPTION (Bottom) */
+    .lightbox-caption {
+      color: #fff;
+      margin-top: 15px;
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      width: 90vw;
+      text-align: center;
+      line-height: 1.4;
+      z-index: 10;
+    }
+    .caption-title { display: block; font-weight: 700; margin-bottom: 4px; font-size: 1.25rem; }
+    .caption-author { display: block; font-weight: 400; opacity: 0.85; font-size: 1rem; }
+
+
+    /* ========================================= */
+    /* 4. ROTATED STATE LOGIC                    */
+    /* ========================================= */
+    
+    /* When .rotated is added to the PARENT stack */
+    
+    /* 1. Resize Wrapper: Becomes Tall & Narrow to hold the sideways image */
+    .lightbox-stack.rotated .img-wrapper {
+      width: 90vw;       /* Horizontal constraint */
+      height: 80vh;      /* Vertical constraint (reserves space for rotated img) */
     }
     
-
-    /* Responsive adjustments */
-    @media (max-width: 768px) {
-      .article-card {
-        flex-direction: column-reverse;
-      }
-      .article-card-image {
-        flex-basis: auto;
-      }
+    /* 2. Rotate Image & Swap Dimensions */
+    .lightbox-stack.rotated .lightbox-img {
+      transform: rotate(-90deg);
+      
+      /* SWAP DIMENSIONS: 
+         Image 'width' becomes vertical screen space. 
+         Image 'height' becomes horizontal screen space. 
+      */
+      width: 82vh;       /* This spans vertically */
+      height: auto;      /* Maintain aspect ratio */
+      
+      /* Limits */
+      max-width: none;   /* Remove normal limit */
+      max-height: 90vw;  /* Don't exceed screen width */
     }
+
+    /* 3. Adjust Controls Position */
+    .lightbox-stack.rotated .lightbox-controls {
+       /* Keep them at the "top" of the rotated image stack */
+       margin-bottom: 0;
+    }
+
+    /* 4. Shift everything up slightly if requested */
+    .lightbox-stack.rotated {
+      margin-top: 0vh; /* Pulls the tall stack up towards the top */
+    }
+
   </style>
 </head>
 <body>
+
   <div data-include="nav-footer.html"></div>
 
   <div id="main-content" class="visible">
     <main class="site-main">
       <header class="section-header">
         <h1>Editorial Cartoons</h1>
-                        <!-- Feature image -->
-                        <figure class="article-featured-image-cartoon">
-                          <img src="article-images/editorial-cartoons/coloredited_Kaitlynn Brandon_stacksgpt.png" alt="Feature art"><br>
-                          <figcaption-title>"The Thinking Man’s Magazine"</figcaption-title>
-                          <figcaption>Cartoon by Kaitlynn Brandon</figcaption>
-                        </figure>
         
+        <figure class="article-featured-image-cartoon">
+          <img 
+            src="article-images/editorial-cartoons/coloredited_Kaitlynn Brandon_stacksgpt.png" 
+            alt="Feature art"
+            class="lightbox-trigger"
+            data-caption='"The Thinking Man’s Magazine"|Cartoon by Kaitlynn Brandon'>
+          
+          <figcaption-title>"The Thinking Man’s Magazine"</figcaption-title>
+          <figcaption>Cartoon by Kaitlynn Brandon</figcaption>
+        </figure>
       </header>
+      
+      <div class="article-list">
+        </div>
 
-
+        <br><br><br><br><br><br><br><br><br>
     </main>
   </div>
 
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    
+    <div class="lightbox-stack" id="lightbox-stack">
+      
+      <div class="lightbox-controls">
+        <button class="lightbox-btn" id="lightbox-rotate" aria-label="Rotate" title="Rotate">⟳</button>
+        <button class="lightbox-btn" id="lightbox-close" aria-label="Close" title="Close">&times;</button>
+      </div>
+
+      <div class="img-wrapper">
+        <img src="" alt="" class="lightbox-img" id="lightbox-img">
+      </div>
+      
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+
+  </div>
+
   <script>
+  // Include Partials
   (async function includePartials(){
     const nodes = document.querySelectorAll('[data-include]');
     for (const host of nodes){
@@ -203,6 +293,75 @@
       });
     }
   })();
+
+  // Lightbox Logic
+  document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('lightbox');
+    const stack = document.getElementById('lightbox-stack'); // The container we toggle class on
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    
+    const closeBtn = document.getElementById('lightbox-close');
+    const rotateBtn = document.getElementById('lightbox-rotate');
+    const triggerImg = document.querySelector('.lightbox-trigger');
+
+    // OPEN
+    if(triggerImg) {
+      triggerImg.addEventListener('click', function() {
+        lightboxImg.src = this.src;
+        stack.classList.remove('rotated'); // Reset rotation
+
+        // Parse Caption "Title" | Author
+        const rawCaption = this.getAttribute('data-caption') || '';
+        const parts = rawCaption.split('|');
+        let htmlHTML = '';
+        if(parts.length > 1) {
+          htmlHTML += `<span class="caption-title">${parts[0].trim()}</span>`;
+          htmlHTML += `<span class="caption-author">${parts[1].trim()}</span>`;
+        } else {
+          htmlHTML = rawCaption;
+        }
+        
+        lightboxCaption.innerHTML = htmlHTML;
+        lightbox.classList.add('active');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+
+    // CLOSE
+    function closeLightbox(){
+      lightbox.classList.remove('active');
+      lightbox.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+      // Reset rotation after fade out
+      setTimeout(() => stack.classList.remove('rotated'), 300);
+    }
+
+    // ROTATE (Toggle class on the Stack)
+    if(rotateBtn) {
+      rotateBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        stack.classList.toggle('rotated');
+      });
+    }
+
+    if(closeBtn) {
+      closeBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        closeLightbox();
+      });
+    }
+
+    // Close on background click
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) closeLightbox();
+    });
+    
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeLightbox();
+    });
+  });
   </script>
 </body>
 </html>
