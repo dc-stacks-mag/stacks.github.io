@@ -122,466 +122,29 @@
 </button>
 
 <style>
-  /* ---------- base toggles ---------- */
-  .mobile-only{display:none}
+  /* ========================================= */
+  /* BASE & UTILITIES             */
+  /* ========================================= */
+  :root{
+    --font-sans:'Georgia',serif;
+    --font-serif:'Georgia',serif;
+    --font-logo:'Filmotype Maxwell','Georgia',serif;
+    --font-folio:'JMHTypewriter',serif;
+    --font-folio-2:'GillSansNova-CnBold',serif;
 
-/* ---------- folio (desktop/web) ---------- */
-.folio {
-  height: var(--folio-h, 60px);
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid var(--color-border);
-  background: #fff;
-  font-family: var(--font-folio-2, var(--font-serif));
-  font-size: 1.05rem;
-  /* Removed overflow:hidden since we aren't shifting things off-screen anymore */
-}
+    --color-bg:#fff; --color-text:#111; --color-border:#606a97;
+    --color-subtle:#666;
 
-.folio-inner {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  justify-content: center; /* This locks the cluster to the center */
-  align-items: center;
-  font-size: 1.05rem;
-  position: relative;
-}
+    --nav-bg:#000;
+    --nav-glow:rgba(255,255,255,.30);
 
-.folio-cluster {
-  display: flex;
-  align-items: center;
-  gap: 0.9em;
-  white-space: nowrap;
-  transform: translateX(clamp(-60px, -4vw, -25px));
-}
-
-.folio-left, .folio-center, .folio-right {
-  display: flex;
-  align-items: center;
-  white-space: nowrap;
-}
-
-.folio-center { gap: .6rem; }
-
-/* spreads letters and words visually */
-.folio-item { letter-spacing: 0.125em; word-spacing: 0.1em; }
-.folio-sep { font-size: 0; color: transparent; }
-.folio-sep::before { content: "●"; font-size: .8rem; color: var(--color-text); opacity: 1; }
-  /* ---------- header/nav (desktop/web) ---------- */
-  .site-header{
-    position:sticky; top:0; z-index:1000; height:var(--header-height, 96px);
-    display:flex; align-items:center; background:var(--nav-bg, #000); color:#fff;
-    border-bottom:1px solid rgba(255,255,255,.12);   
-    width: 100%;
-    min-width: 100%;
+    --header-height:96px;
+    --header-height-shrink:74px;
+    --folio-h:36px;
+    --footer-extra-bottom: 10px;
   }
 
-
-/* ========================================= */
-/* FLUID NAV  */
-/* ========================================= */
-.nav-scroll {
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  width: 100%; 
-  padding: 0 -20px; 
-  /* ensure overflow is visible so gifs don't get clipped */
-  overflow: visible; 
-
-  /* fluid Gap: shrinks to 0.2rem, grows to 1.5rem */
-  gap: clamp(0.2rem, 1.5vw, 1.5rem); 
-}
-
-.nav-scroll a {
-  /* Essential for positioning the absolute GIF inside */
-  position: relative; 
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center;
-  white-space: nowrap; 
-  text-transform: uppercase; 
-  color: #fff; 
-  font-family: var(--font-sans);
-  
-  /* fluid Font: shrinks to 0.75rem, grows to 1.1rem */
-  font-size: clamp(0.85rem, 1.1vw, 1.4rem);
-  
-  /* Fluid Padding: prevents overlap on small screens */
-  padding: 0.6rem clamp(0.2rem, 0.5vw, 0.8rem);
-}
-
-.nav-logo img { 
-  /* Fluid Width: 15% of screen */
-  width: 15vw; 
-  max-width: 220px; 
-  /* Reduce min-width so it doesn't break small laptops */
-  min-width: 100px; 
-  height: auto; 
-  display: block; 
-}
-
-    /* --- About dropdown --- */
-    .nav-item-group{
-      position: relative;
-      display: flex;
-      align-items: stretch;
-    }
-  
-  
-    .nav-dropdown{
-      position: absolute;
-      top: 100%;               /* directly below About */
-      left: 0;
-      background: var(--nav-bg, #000);  /* match header color */
-      min-width: 100%;
-      padding: 0;
-      margin: 0;
-      display: none;
-      z-index: 100;
-      /* room for more items later */
-      white-space: nowrap;
-    }
-  
-    .nav-item-group:hover .nav-dropdown,
-    .nav-item-group:focus-within .nav-dropdown{
-      display: block;
-    }
-  
-    .nav-dropdown .nav-item-sub{
-      /* reuse base nav-item styling, but as block items in the dropdown */
-      display: block;
-      padding: .55rem 0.8rem;
-      text-align: left;
-    }
-  
-    /* if/when you add more items, separate them with a subtle line */
-    .nav-dropdown .nav-item-sub + .nav-item-sub{
-      border-top: 1px solid rgba(255,255,255,.18);
-    }
-  
-  
-
-  /* Desktop GIF overlays */
-  @media (hover:hover) and (pointer:fine){
-    .nav-item .nav-gif {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      height: 90px;
-      width: auto;
-      min-width: calc(90% + 18px);
-      opacity: 1;
-      pointer-events: none;
-      mix-blend-mode: screen;
-      filter: invert(1) brightness(1.35) contrast(1.1) saturate(0);
-      transition: opacity .5s ease;
-      box-sizing: content-box;
-    }
-  }
-
-  /* -------------------------------------------------------------------------- */
-/* FLUID APPROACH: Smoothly scales from small laptops to big screens          */
-/* -------------------------------------------------------------------------- */
-
-/* 1. Update the container to have a flexible gap */
-.nav-scroll {
-  display: flex; 
-  align-items: center; 
-  justify-content: center;
-  width: 100%; 
-  padding: 0 -20px; 
-  overflow: visible;
-
-  /* GAP: Scales between 0.2rem (small screen) and 1.5rem (large screen) */
-  gap: clamp(0.2rem, 1.5vw, 1.5rem); 
-}
-
-/* 2. Update the Nav Items with default font-size and flexible padding */
-.nav-scroll a {
-  position: relative; 
-  display: inline-flex; 
-  align-items: center; 
-  justify-content: center;
-  white-space: nowrap; 
-  text-transform: uppercase; 
-  letter-spacing: .03em;
-  color: #fff; 
-  text-shadow: 0 0 6px var(--nav-glow, rgba(255,255,255,.30));
-  font-family: var(--font-sans);
-
-  /* FONT SIZE: Minimum 0.75rem, Preferred 0.9vw, Maximum 1.1rem */
-  font-size: clamp(0.75rem, 0.9vw, 1.1rem);
-
-  /* PADDING: Shrinks horizontally on small screens to prevent overlap */
-  padding: 0.6rem clamp(0.2rem, 0.5vw, 0.8rem);
-}
-
-/* 3. Update the Logo to allow it to get smaller on small laptops */
-.nav-logo img { 
-  /* Occupy 15% of viewport width */
-  width: 15vw; 
-  
-  /* Cap the size for big screens */
-  max-width: 220px; 
-  
-  /* LOWER this value (was 140px) so it fits on 1024px/13-inch laptops */
-  min-width: 100px; 
-  
-  height: auto; 
-  object-fit: contain; 
-  display: block; 
-}
-
-  /* ---------- footer (desktop/web) ---------- */
-  :root{ --footer-extra-bottom: 10px; }
-
-  .site-footer-main{
-    padding: 1rem 1.25rem calc(1.5rem + var(--footer-extra-bottom));
-    margin-top: 2rem;
-    margin-bottom: 1rem;
-    border-top: 1px solid var(--color-border);
-    background: transparent;
-  }
-
-  .footer-inner {
-    max-width: 60vw;
-    margin: 0 auto; 
-    display: grid; 
-    grid-template-columns: 15vw 60vw 15vw; 
-    align-items: center; 
-    gap: 1rem; 
-    width: 100%; 
-    box-sizing: border-box; 
-    overflow: visible;
-    justify-content: center;
-    
-    /* --- The Shift (Using Transform) --- */
-    /* This forces the element 10px to the left, ignoring layout rules */
-    transform: translateX(-50px); 
-  }
-
-  .footer-spin{ 
-    display:flex; 
-    align-items:center; 
-    justify-content:flex-start; 
-    position: relative;
-    height: 100%;
-    width: 10vw;
-    max-width: 16rem;
-    min-width: 40px;
-  }
-  .footer-left{ display:grid; grid-template-columns: repeat(3, 1fr); gap:.25rem; align-items:center; justify-items:start; min-width:0; }
-  .footer-block{ min-width:0; }
-  .footer-title{ color:var(--color-subtle); font-family:var(--font-sans); font-size:.9rem; }
-  .footer-value{ font-weight:700; font-family:var(--font-folio); white-space:nowrap; }
-  .footer-value.footer-mainfont{ font-family:var(--font-serif); }
-  .footer-right{ display:flex; align-items:center; justify-content:flex-end; gap:.75rem; white-space:nowrap; min-width:0; }
-  .footer-books{ width:min(6vw, 90px); height:auto; display:block; }
-
-  /* Floating spin button */
-  .floating-spin-btn {
-    position: fixed;
-    z-index: 200;
-    cursor: pointer;
-    border: none;
-    background: transparent;
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
-  }
-  
-  /* Desktop positioning */
-  @media (min-width: 769px) {
-    .floating-spin-btn {
-      left: max(24px, env(safe-area-inset-left));
-      bottom: max(24px, env(safe-area-inset-bottom));
-      width: 60px;
-      height: 60px;
-    }
-    .floating-spin-btn img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  /* Mobile positioning */
-  @media (max-width: 768px) {
-    .floating-spin-btn {
-      left: max(16px, env(safe-area-inset-left));
-      bottom: max(16px, env(safe-area-inset-bottom));
-      width: 52px;
-      height: 52px;
-    }
-    .floating-spin-btn img {
-      width: 100%;
-      height: 100%;
-    }
-  }
-
-  /* Spin animation */
-  @keyframes stacks-spin-once{
-    from{ transform: rotate(0deg); }
-    to  { transform: rotate(360deg); }
-  }
-
-  html.spin-once{
-    animation: stacks-spin-once 900ms linear 1;
-    transform-origin: 50% 50%;
-  }
-
-  html.spin-once .floating-spin-btn{
-    transform: rotate(-360deg);
-  }
-
-  @media (prefers-reduced-motion: reduce){
-    html.spin-once{ animation: none !important; }
-    html.spin-once .floating-spin-btn{ transform: none !important; }
-  }
-
-  /* ---------- MOBILE-ONLY OVERRIDES ---------- */
-  @media (max-width:1023px){
-    .desktop-only{ display:none !important; }
-    .mobile-only{ display:block !important; }
-
-  /* mobile header + menu */
-    .mobile-bar{
-      display:flex; align-items:center; justify-content:space-between; gap:.5rem; width:100%;
-      height:var(--header-height, 75px); background:var(--nav-bg, #000); color:#fff; padding:0 1.25rem;
-      position:sticky; top:0; z-index:1000; box-sizing:border-box;
-    }
-
-    .mobile-logo img{height:48px; width:auto; display:block}
-    .mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:0;cursor:pointer;position:relative;z-index:1001}
-    .mobile-menu-toggle .line{position:absolute;left:6px;right:6px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .25s}
-    .mobile-menu-toggle .line:nth-child(1){top:12px}.mobile-menu-toggle .line:nth-child(2){top:20px}.mobile-menu-toggle .line:nth-child(3){top:28px}
-    .mobile-menu-toggle.active .line:nth-child(1){transform:translateY(8px) rotate(45deg)}
-    .mobile-menu-toggle.active .line:nth-child(2){opacity:0}
-    .mobile-menu-toggle.active .line:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
-
-    .mobile-menu{
-      position:fixed; 
-      inset:var(--header-height, 75px) 0 0 0; /* Starts below header */
-      display:none; 
-      flex-direction:column; 
-      gap:.5rem; 
-      padding: 2rem 1rem 2rem; /* Extra bottom padding for scroll space */
-      background-color: rgba(25,25,30,.96); /* Slightly darker for legibility */
-      backdrop-filter: blur(4px);
-      z-index:999; /* Below the sticky bar (1000) */
-      overflow-y: auto; /* Allows scrolling within the menu */
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    .mobile-menu.open{ display:flex; }
-
-    /* Nav Items */
-    /* 1. ALLOW OVERFLOW so GIFs can be seen fully */
-    .mobile-menu a.nav-item{
-      position: relative;
-      font-size: 1.25rem; 
-      padding:.85rem .7rem; 
-      text-align:center; 
-      text-transform:uppercase; 
-      letter-spacing:.03em; 
-      font-family:var(--font-sans);
-      color:#fff; 
-      text-shadow:0 0 6px rgba(255,255,255,.30);
-      
-      /* CHANGED: visible allows the GIF to overlap neighbors */
-      overflow: visible; 
-      
-      /* Ensure the link text is on top of the GIF so it remains clickable */
-      z-index: 2; 
-    }
-
-    /* Ensure text sits above GIF */
-    .mobile-menu .nav-text {
-      position: relative;
-      z-index: 2;
-    }
-
-    /* Separator line for Request #3 */
-    .mobile-menu a.nav-item.separator {
-      margin-top: 0.5rem;
-      border-top: 1px solid rgba(255,255,255,0.3);
-      padding-top: 1.25rem;
-    }
-
-    /* 2. POSITION & SIZE THE GIF */
-    .mobile-menu .mobile-nav-gif {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      
-      /* Adjust size here (70-90% usually good for visible overlap without being huge) */
-      width: 50%;  
-      height: auto;
-      
-      /* Push behind the text */
-      z-index: -1; 
-      
-      opacity: 0;
-      mix-blend-mode: screen;
-      filter: invert(1) brightness(1.35) contrast(1.1) saturate(0);
-      
-      /* CRITICAL: This ensures clicks pass through the GIF to the link */
-      pointer-events: none; 
-      
-      transition: opacity 0.4s ease;
-    }
-
-    /* SPECIFIC OVERRIDE FOR NOTES GIF ONLY */
-    .mobile-menu a[data-gif*="notes.gif"] .mobile-nav-gif {
-      width: 65% !important;   /* Increase width specifically for notes */
-      max-height: 100px !important; /* Constrain height to stop it from getting too tall */
-      object-fit: contain;
-    }
-
-    /* Show GIFs when menu is open */
-    .mobile-menu.open .mobile-nav-gif {
-      opacity: 1;
-      /* Uses the --delay var set in HTML for cascading effect */
-      transition-delay: var(--delay, 0s); 
-    }
-
-
-    /* folio */
-    .folio-inner{ display:none !important; }
-    .folio-mobile{
-      display:flex !important; align-items:center; justify-content:center; gap:.6rem;
-      width:100%; padding:0 .9rem;
-      font-family:var(--font-folio, var(--font-serif));
-    }
-    .folio-dot{ opacity:.45; }
-
-    /* footer */
-    .site-footer-main{ padding-bottom: max(18px, env(safe-area-inset-bottom)); }
-
-    /* Footer Shift */
-    .footer-inner{
-      grid-template-columns: auto 1fr auto;
-      align-items:center; gap:.75rem; max-width:95vw;
-      /* Shift right by 10px on mobile */
-      transform: translateX(10px); 
-    }
-
-    .footer-left{ grid-template-columns: 1fr; gap:.35rem; justify-items:start; }
-    .footer-spin{ 
-      width: 60px;
-      min-width: 44px;
-      height: 60px;
-    }
-    .footer-books{ width:70px; }
-  }
-
-  /* ===== DESKTOP-FIRST VISIBILITY FIX ===== */
+  /* Visibility Toggles */
   .desktop-only{ display:block; }
   .mobile-only{ display:none; }
   .folio-inner{ display:grid; }
@@ -605,181 +168,460 @@
       font-family:var(--font-folio, var(--font-serif));
     }
   }
+
+  /* ========================================= */
+  /* FOLIO (DESKTOP/WEB)             */
+  /* ========================================= */
+  .folio {
+    height: var(--folio-h, 60px);
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--color-border);
+    background: #fff;
+    font-family: var(--font-folio-2, var(--font-serif));
+    font-size: 1.05rem;
+  }
+
+  .folio-inner {
+    width: 100%;
+    margin: 0; padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.05rem;
+    position: relative;
+  }
+
+  .folio-cluster {
+    display: flex; align-items: center; gap: 0.9em;
+    white-space: nowrap;
+    transform: translateX(clamp(-60px, -4vw, -25px));
+  }
+
+  .folio-left, .folio-center, .folio-right {
+    display: flex; align-items: center; white-space: nowrap;
+  }
+  .folio-center { gap: .6rem; }
+  .folio-item { letter-spacing: 0.125em; word-spacing: 0.1em; }
+  .folio-sep { font-size: 0; color: transparent; }
+  .folio-sep::before { content: "●"; font-size: .8rem; color: var(--color-text); opacity: 1; }
+
+  /* ========================================= */
+  /* HEADER/NAV (DESKTOP/WEB)          */
+  /* ========================================= */
+  .site-header{
+    position:sticky; top:0; z-index:1000; height:var(--header-height, 96px);
+    display:flex; align-items:center; background:var(--nav-bg, #000); color:#fff;
+    border-bottom:1px solid rgba(255,255,255,.12);   
+    width: 100%; min-width: 100%;
+  }
+
+  .nav-scroll {
+    display: flex; align-items: center; justify-content: center;
+    width: 100%; padding: 0 -20px; overflow: visible;
+    gap: clamp(0.2rem, 1.5vw, 1.5rem); 
+  }
+
+  .nav-scroll a {
+    position: relative; 
+    display: inline-flex; align-items: center; justify-content: center;
+    white-space: nowrap; text-transform: uppercase; letter-spacing: .03em;
+    color: #fff; text-shadow: 0 0 6px var(--nav-glow, rgba(255,255,255,.30));
+    font-family: var(--font-sans);
+    font-size: clamp(0.75rem, 0.9vw, 1.1rem);
+    padding: 0.6rem clamp(0.2rem, 0.5vw, 0.8rem);
+  }
+
+  .nav-logo img { 
+    width: 15vw; max-width: 220px; min-width: 100px; 
+    height: auto; object-fit: contain; display: block; 
+  }
+
+  /* Dropdown */
+  .nav-item-group{ position: relative; display: flex; align-items: stretch; }
+  .nav-dropdown{
+    position: absolute; top: 100%; left: 0;
+    background: var(--nav-bg, #000);
+    min-width: 100%; padding: 0; margin: 0;
+    display: none; z-index: 100; white-space: nowrap;
+  }
+  .nav-item-group:hover .nav-dropdown,
+  .nav-item-group:focus-within .nav-dropdown{ display: block; }
+  .nav-dropdown .nav-item-sub{ display: block; padding: .55rem 0.8rem; text-align: left; }
+  .nav-dropdown .nav-item-sub + .nav-item-sub{ border-top: 1px solid rgba(255,255,255,.18); }
+
+  /* Desktop Hover GIFs */
+  @media (hover:hover) and (pointer:fine){
+    .nav-item .nav-gif {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      height: 90px; width: auto; min-width: calc(90% + 18px);
+      opacity: 1; pointer-events: none;
+      mix-blend-mode: screen;
+      filter: invert(1) brightness(1.35) contrast(1.1) saturate(0);
+      transition: opacity .5s ease;
+      box-sizing: content-box;
+    }
+  }
+
+  /* ========================================= */
+  /* FOOTER (DESKTOP/WEB)            */
+  /* ========================================= */
+  .site-footer-main{
+    padding: 1rem 1.25rem calc(1.5rem + var(--footer-extra-bottom));
+    margin-top: 2rem; margin-bottom: 1rem;
+    border-top: 1px solid var(--color-border);
+    background: transparent;
+  }
+
+  .footer-inner {
+    max-width: 60vw; margin: 0 auto; 
+    display: grid; grid-template-columns: 15vw 60vw 15vw; 
+    align-items: center; gap: 1rem; width: 100%; box-sizing: border-box; 
+    overflow: visible; justify-content: center;
+    transform: translateX(-50px); 
+  }
+
+  .footer-spin{ 
+    display:flex; align-items:center; justify-content:flex-start; position: relative;
+    height: 100%; width: 10vw; max-width: 16rem; min-width: 40px;
+  }
+  .footer-left{ display:grid; grid-template-columns: repeat(3, 1fr); gap:.25rem; align-items:center; justify-items:start; min-width:0; }
+  .footer-block{ min-width:0; }
+  .footer-title{ color:var(--color-subtle); font-family:var(--font-sans); font-size:.9rem; }
+  .footer-value{ font-weight:700; font-family:var(--font-folio); white-space:nowrap; }
+  .footer-value.footer-mainfont{ font-family:var(--font-serif); }
+  .footer-right{ display:flex; align-items:center; justify-content:flex-end; gap:.75rem; white-space:nowrap; min-width:0; }
+  .footer-books{ width:min(6vw, 90px); height:auto; display:block; }
+
+  /* Floating spin button */
+  .floating-spin-btn {
+    position: fixed; z-index: 200; cursor: pointer;
+    border: none; background: transparent; padding: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 0.3s ease;
+  }
+  
+  @media (min-width: 769px) {
+    .floating-spin-btn {
+      left: max(24px, env(safe-area-inset-left));
+      bottom: max(24px, env(safe-area-inset-bottom));
+      width: 60px; height: 60px;
+    }
+    .floating-spin-btn img { width: 100%; height: 100%; }
+  }
+  @media (max-width: 768px) {
+    .floating-spin-btn {
+      left: max(16px, env(safe-area-inset-left));
+      bottom: max(16px, env(safe-area-inset-bottom));
+      width: 52px; height: 52px;
+    }
+    .floating-spin-btn img { width: 100%; height: 100%; }
+  }
+
+  /* Spin Animation Keyframes */
+  @keyframes stacks-spin-once{ from{ transform: rotate(0deg); } to{ transform: rotate(360deg); } }
+  html.spin-once{ animation: stacks-spin-once 900ms linear 1; transform-origin: 50% 50%; }
+  html.spin-once .floating-spin-btn{ transform: rotate(-360deg); }
+  @media (prefers-reduced-motion: reduce){
+    html.spin-once{ animation: none !important; }
+    html.spin-once .floating-spin-btn{ transform: none !important; }
+  }
+
+  /* ========================================= */
+  /* MOBILE-ONLY OVERRIDES            */
+  /* ========================================= */
+  @media (max-width:1023px){
+    /* Header Bar */
+    .mobile-bar{
+      display:flex; align-items:center; justify-content:space-between; gap:.5rem; width:100%;
+      height:var(--header-height, 75px); background:var(--nav-bg, #000); color:#fff; padding:0 1.25rem;
+      position:sticky; top:0; z-index:1000; box-sizing:border-box;
+    }
+
+    .mobile-logo img{height:48px; width:auto; display:block}
+    .mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:0;cursor:pointer;position:relative;z-index:1001}
+    .mobile-menu-toggle .line{position:absolute;left:6px;right:6px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .25s}
+    .mobile-menu-toggle .line:nth-child(1){top:12px}.mobile-menu-toggle .line:nth-child(2){top:20px}.mobile-menu-toggle .line:nth-child(3){top:28px}
+    .mobile-menu-toggle.active .line:nth-child(1){transform:translateY(8px) rotate(45deg)}
+    .mobile-menu-toggle.active .line:nth-child(2){opacity:0}
+    .mobile-menu-toggle.active .line:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+
+    /* Menu Container */
+    .mobile-menu{
+      position:fixed; 
+      inset:var(--header-height, 75px) 0 0 0;
+      display:none; 
+      flex-direction:column; 
+      gap:.5rem; 
+      padding: 2rem 1rem 2rem;
+      background-color: rgba(25,25,30,.96);
+      backdrop-filter: blur(4px);
+      z-index:999;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+    .mobile-menu.open{ display:flex; }
+
+    /* Nav Items */
+    .mobile-menu a.nav-item{
+      position: relative;
+      font-size: 1.25rem; 
+      padding:.85rem .7rem; 
+      text-align:center; 
+      text-transform:uppercase; 
+      letter-spacing:.03em; 
+      font-family:var(--font-sans);
+      color:#fff; 
+      text-shadow:0 0 6px rgba(255,255,255,.30);
+      overflow: visible; /* Allows GIF overlap */
+      z-index: 2; 
+    }
+    .mobile-menu .nav-text { position: relative; z-index: 2; }
+    
+    /* Separator for "About" */
+    .mobile-menu a.nav-item.separator {
+      margin-top: 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      padding-top: 1.25rem;
+    }
+
+    /* Mobile GIFs Styling (Sequential Animation) */
+    .mobile-menu .mobile-nav-gif {
+      position: absolute; top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50%; height: auto;
+      z-index: -1; 
+      opacity: 0; /* Start hidden */
+      mix-blend-mode: screen;
+      filter: invert(1) brightness(1.35) contrast(1.1) saturate(0);
+      pointer-events: none; 
+      transition: opacity 0.5s ease;
+    }
+
+    /* Active State: Playing */
+    .mobile-menu .mobile-nav-gif.playing { opacity: 1; }
+    
+    /* Finished State: Faded */
+    .mobile-menu .mobile-nav-gif.finished { opacity: 0.1; }
+
+    /* Specific Override for Notes GIF */
+    .mobile-menu a[data-gif*="notes.gif"] .mobile-nav-gif {
+      width: 65% !important;
+      max-height: 100px !important;
+      object-fit: contain;
+    }
+
+    /* Mobile Folio */
+    .folio-mobile{
+      display:flex !important; align-items:center; justify-content:center; gap:.6rem;
+      width:100%; padding:0 .9rem;
+      font-family:var(--font-folio, var(--font-serif));
+      /* Text Scale for Tiny Screens */
+      font-size: clamp(0.75rem, 3.5vw, 1.05rem); 
+    }
+    .folio-dot{ opacity:.45; }
+
+    /* Mobile Footer */
+    .site-footer-main{ padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+    .footer-inner{
+      grid-template-columns: auto 1fr auto;
+      align-items:center; gap:.75rem; max-width:95vw;
+      transform: translateX(10px); 
+    }
+    .footer-left{ grid-template-columns: 1fr; gap:.35rem; justify-items:start; }
+    .footer-spin{ width: 60px; min-width: 44px; height: 60px; }
+    .footer-books{ width:70px; }
+  }
 </style>
 
 <script>
-// Move footer to body end
-(function(){
-  const f = document.getElementById('global-footer');
-  if (f && f.parentElement !== document.body) document.body.appendChild(f);
-})();
-
-// Folio date (Smart periods)
-(function(){
-  const el = document.getElementById('folio-date');
-  if (!el) return;
-  const nowLA = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
-  const wd = nowLA.toLocaleString('en-US', { weekday: 'long' });
+  // Move footer to body end
+  (function(){
+    const f = document.getElementById('global-footer');
+    if (f && f.parentElement !== document.body) document.body.appendChild(f);
+  })();
   
-  let m = nowLA.toLocaleString('en-US', { month: 'short' });
-  // Only add period if the month name is actually abbreviated (longer than 3 letters originally)
-  // Or simply checking if it's NOT "May" is usually sufficient for English short months
-  if (m !== 'May') m += '.';
-
-  const d  = String(nowLA.getDate()).padStart(2,'0');
-  const y  = nowLA.getFullYear();
-  el.textContent = `${wd}, ${m} ${d}, ${y}`;
-})();
-
-// Footer clock with seconds + Berkeley Time toggle
-// Footer clock with seconds + Berkeley Time toggle
-(function(){
-  const clockEl = document.getElementById('berkeley-time');
-  const titleEl = document.getElementById('time-title');
-  const tz = 'America/Los_Angeles';
-
-  const fmt = (d) => {
-    // Get the short month
-    let m = d.toLocaleString('en-US', { month: 'short', timeZone: tz });
-    
-    // Add period if it's not "May"
+  // Folio date (Smart periods)
+  (function(){
+    const el = document.getElementById('folio-date');
+    if (!el) return;
+    const nowLA = new Date(new Date().toLocaleString('en-US', { timeZone: 'America/Los_Angeles' }));
+    const wd = nowLA.toLocaleString('en-US', { weekday: 'long' });
+    let m = nowLA.toLocaleString('en-US', { month: 'short' });
     if (m !== 'May') m += '.';
-
-    const day = String(d.getDate()).padStart(2,'0');
-    const t = d.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true, timeZone: tz });
+    const d  = String(nowLA.getDate()).padStart(2,'0');
+    const y  = nowLA.getFullYear();
+    el.textContent = `${wd}, ${m} ${d}, ${y}`;
+  })();
+  
+  /* -------------------------------------------------------------
+     CLOCK & BERKELEY TIME LOGIC (Global Scope)
+     We expose toggleBerkeleyTime() so the books icon can call it.
+  ------------------------------------------------------------- */
+  let toggleBerkeleyTime; // Global function handle
+  
+  (function(){
+    const clockEl = document.getElementById('berkeley-time');
+    const titleEl = document.getElementById('time-title');
+    const tz = 'America/Los_Angeles';
     
-    return `${m} ${day} · ${t}`;
-  };
-
-  let plus10 = false;
-  function tick(){
-    const base = new Date(new Date().toLocaleString('en-US',{ timeZone: tz }));
-    const show = plus10 ? new Date(base.getTime()+10*60000) : base;
-    if (clockEl) clockEl.textContent = fmt(show);
-  }
-  setInterval(tick, 250); tick();
-
-  const block = document.getElementById('block-time');
-  const prefersTouch = matchMedia('(hover: none)').matches;
-  function start(){ plus10 = true; titleEl && (titleEl.textContent='BERKELEY TIME'); }
-  function end(){ plus10 = false; titleEl && (titleEl.textContent='Berkeley, CA'); }
-  if (!prefersTouch){
-    block?.addEventListener('mouseenter', start);
-    block?.addEventListener('mouseleave', end);
-  } else {
-    block?.addEventListener('click', ()=>{ plus10=!plus10; titleEl.textContent = plus10 ? 'BERKELEY TIME' : 'Berkeley, CA'; });
-  }
-})();
-
-// Desktop nav GIFs
-(function(){
-  if (!matchMedia('(min-width:1024px)').matches) return;
-  if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-
-  const rail = document.getElementById('nav-scroll');
-  if (!rail) return;
-
-  const items = Array.from(rail.querySelectorAll('a.nav-item'));
-  items.forEach((a)=>{
-    const gifSrc = a.getAttribute('data-gif');
-    if (!gifSrc) return;
-
-    a.addEventListener('mouseenter', ()=>{
-      const old = a.querySelector('img.nav-gif'); if (old) old.remove();
-      const img = new Image();
-      img.className = 'nav-gif'; img.alt = ''; img.decoding = 'async';
-      img.src = gifSrc + '?t=' + Date.now();
-      a.appendChild(img);
-      setTimeout(()=>{ if (!img.isConnected) return; img.classList.add('fadeout'); setTimeout(()=> img.remove(), 160); }, 1200);
-    });
-    a.addEventListener('mouseleave', ()=>{
-      const old = a.querySelector('img.nav-gif'); if (old){ old.classList.add('fadeout'); setTimeout(()=> old.remove(), 160); }
-    });
-  });
-})();
-
-// Mobile menu toggle + GIF Player
-(function(){
-  if (!matchMedia('(max-width:1023px)').matches) return;
-  const btn  = document.getElementById('mobile-menu-toggle');
-  const menu = document.getElementById('mobile-menu');
-  if (!btn || !menu) return;
-
-  btn.addEventListener('click', ()=>{
-    const isOpen = menu.classList.toggle('open');
-    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-    btn.classList.toggle('active', isOpen);
-    
-    if(isOpen){
-      // 1. Lock body scroll so only menu scrolls
-      document.body.style.overflow = 'hidden';
-
-      // 2. Play GIFs (Cache bust to restart animation)
-      const gifLinks = menu.querySelectorAll('.nav-item.has-gif');
-      gifLinks.forEach(link => {
-        // Remove old if exists
-        const old = link.querySelector('img.mobile-nav-gif');
-        if(old) old.remove();
-
-        const src = link.getAttribute('data-gif');
-        if(!src) return;
-
-        const img = new Image();
-        img.className = 'mobile-nav-gif';
-        img.alt = "";
-        // Adding timestamp restarts the GIF
-        img.src = src + '?t=' + Date.now(); 
-        link.appendChild(img);
-      });
-    } else {
-      // Unlock body scroll
-      document.body.style.overflow = '';
-      
-      // Cleanup GIFs (optional, but cleaner)
-      const gifs = menu.querySelectorAll('img.mobile-nav-gif');
-      gifs.forEach(g => g.remove());
+    // State
+    let plus10 = false;
+  
+    const fmt = (d) => {
+      let m = d.toLocaleString('en-US', { month: 'short', timeZone: tz });
+      if (m !== 'May') m += '.';
+      const day = String(d.getDate()).padStart(2,'0');
+      const t = d.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true, timeZone: tz });
+      return `${m} ${day} · ${t}`;
+    };
+  
+    function tick(){
+      const base = new Date(new Date().toLocaleString('en-US',{ timeZone: tz }));
+      const show = plus10 ? new Date(base.getTime()+10*60000) : base;
+      if (clockEl) clockEl.textContent = fmt(show);
     }
-  });
-})();
-
-// Spin functionality for floating button
-(function(){
-  const btn = document.getElementById('floating-spin-btn');
-  const img = document.getElementById('spin-gif-btn');
-  if(!btn || !img) return;
-
-  // Keep a clean base URL so we can cache-bust to restart the GIF each click
-  const baseStillSrc = img.getAttribute('data-still');
-  const baseAnimSrc = img.getAttribute('data-anim');
-
-  function restartGif(){
-    // Show the animated GIF
-    const sep = baseAnimSrc.includes('?') ? '&' : '?';
-    img.src = baseAnimSrc + sep + 'r=' + Date.now();
+    setInterval(tick, 250); tick();
+  
+    // The toggler function
+    toggleBerkeleyTime = function() {
+      plus10 = !plus10;
+      if(titleEl) titleEl.textContent = plus10 ? 'BERKELEY TIME' : 'Berkeley, CA';
+      tick(); // Update immediately
+    };
+  
+    // Attach to the footer block (Standard behavior)
+    const block = document.getElementById('block-time');
+    const prefersTouch = matchMedia('(hover: none)').matches;
     
-    // After 1.2 seconds, revert to still image
-    setTimeout(() => {
-      img.src = baseStillSrc;
-    }, 1200);
-  }
-
-  function spinOnce() {
-    const root = document.documentElement;
-    root.classList.remove('spin-once');
-    // Force reflow
-    void root.offsetWidth;
-    root.classList.add('spin-once');
+    if (!prefersTouch){
+      block?.addEventListener('mouseenter', () => { plus10 = true; if(titleEl) titleEl.textContent='BERKELEY TIME'; tick(); });
+      block?.addEventListener('mouseleave', () => { plus10 = false; if(titleEl) titleEl.textContent='Berkeley, CA'; tick(); });
+    } else {
+      block?.addEventListener('click', toggleBerkeleyTime);
+    }
+  })();
+  
+  // Desktop nav GIFs
+  (function(){
+    if (!matchMedia('(min-width:1024px)').matches) return;
+    if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    const rail = document.getElementById('nav-scroll');
+    if (!rail) return;
+    const items = Array.from(rail.querySelectorAll('a.nav-item'));
+    items.forEach((a)=>{
+      const gifSrc = a.getAttribute('data-gif');
+      if (!gifSrc) return;
+      a.addEventListener('mouseenter', ()=>{
+        const old = a.querySelector('img.nav-gif'); if (old) old.remove();
+        const img = new Image(); img.className = 'nav-gif'; img.alt = ''; img.decoding = 'async';
+        img.src = gifSrc + '?t=' + Date.now();
+        a.appendChild(img);
+        setTimeout(()=>{ if (!img.isConnected) return; img.classList.add('fadeout'); setTimeout(()=> img.remove(), 160); }, 1200);
+      });
+      a.addEventListener('mouseleave', ()=>{
+        const old = a.querySelector('img.nav-gif'); if (old){ old.classList.add('fadeout'); setTimeout(()=> old.remove(), 160); }
+      });
+    });
+  })();
+  
+  // Mobile menu toggle + SEQUENTIAL GIF PLAYER
+  (function(){
+    if (!matchMedia('(max-width:1023px)').matches) return;
+    const btn  = document.getElementById('mobile-menu-toggle');
+    const menu = document.getElementById('mobile-menu');
+    if (!btn || !menu) return;
+  
+    let sequenceTimeouts = [];
+  
+    btn.addEventListener('click', ()=>{
+      const isOpen = menu.classList.toggle('open');
+      btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+      btn.classList.toggle('active', isOpen);
+      
+      sequenceTimeouts.forEach(clearTimeout);
+      sequenceTimeouts = [];
+  
+      const gifLinks = Array.from(menu.querySelectorAll('.nav-item.has-gif'));
+  
+      if(isOpen){
+        document.body.style.overflow = 'hidden';
+  
+        // 1. Reset GIFs
+        gifLinks.forEach(link => {
+          const old = link.querySelector('img.mobile-nav-gif');
+          if(old) old.remove();
+          const src = link.getAttribute('data-gif');
+          if(!src) return;
+          const img = new Image(); img.className = 'mobile-nav-gif'; img.alt = "";
+          img.src = src + '?t=' + Date.now(); 
+          link.appendChild(img);
+        });
+  
+        // 2. Play Sequentially
+        const playDuration = 1800; 
+        gifLinks.forEach((link, index) => {
+          const startTime = index * playDuration;
+          const endTime   = startTime + playDuration;
+  
+          const t1 = setTimeout(() => {
+            const img = link.querySelector('.mobile-nav-gif');
+            if(img) img.classList.add('playing');
+          }, startTime);
+  
+          const t2 = setTimeout(() => {
+            const img = link.querySelector('.mobile-nav-gif');
+            if(img) { img.classList.remove('playing'); img.classList.add('finished'); }
+          }, endTime);
+  
+          sequenceTimeouts.push(t1, t2);
+        });
+  
+      } else {
+        document.body.style.overflow = '';
+        const gifs = menu.querySelectorAll('img.mobile-nav-gif');
+        gifs.forEach(g => g.remove());
+      }
+    });
+  })();
+  
+  // Spin functionality + BOOKS TRIGGER
+  (function(){
+    const btn = document.getElementById('floating-spin-btn');
+    const img = document.getElementById('spin-gif-btn');
+    const booksBtn = document.querySelector('.footer-right'); 
     
-    // Clean up after animation
-    root.addEventListener('animationend', () => {
+    if(!btn || !img) return;
+  
+    const baseStillSrc = img.getAttribute('data-still');
+    const baseAnimSrc = img.getAttribute('data-anim');
+  
+    function runSpinAnimation(){
+      const sep = baseAnimSrc.includes('?') ? '&' : '?';
+      img.src = baseAnimSrc + sep + 'r=' + Date.now();
+      setTimeout(() => { img.src = baseStillSrc; }, 1200);
+  
+      const root = document.documentElement;
       root.classList.remove('spin-once');
-    }, { once: true });
-  }
-
-  btn.addEventListener('click', function(){
-    restartGif(); // play the GIF again
-    spinOnce();   // spin the whole website once
-  });
-})();
-
-</script>
+      void root.offsetWidth; // force reflow
+      root.classList.add('spin-once');
+      root.addEventListener('animationend', () => {
+        root.classList.remove('spin-once');
+      }, { once: true });
+    }
+  
+    // 1. Spin Button -> Spins Page
+    btn.addEventListener('click', runSpinAnimation);
+  
+    // 2. Books -> Toggles Berkeley Time (NO SPIN)
+    if(booksBtn){
+      booksBtn.style.cursor = 'pointer'; 
+      booksBtn.addEventListener('click', function(){
+        if(typeof toggleBerkeleyTime === 'function') {
+          toggleBerkeleyTime(); // Call the global function we defined earlier
+        }
+      });
+    }
+  })();
+  </script>
