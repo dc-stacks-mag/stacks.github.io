@@ -1,0 +1,171 @@
+
+/* ========================================= */
+/* BASE / DESKTOP STYLES                  */
+/* ========================================= */
+
+.site-main {
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* --- Section Header (Default/Desktop) --- */
+  .section-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 1.5rem;
+  
+    max-width: 100%;      /* allows it to fill the full container width */
+    margin-left: 0;       /* removes the auto margin on the left */
+    margin-right: 0;      /* removes the auto margin on the right */
+  }
+  
+  .section-header h1 {
+    font-family: var(--font-sans);
+    font-size: 2.75rem;
+    margin: 0 0 0.5rem;
+  }
+  
+  .section-header p {
+    color: var(--color-subtle);
+    margin: 0;
+    line-height: 1.2;
+  }
+  
+  /* --- Article List Layout --- */
+  .article-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  
+  /* --- Article Card Layout --- */
+  .article-card {
+    display: flex;
+    flex-direction: row;
+    gap: calc(1rem + 10px);
+    border-bottom: 1px solid var(--color-border);
+    padding-bottom: 2rem;
+    text-decoration: none;
+    color: inherit;
+    align-items: flex-start;
+  }
+  
+  .article-card:last-child {
+    border-bottom: none;
+  }
+  
+  .article-card-text {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* Image container (Desktop defaults) */
+  .article-card-image {
+    flex-basis: 415px;
+    flex-shrink: 0;
+  }
+  
+  .article-card-image img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 4.75 / 3;
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+    display: block;
+  }
+  
+  /* --- Article Card Typography --- */
+  .article-card-category {
+    font-size: 1rem;
+    color: var(--color-subtle);
+    text-transform: uppercase;
+    font-family: var(--font-sans);
+    margin-bottom: 0.5rem;
+  }
+  
+  .article-card-title {
+    font-family: var(--font-sans);
+    font-size: 2rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+  
+  .article-card-sub-title {
+    font-family: var(--font-sans);
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin: 0 0 0.5rem;
+    line-height: 1.2;
+  }
+  
+  .article-card-excerpt {
+    font-family: var(--font-serif);
+    color: var(--color-text);
+    margin: 0;
+    font-size: 1.25rem;
+  }
+  
+  
+  /* ========================================= */
+  /* MOBILE OVERRIDES                       */
+  /* (Applied at max-width 768px)              */
+  /* ========================================= */
+  
+  @media (max-width: 768px) {
+    
+    /* --- 1) Layout & Image Spanning --- */
+    .article-card {
+      /* Stack column-reverse to put image on top, text below */
+      flex-direction: column-reverse; 
+      gap: 1rem;
+    }
+  
+    .article-card-image {
+      /* image container spans full width of the list */
+      flex-basis: auto;
+      width: 100%;
+      margin: 0; 
+    }
+  
+    .article-card-image img {
+      /* adjust height proportionally for mobile (3:2 aspect ratio is usually safer for mobile scroll) */
+      width: 100%;
+      height: auto;
+      aspect-ratio: 3 / 2; 
+    }
+  
+    /* --- 2a) Header H1 resizing --- */
+    /* make Section Header H1 same size/weight as the Card Title (2rem Bold) */
+    .section-header h1 {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+  
+    /* --- 2b) Header P resizing --- */
+    /* make Section Header P same size as Card Excerpt (1.25rem) */
+    .section-header p {
+      font-size: 1.25rem;
+    }
+  
+    /* --- 2c) Subtitle resizing --- */
+    /* make Subtitle same size as Excerpt (1.25rem) but Bold */
+    .article-card-sub-title {
+      font-size: 1.25rem; 
+      font-weight: bold;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 2.5rem;
+        border-bottom: 1px solid var(--color-border);
+        padding-bottom: 1.5rem;
+      
+        max-width: 100%;      /* allows it to fill the full container width */
+        margin-left: 0;       /* removes the auto margin on the left */
+        margin-right: 0;      /* removes the auto margin on the right */
+      }
+  }
