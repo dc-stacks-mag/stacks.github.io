@@ -319,14 +319,34 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
 /* =======  INDEX & ABOUT — MOBILE ONLY IN THIS FILE  ======= */
 /* ========================================================= */
 
-/* INDEX (mobile only here; desktop stays inline in index.html) */
+/* INDEX (mobile only here) */
 @media (max-width:1023px){
-  body.index-page .site-main{ padding: 1rem .9rem; }
+  /* Request #5: Increase side padding */
+  body.index-page .site-main{ padding: 1rem 1.5rem; } 
+  
   body.index-page .issue-content{ grid-template-columns: 1fr; gap: 1rem !important; }
-  body.index-page .issue-cover img{ max-height: 55vh !important; object-fit: contain !important; }
+  
+  /* Request #7: Fix scroll resize bug using 'dvh' instead of 'vh' */
+  body.index-page .issue-cover img{ 
+    max-height: 55dvh !important; 
+    object-fit: contain !important; 
+  }
+  
   body.index-page .issue-toc h3{ margin-bottom: .5rem; }
+
+  /* Request #5: Fix spacing on headers */
   body.index-page .mission-statement{ margin-top: 1rem; }
-  body.index-page .mission-statement h2{ font-size: 1.4rem; }
+  
+  /* Tighten space between Header and Text */
+  body.index-page .mission-statement h2,
+  body.index-page .about-statement h2 {
+    font-size: 1.4rem;
+    margin-bottom: 0.1rem; /* Very tight spacing */
+  }
+  body.index-page .mission-statement p,
+  body.index-page .about-statement p {
+    margin-top: 0;
+  }
 }
 
 /* ABOUT (mobile only here; desktop stays inline in about.html) */

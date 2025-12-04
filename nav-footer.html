@@ -39,15 +39,23 @@
   </div>
 
   <nav id="mobile-menu" class="mobile-menu" aria-label="Mobile menu">
-    <a href="section-headlines.html"  class="nav-item">Headlines</a>
-    <a href="section-off.html" class="nav-item">Off the Record</a>
-    <a href="section-notes.html" class="nav-item">Notes</a>
+    <a href="section-headlines.html" class="nav-item has-gif" data-gif="animations/on-background.gif" style="--delay:0s">
+      <span class="nav-text">Headlines</span>
+    </a>
+    <a href="section-off.html" class="nav-item has-gif" data-gif="animations/off-the-record.gif" style="--delay:0.1s">
+      <span class="nav-text">Off the Record</span>
+    </a>
+    <a href="section-notes.html" class="nav-item has-gif" data-gif="animations/notes.gif" style="--delay:0.2s">
+      <span class="nav-text">Notes</span>
+    </a>
+
     <a href="section-from-the-stacks.html" class="nav-item">From the Stacks</a>
     <a href="section-upcoming-events.html" class="nav-item">Upcoming Events</a>
-    <a href="section-upcoming-events.html" class="nav-item">Photo Essays</a>
-    <a href="section-upcoming-events.html" class="nav-item">Editorial Cartoons</a>
-    <a href="about.html" class="nav-item">About</a>
-    <a href="about.html" class="nav-item">— Issues</a>
+    <a href="section-photo-essay.html" class="nav-item">Photo Essays</a>
+    <a href="section-editorial-cartoons.html" class="nav-item">Editorial Cartoons</a>
+
+    <a href="about.html" class="nav-item separator">About</a>
+    <a href="issues.html" class="nav-item">Issues</a>
   </nav>
 </div>
 
@@ -441,12 +449,13 @@
     .desktop-only{ display:none !important; }
     .mobile-only{ display:block !important; }
 
-    /* mobile header + menu */
+  /* mobile header + menu */
     .mobile-bar{
       display:flex; align-items:center; justify-content:space-between; gap:.5rem; width:100%;
       height:var(--header-height, 75px); background:var(--nav-bg, #000); color:#fff; padding:0 1.25rem;
       position:sticky; top:0; z-index:1000; box-sizing:border-box;
     }
+
     .mobile-logo img{height:48px; width:auto; display:block}
     .mobile-menu-toggle{display:inline-flex;align-items:center;justify-content:center;width:42px;height:42px;background:transparent;border:0;cursor:pointer;position:relative;z-index:1001}
     .mobile-menu-toggle .line{position:absolute;left:6px;right:6px;height:2px;background:#fff;border-radius:2px;transition:transform .25s,opacity .25s}
@@ -456,16 +465,92 @@
     .mobile-menu-toggle.active .line:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
 
     .mobile-menu{
-      position:fixed; inset:var(--header-height,96px) 0 0 0;
-      display:none; flex-direction:column; gap:.25rem; padding:.75rem 1rem 1rem;
-      background-color: rgba(25,25,30,.6); backdrop-filter: blur(4px);
-      z-index:1000;
+      position:fixed; 
+      inset:var(--header-height, 75px) 0 0 0; /* Starts below header */
+      display:none; 
+      flex-direction:column; 
+      gap:.5rem; 
+      padding: 2rem 1rem 2rem; /* Extra bottom padding for scroll space */
+      background-color: rgba(25,25,30,.96); /* Slightly darker for legibility */
+      backdrop-filter: blur(4px);
+      z-index:999; /* Below the sticky bar (1000) */
+      overflow-y: auto; /* Allows scrolling within the menu */
+      -webkit-overflow-scrolling: touch;
     }
-    .mobile-menu.open{ display:flex }
+    
+    .mobile-menu.open{ display:flex; }
+
+    /* Nav Items */
+    /* 1. ALLOW OVERFLOW so GIFs can be seen fully */
     .mobile-menu a.nav-item{
-      font-size: 1.25rem; padding:.85rem .7rem; text-align:center; text-transform:uppercase; letter-spacing:.03em; font-family:var(--font-sans);
-      color:#fff; text-shadow:0 0 6px rgba(255,255,255,.30);
+      position: relative;
+      font-size: 1.25rem; 
+      padding:.85rem .7rem; 
+      text-align:center; 
+      text-transform:uppercase; 
+      letter-spacing:.03em; 
+      font-family:var(--font-sans);
+      color:#fff; 
+      text-shadow:0 0 6px rgba(255,255,255,.30);
+      
+      /* CHANGED: visible allows the GIF to overlap neighbors */
+      overflow: visible; 
+      
+      /* Ensure the link text is on top of the GIF so it remains clickable */
+      z-index: 2; 
     }
+
+    /* Ensure text sits above GIF */
+    .mobile-menu .nav-text {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Separator line for Request #3 */
+    .mobile-menu a.nav-item.separator {
+      margin-top: 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.3);
+      padding-top: 1.25rem;
+    }
+
+    /* 2. POSITION & SIZE THE GIF */
+    .mobile-menu .mobile-nav-gif {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      
+      /* Adjust size here (70-90% usually good for visible overlap without being huge) */
+      width: 50%;  
+      height: auto;
+      
+      /* Push behind the text */
+      z-index: -1; 
+      
+      opacity: 0;
+      mix-blend-mode: screen;
+      filter: invert(1) brightness(1.35) contrast(1.1) saturate(0);
+      
+      /* CRITICAL: This ensures clicks pass through the GIF to the link */
+      pointer-events: none; 
+      
+      transition: opacity 0.4s ease;
+    }
+
+    /* SPECIFIC OVERRIDE FOR NOTES GIF ONLY */
+    .mobile-menu a[data-gif*="notes.gif"] .mobile-nav-gif {
+      width: 65% !important;   /* Increase width specifically for notes */
+      max-height: 100px !important; /* Constrain height to stop it from getting too tall */
+      object-fit: contain;
+    }
+
+    /* Show GIFs when menu is open */
+    .mobile-menu.open .mobile-nav-gif {
+      opacity: 1;
+      /* Uses the --delay var set in HTML for cascading effect */
+      transition-delay: var(--delay, 0s); 
+    }
+
 
     /* folio */
     .folio-inner{ display:none !important; }
@@ -478,10 +563,15 @@
 
     /* footer */
     .site-footer-main{ padding-bottom: max(18px, env(safe-area-inset-bottom)); }
+
+    /* Footer Shift */
     .footer-inner{
       grid-template-columns: auto 1fr auto;
       align-items:center; gap:.75rem; max-width:95vw;
+      /* Shift right by 10px on mobile */
+      transform: translateX(10px); 
     }
+
     .footer-left{ grid-template-columns: 1fr; gap:.35rem; justify-items:start; }
     .footer-spin{ 
       width: 60px;
@@ -608,7 +698,7 @@
   });
 })();
 
-// Mobile menu toggle
+// Mobile menu toggle + GIF Player
 (function(){
   if (!matchMedia('(max-width:1023px)').matches) return;
   const btn  = document.getElementById('mobile-menu-toggle');
@@ -616,9 +706,39 @@
   if (!btn || !menu) return;
 
   btn.addEventListener('click', ()=>{
-    const open = menu.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-    btn.classList.toggle('active', open);
+    const isOpen = menu.classList.toggle('open');
+    btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    btn.classList.toggle('active', isOpen);
+    
+    if(isOpen){
+      // 1. Lock body scroll so only menu scrolls
+      document.body.style.overflow = 'hidden';
+
+      // 2. Play GIFs (Cache bust to restart animation)
+      const gifLinks = menu.querySelectorAll('.nav-item.has-gif');
+      gifLinks.forEach(link => {
+        // Remove old if exists
+        const old = link.querySelector('img.mobile-nav-gif');
+        if(old) old.remove();
+
+        const src = link.getAttribute('data-gif');
+        if(!src) return;
+
+        const img = new Image();
+        img.className = 'mobile-nav-gif';
+        img.alt = "";
+        // Adding timestamp restarts the GIF
+        img.src = src + '?t=' + Date.now(); 
+        link.appendChild(img);
+      });
+    } else {
+      // Unlock body scroll
+      document.body.style.overflow = '';
+      
+      // Cleanup GIFs (optional, but cleaner)
+      const gifs = menu.querySelectorAll('img.mobile-nav-gif');
+      gifs.forEach(g => g.remove());
+    }
   });
 })();
 
