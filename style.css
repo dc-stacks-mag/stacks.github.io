@@ -397,7 +397,7 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
 /* B) Portrait with text wrap — keep the container on the text column width */
 .wrap-portrait{
   max-width: var(--article-measure);
-  margin: 1.25rem auto;
+  margin: 1rem auto;
 }
 .wrap-portrait .photo-left,
 .wrap-portrait .photo-right{
@@ -421,7 +421,7 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
 /* C) Side-by-side (photo + text) constrained to the text column */
 .media-side.within-text{
   max-width: var(--article-measure);
-  margin: 1.25rem auto;
+  margin: 1rem auto;
   display: grid;
   grid-template-columns: minmax(200px, 40%) 1fr; /* portrait-friendly */
   gap: clamp(12px, 2vw, 20px);
