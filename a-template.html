@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Article — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div data-include="nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-kicker">Headlines</div>
+
+          <!-- 1) Headline / 2) Subhead -->
+          <h1 class="article-headline">Inside the beehive: The political inefficacy of CALPIRG</h1>
+          <h1 class="article-sub-headline">In conversation with Rich Lyons and Abigail Verino on the state of UC Berkeley</h1>
+
+          <!-- 3) Attribution for article / by-line  -->
+          <p class="article-byline">
+            By <strong>Tariq Ravasia</strong> &middot; <time datetime="2025-11-07">Nov. 07, 2025</time>
+          </p>
+
+          <!-- Feature image -->
+          <figure class="article-featured-image">
+            <img src="article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Feature art" />
+            <figcaption>Photo by Hayes Gaboury</figcaption>
+          </figure>
+        </header>
+
+        <section class="article-body">
+
+          <blockquote>
+            “Politics has largely become a spectator sport, run by professionals with disdain for ordinary people.” — Harry Boyte, senior scholar in public work philosophy, Augsburg University
+          </blockquote>
+
+          <p>
+            I get bored often, and oftentimes, when I get bored, I imagine unhinging my jaw. 
+          </p>
+
+          <p>
+            The rise of fascism in the U.S. presents a more immediate problem. Under President Donald Trump’s administration, we may expect groups committed to guaranteeing a voice and space for the public to be organized radically against the Republican Party. Other organizational problems aside, civic groups could represent a powerful source of opposition to authoritarianism. Nevertheless, CALPIRG’s official <a href="https://calpirgstudents.org/chapters/uc-berkeley/" style="text-decoration:underline;">student website</a> for UC Berkeley continues to proclaim its nonpartisanship with smiling students in front of balloons representing the Democratic and Republican parties.
+          </p>
+
+          <div class="wrap-portrait strict-flush">
+            <figure class="photo-right">
+                <img src="article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Vertical photo" />
+              <figcaption>Photo of Richard Lyons, by Hayes Gaboury</figcaption>
+            </figure>
+                <p>
+                    Two years later, Lyons, a Bay Area local, entered his first year as an undergraduate at UC Berkeley. Our now-chancellor graduated from the Haas School of Business in 1982 before finding his way back to the school after a career on Wall Street. Lyons climbed the ranks as a professor and eventual dean almost 30 years later.
+                </p>
+
+                <p>
+                    The incoming chancellor promised to uphold university policy, suggesting he would take a strong line against future encampments while protecting free expression.
+                </p>
+
+                
+
+            </div>
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
