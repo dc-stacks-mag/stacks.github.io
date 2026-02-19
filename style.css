@@ -95,6 +95,14 @@ img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
   margin-bottom: .35rem;
   text-align:center;
 }
+.article-section{
+  font-size: .82rem;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color: var(--color-subtle);
+  margin-bottom: .35rem;
+  text-align:center;
+}
 .article-headline{
   font-family: var(--font-logo);
   font-weight: 400;

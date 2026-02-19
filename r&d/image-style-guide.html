@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Image Configurations — Stacks Magazine</title>
+  <link rel="stylesheet" href="../style.css" />
+</head>
+<body>
+  <div data-include="../nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-section">Style Guide</div>
+          <h1 class="article-headline">Visual Guide to Image Configurations</h1>
+          <p class="article-byline">
+            Based on <strong>style.css</strong> &middot; <time datetime="2026-02-18">Feb. 18, 2026</time>
+          </p>
+
+          <figure class="article-featured-image">
+            <img src="../../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Featured Image" />
+            <figcaption><strong>1. Featured Image (.article-featured-image):</strong> Spans the full article width (wider than text).</figcaption>
+          </figure>
+        </header>
+
+        <section class="article-body">
+          <p>This page demonstrates all available image classes defined in <code>style.css</code>. Each block below represents a different layout option.</p>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>2. Standard Text-Column Embed</h3>
+          <p>Use <code>figure.figure-embed</code> to place an image that aligns perfectly with the text measure (narrower than the featured image).</p>
+          <figure class="figure-embed">
+            <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Standard Embed" />
+            <figcaption>Class: <code>.article-body figure.figure-embed</code></figcaption>
+          </figure>
+          <p>The text continues here, aligned with the image above.</p>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>3. Portrait Wrap (Left)</h3>
+          <div class="wrap-portrait">
+            <figure class="photo-left">
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" style="aspect-ratio: 3/4; object-fit: cover;" alt="Vertical photo" />
+              <figcaption>Class: <code>.photo-left</code></figcaption>
+            </figure>
+            <p>
+              <strong>.wrap-portrait .photo-left:</strong> This text wraps around the image. I get bored often, and oftentimes, when I get bored, I imagine unhinging my jaw. The rise of fascism in the U.S. presents a more immediate problem. Under President Donald Trump’s administration, we may expect groups committed to guaranteeing a voice and space for the public to be organized radically against the Republican Party.
+            </p>
+            <p>
+              This is a second paragraph to show how the text continues to flow around the floating image on the left side of the container.
+            </p>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>4. Portrait Wrap (Right)</h3>
+          <div class="wrap-portrait">
+            <figure class="photo-right">
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" style="aspect-ratio: 3/4; object-fit: cover;" alt="Vertical photo" />
+              <figcaption>Class: <code>.photo-right</code></figcaption>
+            </figure>
+            <p>
+              <strong>.wrap-portrait .photo-right:</strong> This text wraps around the image. I get bored often, and oftentimes, when I get bored, I imagine unhinging my jaw. The rise of fascism in the U.S. presents a more immediate problem. Under President Donald Trump’s administration, we may expect groups committed to guaranteeing a voice and space for the public to be organized radically against the Republican Party.
+            </p>
+            <p>
+              This paragraph continues flowing around the image on the right.
+            </p>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>5. Portrait Wrap (Strict Flush Right)</h3>
+          <p><strong>Note:</strong> <code>.strict-flush</code> removes margin offsets so the image edge aligns perfectly with the text column edge.</p>
+          <div class="wrap-portrait strict-flush">
+            <figure class="photo-right">
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" style="aspect-ratio: 3/4; object-fit: cover;" alt="Vertical photo" />
+              <figcaption>Class: <code>.strict-flush .photo-right</code></figcaption>
+            </figure>
+            <p>
+              <strong>.wrap-portrait.strict-flush:</strong> Notice how the image on the right hits the exact same vertical line as the text paragraph edge, rather than floating slightly outside it. This creates a very "boxy" editorial look.
+            </p>
+            <p>
+               Lyons, a Bay Area local, entered his first year as an undergraduate at UC Berkeley. Our now-chancellor graduated from the Haas School of Business in 1982 before finding his way back to the school after a career on Wall Street.
+            </p>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>6. Media Side-by-Side (Standard)</h3>
+          <div class="media-side within-text">
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Side photo" />
+              <figcaption>Standard alignment</figcaption>
+            </figure>
+            <div class="text">
+              <h4>Image Left, Text Right</h4>
+              <p>
+                <strong>.media-side.within-text:</strong> This uses a CSS Grid layout. The image is on the left (approx 40%) and text on the right. It is not a float; it is a grid column.
+              </p>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>7. Media Side-by-Side (Reverse)</h3>
+          <div class="media-side within-text reverse">
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Side photo" />
+              <figcaption>Reverse alignment</figcaption>
+            </figure>
+            <div class="text">
+              <h4>Text Left, Image Right</h4>
+              <p>
+                <strong>.media-side.within-text.reverse:</strong> The <code>.reverse</code> class swaps the order. Text takes the larger column on the left, image takes the smaller column on the right.
+              </p>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>8. Media Side-by-Side (Seam)</h3>
+          <div class="media-side within-text seam">
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Side photo" />
+              <figcaption>Seam alignment</figcaption>
+            </figure>
+            <div class="text">
+              <h4>Tight Gutter</h4>
+              <p>
+                <strong>.media-side.within-text.seam:</strong> The <code>.seam</code> class removes the large gap between image and text, creating a tighter magazine-like feel.
+              </p>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>9. Media Side-by-Side (Equal Height)</h3>
+          <div class="media-side within-text equal-height">
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Side photo" />
+              <figcaption>Stretches to match text height</figcaption>
+            </figure>
+            <div class="text" style="background: #f4f4f4; padding: 1rem;">
+              <h4>Equal Height</h4>
+              <p>
+                <strong>.media-side.within-text.equal-height:</strong> The image will stretch (cover) to match the height of this text block perfectly. Useful if you have a long caption or sidebar text.
+              </p>
+              <p>
+                Adding more text here to force the image to grow taller.
+              </p>
+            </div>
+          </div>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>10. Two-Up Gallery</h3>
+          <div class="photo-duo narrow">
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Photo 1" />
+              <figcaption>Left Image</figcaption>
+            </figure>
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Photo 2" />
+              <figcaption>Right Image</figcaption>
+            </figure>
+          </div>
+          <p style="text-align: center; font-size: 0.9rem; color: #666;"><em>(.photo-duo.narrow)</em></p>
+
+          <hr style="border: 0; border-top: 1px solid #ddd; margin: 3rem 0;">
+
+          <h3>11. Three-Up Gallery</h3>
+          <div class="photo-trio narrow">
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Photo 1" />
+            </figure>
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Photo 2" />
+            </figure>
+            <figure>
+              <img src="../article-images/aipac-jpac_Radomianin_Creative Commons.jpg" alt="Photo 3" />
+            </figure>
+          </div>
+          <p style="text-align: center; font-size: 0.9rem; color: #666;"><em>(.photo-trio.narrow)</em></p>
+
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  </script>
+</body>
+</html>
