@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>About — Stacks Magazine</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+
+    .about-wrap{padding:1.5rem;max-width:1200px;margin:0 auto}
+    @media (min-width:1024px){ .about-wrap{padding:2rem 1.5rem} }
+
+    .about-grid{
+      display:flex; flex-direction:column; gap:2rem;
+    }
+    @media (min-width:1024px){
+      .about-grid{ flex-direction:row; gap:5rem; align-items:flex-start; }
+      .about-left{ flex:1; position:sticky; top:2rem; align-self:flex-start; }
+      .about-right{ flex:1; }
+    }
+
+    .section-header{ padding-bottom:1rem; border-bottom:1px solid var(--color-border); margin-bottom:1rem; }
+    .section-header h1{ font-size:clamp(2.2rem,5vw,3rem); margin:0 0 .25rem 0; font-family:var(--font-logo) }
+    .section-header p{ margin:0; color:var(--color-subtle); }
+
+    .about-mission p{
+      font-size:1.05rem;
+      line-height:1.9;
+      margin:0 0 1rem 0;
+      max-width:70ch;
+    }
+
+    .masthead-section{ margin-top:1.75rem; }
+    .masthead-section h2{
+      font-family:var(--font-sans);
+      font-size:1.35rem;
+      color:var(--color-subtle);
+      border-bottom:1px solid var(--color-border);
+      padding-bottom:.5rem; margin:0 0 1rem 0;
+    }
+    .masthead-pair{ margin:.35rem 0; }
+    .masthead-role{ font-weight:700; }
+    .masthead-name{ font-family:var(--font-sans); font-size:1.05rem; }
+
+    /* Remove any previous animations/hover GIFs entirely */
+    .name-container, .name-text, .name-gif { all: unset; }
+
+    /* Prevent accidental clipping/cut-offs from previous styles */
+    .about-right, .about-wrap, .about-grid { overflow: visible; }
+
+        /* “about stacks” box: centered and wider */
+        .mission-statement {
+          margin-top: 0.25rem;
+      }
+      
+      @media (min-width: 1024px) {
+          .mission-statement {
+              max-width: 80%; 
+              margin: 0.5rem auto 0; 
+              padding-top: 1rem; 
+              text-align: center; 
+              font-size: 1.25rem;
+          }
+      }
+      
+      .mission-statement h2 {
+          margin: 0 0 0.1rem; /* decreased bottom margin */
+          font-size: 1.5rem; 
+          font-family: var(--font-sans); 
+      }
+      
+      .mission-statement p {
+          margin: 0; /*no margin on the paragraph */
+      }
+  </style>
+</head>
+<body>
+  <!-- Shared nav + footer -->
+  <div data-include="nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="about-wrap">
+      <div class="about-grid">
+
+        <!-- Left: About & Mission -->
+        <div class="about-left">
+          <header class="section-header">
+            <h1>About <i>Stacks</i></h1>
+          </header>
+
+          <div class="about-mission">
+            <p>Berkeley began as an offshoot of San Francisco, an intimate neighbor to industrial Oakland and, of course, a college town. Home to the University of California, the city has made a name for itself as a hotbed of intellectual thought and subcultural social movements.             </p>
+            <p>The Daily Californian serves to inform its readers of the city’s going-ons and contextualize the confusion of daily campus life. The paper, however, represents more than just the campus’s 30,000 undergraduates or the city’s 120,000 residents. We are Berkeley’s paper of record and its only remaining regular print publication. 
+            </p>
+            <p>As such, the Daily Cal is launching <i>Stacks</i> to look deeper into the swirling maze of innovation and drudgery that underpins our campus and our city. From this, our name is derived. Main Stacks library: a place synonymous with the Berkeley experience in its magnitude, knowledge and chaotic order. 
+            </p>
+            <p>In <i>Stacks</i>, we aim to represent all walks of life — from aspiring beatniks and future dropouts-turned-CEOs to our red-eyed engineers, pedantic writers and California blondes. 
+            </p>
+            <p>
+              <i>Stacks</i> is an archive of Berkeley as it is, as we think it is and as we want it to be.
+            </p>
+          </div>
+        </div>
+
+        <!-- Right: Masthead -->
+        <div class="about-right">
+          <header class="section-header">
+            <h1>Staff</h1>
+          </header>
+
+          <section class="masthead-section">
+            <p class="masthead-pair"><span class="masthead-role">Editor-in-Chief</span>: <span class="masthead-name">Ananya Rupanagunta</span></p>
+            <p class="masthead-pair"><span class="masthead-role">Managing Editor</span>: <span class="masthead-name">Clara Brownstein</span></p>
+            <p class="masthead-pair"><span class="masthead-role">Creative Director</span>: <span class="masthead-name">Sally King</span></p>
+          </section>
+
+          <section class="masthead-section">
+            <h2>Editors</h2>
+            <p class="masthead-pair"><span class="masthead-role">Senior editors</span>: <span class="masthead-name">Aarya Mukherjee & Elise Fisher</span></p>
+            <p class="masthead-pair"><span class="masthead-role">Editors</span>: <span class="masthead-name">Sam Grotenstein & Stella Merims</span></p>
+            <p class="masthead-pair"><span class="masthead-role">Night editors</span>: <span class="masthead-name">Aeryn Dahm, Liv Gutierrez & Megan Lam</span></p>
+          </section>
+
+          <section class="masthead-section">
+            <h2>Creative</h2>
+            <p class="masthead-pair"><span class="masthead-role">Production editor</span>: <span class="masthead-name">Haylee Huynh</span></p>
+            <p class="masthead-pair"><span class="masthead-role">Graphics editor</span>: <span class="masthead-name">Brynn Gibson</span></p>
+            <p class="masthead-pair"><span class="masthead-role">Photo editor</span>: <span class="masthead-name">Hayes Gaboury</span></p>
+<br>        <p class="masthead-pair"><span class="masthead-role">Website by</span> <span class="masthead-name"><a href="https://www.ocf.berkeley.edu/~joever/portfoli0_o">Joever Orillosa</a></span></p>
+            <p class="masthead-pair"><span class="masthead-role">Logo by</span> <span class="masthead-name"><a href="alyssa-nguyen.xyz">Alyssa Nguyen</a></span></p>
+          </section>
+        </div>
+      </div>
+
+      <br><br>
+      <div class="mission-statement">
+        <h2>Submit</h2>
+        <p>To pitch or submit work to <i>Stacks</i> email <a href="mailto:stacks@dailycal.org" style="text-decoration: underline;">stacks@dailycal.org</a>.
+          We’re looking for commentaries, essays, reviews, satires, and more. We especially love work that highlights new or misunderstood aspects of Berkeley and the Bay Area. </p>
+      </div>
+    </main>
+  </div>
+
+  <!-- partial include loader -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      try {
+        const file = host.getAttribute('data-include');
+        const res  = await fetch(file);
+        if (res.ok) {
+          const html = await res.text();
+          host.innerHTML = html;
+          host.querySelectorAll('script').forEach(old => {
+            const s = document.createElement('script');
+            if (old.src) s.src = old.src; else s.textContent = old.textContent;
+            document.body.appendChild(s);
+            old.remove();
+          });
+        }
+      } catch (e) { console.error('include error', e); }
+    }
+  })();
+  </script>
+</body>
+</html>
