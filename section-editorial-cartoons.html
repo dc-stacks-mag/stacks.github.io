@@ -228,6 +228,21 @@
       margin-top: 0vh; /* Pulls the tall stack up towards the top */
     }
 
+    /* ========================================= */
+    /* 5. CARTOON SPECIFIC STYLES                */
+    /* ========================================= */
+    .first-cartoon {
+      max-width: 70%;
+    }
+    
+    .cartoon-separator {
+      margin: 4rem auto;
+      border: 0;
+      border-top: 1px solid var(--color-border);
+      width: 40%;
+      opacity: 0.5;
+    }
+
   </style>
 </head>
 <body>
@@ -239,7 +254,20 @@
       <header class="section-header">
         <h1>Editorial Cartoons</h1>
 
-        <br><br>
+        <br>
+
+        <figure class="article-featured-image-cartoon first-cartoon">
+          <img 
+            src="../article-images/editorial-cartoons/coloredited_Kaitlynn Brandon_investigations.png" 
+            alt="Feature art"
+            class="lightbox-trigger"
+            data-caption='“Stacks of Investigations”|Cartoon by Kaitlynn Brandon'>
+          
+          <figcaption-title>“Stacks of Investigations”</figcaption-title>
+          <figcaption>Cartoon by Kaitlynn Brandon</figcaption>
+        </figure>
+
+        <hr class="cartoon-separator">
         
         <figure class="article-featured-image-cartoon">
           <img 
@@ -252,25 +280,8 @@
           <figcaption>Cartoon by Kaitlynn Brandon</figcaption>
         </figure>
 
-        <br><br>
-
-        <figure class="article-featured-image-cartoon">
-          <img 
-            src="../article-images/editorial-cartoons/coloredited_Kaitlynn Brandon_investigations.png" 
-            alt="Feature art"
-            class="lightbox-trigger"
-            data-caption='“Stacks of Investigations”|Cartoon by Kaitlynn Brandon'>
-          
-          <figcaption-title>“Stacks of Investigations”</figcaption-title>
-          <figcaption>Cartoon by Kaitlynn Brandon</figcaption>
-        </figure>
-
       </header>
       
-      <div class="article-list">
-        </div>
-
-        <br><br><br><br><br><br><br><br><br>
     </main>
   </div>
 
@@ -319,29 +330,31 @@
     
     const closeBtn = document.getElementById('lightbox-close');
     const rotateBtn = document.getElementById('lightbox-rotate');
-    const triggerImg = document.querySelector('.lightbox-trigger');
+    const triggerImgs = document.querySelectorAll('.lightbox-trigger');
 
     // OPEN
-    if(triggerImg) {
-      triggerImg.addEventListener('click', function() {
-        lightboxImg.src = this.src;
-        stack.classList.remove('rotated'); // Reset rotation
+    if(triggerImgs.length > 0) {
+      triggerImgs.forEach(triggerImg => {
+        triggerImg.addEventListener('click', function() {
+          lightboxImg.src = this.src;
+          stack.classList.remove('rotated'); // Reset rotation
 
-        // Parse Caption "Title" | Author
-        const rawCaption = this.getAttribute('data-caption') || '';
-        const parts = rawCaption.split('|');
-        let htmlHTML = '';
-        if(parts.length > 1) {
-          htmlHTML += `<span class="caption-title">${parts[0].trim()}</span>`;
-          htmlHTML += `<span class="caption-author">${parts[1].trim()}</span>`;
-        } else {
-          htmlHTML = rawCaption;
-        }
-        
-        lightboxCaption.innerHTML = htmlHTML;
-        lightbox.classList.add('active');
-        lightbox.setAttribute('aria-hidden', 'false');
-        document.body.style.overflow = 'hidden';
+          // Parse Caption "Title" | Author
+          const rawCaption = this.getAttribute('data-caption') || '';
+          const parts = rawCaption.split('|');
+          let htmlHTML = '';
+          if(parts.length > 1) {
+            htmlHTML += `<span class="caption-title">${parts[0].trim()}</span>`;
+            htmlHTML += `<span class="caption-author">${parts[1].trim()}</span>`;
+          } else {
+            htmlHTML = rawCaption;
+          }
+          
+          lightboxCaption.innerHTML = htmlHTML;
+          lightbox.classList.add('active');
+          lightbox.setAttribute('aria-hidden', 'false');
+          document.body.style.overflow = 'hidden';
+        });
       });
     }
 
