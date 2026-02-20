@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Daily Cal Archives: Oski sued, Main Stacks moves underground — Stacks Magazine</title>
+  <link rel="stylesheet" href="../style.css" />
+  <link rel="icon" type="image/png" href="stacks-logo-favicon.png">
+  <style>
+    .archive-item {
+      margin: 3rem auto;
+      margin-bottom: 5rem;
+      max-width: min(800px, 92vw);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    
+    .archive-item.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    .archive-title-date {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      color: #000000;
+      margin-bottom: 0.25rem;
+      text-align: center;
+    }
+    
+    .archive-image {
+      width: 100%;
+      border: 1px solid #000;
+      margin: 0 auto;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      margin-bottom: 0.5rem;
+    }
+    
+    .archive-image:hover {
+      transform: scale(1.05);
+    }
+    
+    .archive-caption {
+      font-family: var(--font-serif);
+      font-size: 1.1rem;
+      color: #666;
+      margin-top: 1rem;
+      text-align: center;
+      font-style: italic;
+      line-height: 1.5;
+
+    }
+    
+    /* Desktop specific styles */
+    @media (min-width: 1024px) {
+      .archive-image {
+        width: 85%;
+      }
+    }
+    
+    /* Mobile specific styles */
+    @media (max-width: 1023px) {
+      .archive-item {
+        margin: 3rem auto;
+      }
+      
+      .archive-title-date {
+        font-size: 1rem;
+      }
+      
+      .archive-caption {
+        font-size: 0.95rem;
+        line-height: 1.6;
+      }
+    }
+    
+    /* Lightbox styles */
+    .lightbox {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 15, 15, 0.89);
+      z-index: 5;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 2s ease;
+    }
+    
+    .lightbox.active {
+      display: flex;
+      opacity: 1;
+    }
+    
+    .lightbox-content {
+      max-width: 80vw;
+      max-height: 80vh;
+      position: fixed;
+      text-align: center;
+    }
+    
+    .lightbox-img {
+      max-width: 80vw;
+      max-height: 60vh;
+      border: 1px solid #555555;
+      box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+    }
+    
+    .lightbox-date {
+      color: #fff;
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      margin-top: 15px;
+      text-align: center;
+    }
+    
+    .lightbox-caption {
+      color: #fff;
+      text-align: center;
+      margin-top: 10px;
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.4;
+    }
+    
+    .lightbox-close {
+      position: absolute;
+      top: -40px;
+      right: 0;
+      color: #fff;
+      font-size: 30px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+    
+    /* Zoom effect for lightbox image */
+    .lightbox-img.zoomed {
+      transform: scale(1);
+      transition: transform 0.3s ease;
+    }
+    
+    /* Loading animation for archive items */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Shared nav + footer -->
+  <div data-include="../nav-footer.html"></div>
+
+  <div id="main-content" class="visible">
+    <main class="site-main">
+      <article class="article-full">
+        <header class="article-header">
+          <div class="article-kicker">From the Stacks</div>
+
+          <!-- Headline -->
+          <h1 class="article-headline">Daily Cal Archives: Smoking in school, ‘Sex on Tuesday’ goes way back</h1>
+
+          <!-- Byline -->
+          <p class="article-byline">
+            By <strong>Ajith Araiza-Singh</strong>  | Staff &middot; <time datetime="2026-02-20">Feb. 20, 2026</time>
+          </p>
+
+          <!-- Blurb/Dek -->
+          <p class="article-byline">Metaphorically dig through archived issues of the Daily Cal to get a glimpse of life in Berkeley, from noteworthy headlines to everyday reporting that has been otherwise lost in the stacks.</p>
+        </header>
+
+        <section class="article-body">
+          
+          <div class="archive-item" data-date="Feb. 1, 1924: The Wheeler crush">
+            <div class="archive-title-date">Feb. 1, 1924: The Wheeler crush</div>
+            <figure>
+              <img src="../article-images/from-the-stacks/issue-feb-2026/Ye Wheeler Hall.jpg" alt="" class="archive-image"
+              data-caption="While most editorial cartoons from 1924 have lost their relevancy today, “Ye Wheeler Hall Mob Scene” should resonate with anyone who’s shown up to the auditorium right as an overbooked Computer Science lecture tries to egress 700+ students all at once." />
+              <figcaption class="archive-caption">While most editorial cartoons from 1924 have lost their relevancy today, “Ye Wheeler Hall Mob Scene” should resonate with anyone who’s shown up to the auditorium right as an overbooked Computer Science lecture tries to egress 700+ students all at once.</figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Feb. 1st, 1924: Smoking in school">
+            <div class="archive-title-date">Feb. 1st, 1924: Smoking in school</div>
+            <figure>
+              <img src="../article-images/from-the-stacks/issue-feb-2026/NO SMOKING.jpg" alt="" class="archive-image" 
+              data-caption="Today, UC Berkeley maintains strict smoke-free campus policies. This interview with professor Ira B. Cross in 1924 predated the first campus restrictions on smoking by more than 60 years. Cross argued that smoking in wooden buildings could result in a fire, and that refraining from the habit would be a necessary exercise of willpower for students whose postgrad employment might not allow them to smoke as often. Notably missing from his early arguments for a (partially) smoke-free campus are health concerns associated with tobacco use, which were eventually cited by the campus in 1990 when Chancellor Chang-lien Tien finally banned indoor smoking." />
+              <figcaption class="archive-caption">Today, UC Berkeley maintains strict smoke-free campus policies. This interview with professor Ira B. Cross in 1924 predated the first campus restrictions on smoking by more than 60 years. Cross argued that smoking in wooden buildings could result in a fire, and that refraining from the habit would be a necessary exercise of willpower for students whose postgrad employment might not allow them to smoke as often. Notably missing from his early arguments for a (partially) smoke-free campus are health concerns associated with tobacco use, which were eventually cited by the campus in 1990 when Chancellor Chang-lien Tien finally banned indoor smoking.            </figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Feb. 8, 1983: Being Black at UC Berkeley">
+            <div class="archive-title-date">Feb. 8, 1983: Being Black at UC Berkeley            </div>
+            <figure>
+              <img src="../article-images/from-the-stacks/issue-feb-2026/The difficulty of being Black at UC Berkeley.jpg" alt="" class="archive-image"
+              data-caption="In the first February print issue of 2026, The Daily Californian headlined that UC Berkeley was controversially designated as a Black-Serving Institution. Less than 50 years ago, Venita Kelley wrote an opinion piece titled “The difficulty of being Black at UC Berkeley,” which outlined a litany of “atmospheric pressures” affecting Black students. “Being Black at Cal is having to put up with so much pride in voluntary cultural ignorance that you sometimes just go home and sit in the dark." " />
+              <figcaption class="archive-caption">In the first February print issue of 2026, The Daily Californian headlined that UC Berkeley was controversially designated as a Black-Serving Institution. Less than 50 years ago, Venita Kelley wrote an opinion piece titled “The difficulty of being Black at UC Berkeley,” which outlined a litany of “atmospheric pressures” affecting Black students. “Being Black at Cal is having to put up with so much pride in voluntary cultural ignorance that you sometimes just go home and sit in the dark.”             </figcaption>
+            </figure>
+          </div>
+          
+          <div class="archive-item" data-date="Feb. 5, 12, and 19, 1987: Protesting Prop. 63">
+            <div class="archive-title-date">Feb. 5, 12, and 19, 1987: Protesting Prop. 63</div>
+            <figure>
+              <img src="../article-images/from-the-stacks/issue-feb-2026/Japanese Masthead.jpg" alt="First protest cover" class="archive-image" style="display: block;"
+              data-caption="The late 1986 vote on California Proposition 63 established English as the official language of the state. The Daily Cal protested its passage by periodically printing with its nameplate translated into different languages for several months, accompanied by a short message urging Californians to organize a rescission of the law." />
+              
+              <img src="../article-images/from-the-stacks/issue-feb-2026/Japanese Note.png" alt="Second protest cover" class="archive-image" style="display: block;"
+              data-caption="" />
+              
+              <img src="../article-images/from-the-stacks/issue-feb-2026/Spanish Masthead.jpg" alt="Third protest cover" class="archive-image" style="display: block;"
+              data-caption="" />
+
+              <img src="../article-images/from-the-stacks/issue-feb-2026/Spanish Note.jpg" alt="Third protest cover" class="archive-image" style="display: block;"
+              data-caption="" />
+
+              <img src="../article-images/from-the-stacks/issue-feb-2026/Tagalog Masthead.jpg" alt="Third protest cover" class="archive-image" style="display: block;"
+              data-caption="" />
+
+              <img src="../article-images/from-the-stacks/issue-feb-2026/Tagalog Note.jpg" alt="Third protest cover" class="archive-image" style="display: block;"
+              data-caption="" />
+          
+              <figcaption class="archive-caption">The late 1986 vote on California Proposition 63 established English as the official language of the state. The Daily Cal protested its passage by periodically printing with its nameplate translated into different languages for several months, accompanied by a short message urging Californians to organize a rescission of the law.</figcaption>
+            </figure>
+          </div>
+
+          <div class="archive-item" data-date="Feb. 9, 2012: Sex Issue">
+            <div class="archive-title-date">Feb. 9, 2012: Sex Issue            </div>
+            <figure>
+              <img src="../article-images/from-the-stacks/issue-feb-2026/Sex Spissue.jpg" alt="" class="archive-image"
+              data-caption="A photo essay in the center spread of this issue shows students lining up to vote and behind polls. Most photos focus on students celebrating former President Barack Obama’s historic victory, jumping up on the sign outside of the Free Speech Movement Café and crowding the spiral staircase in Gardner Main Stacks. " />
+              <figcaption class="archive-caption">The Daily Cal’s February Sex Issue is an annual tradition that comes out around Valentine’s Day and features pieces on sex and sexuality. It consolidates a culture of college newspapers covering sex, which was started by the Daily Cal in 1997 with the introduction of the first-ever college paper sex column — Laura Lambert’s original “Sex on Tuesday.” The 2026 special issue has several parallels to one from more than a decade ago, such as <a href="https://data.dailycal.org/2026-01-23-too-sexy" style="text-decoration:underline;">sex in Main Stacks and relationships with GSIs.</a> Unique to the 2012 issue is a curated sex playlist organized by gender and stage.
+              </figcaption>
+            </figure>
+          </div>
+
+        </section>
+      </article>
+    </main>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightbox-close">&times;</button>
+    <div class="lightbox-content">
+      <img src="" alt="" class="lightbox-img" id="lightbox-img">
+      <div class="lightbox-date" id="lightbox-date"></div>
+      <div class="lightbox-caption" id="lightbox-caption"></div>
+    </div>
+  </div>
+
+  <!-- Partial include loader (loads nav-footer.html & re-runs its scripts) -->
+  <script>
+  (async function includePartials(){
+    const nodes = document.querySelectorAll('[data-include]');
+    for (const host of nodes){
+      const file = host.getAttribute('data-include');
+      const res  = await fetch(file);
+      const html = await res.text();
+      host.innerHTML = html;
+      host.querySelectorAll('script').forEach(old => {
+        const s = document.createElement('script');
+        if (old.src) s.src = old.src; else s.textContent = old.textContent;
+        document.body.appendChild(s);
+        old.remove();
+      });
+    }
+  })();
+  
+  // Lightbox functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const lightboxDate = document.getElementById('lightbox-date');
+    const lightboxCaption = document.getElementById('lightbox-caption');
+    const lightboxClose = document.getElementById('lightbox-close');
+    const archiveImages = document.querySelectorAll('.archive-image');
+    const archiveItems = document.querySelectorAll('.archive-item');
+    
+    // Open lightbox when image is clicked
+    archiveImages.forEach(img => {
+      img.addEventListener('click', function() {
+        lightboxImg.src = this.src;
+        lightboxDate.textContent = this.closest('.archive-item').getAttribute('data-date');
+        lightboxCaption.textContent = this.getAttribute('data-caption');
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+      });
+    });
+    
+    // Close lightbox when close button is clicked
+    lightboxClose.addEventListener('click', function() {
+      lightbox.classList.remove('active');
+      lightboxImg.classList.remove('zoomed');
+      document.body.style.overflow = ''; // Re-enable scrolling
+    });
+    
+    // Close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) {
+        lightbox.classList.remove('active');
+        lightboxImg.classList.remove('zoomed');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Zoom image on double click in lightbox
+    lightboxImg.addEventListener('dblclick', function() {
+      this.classList.toggle('zoomed');
+    });
+    
+    // Close lightbox with Escape key
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && lightbox.classList.contains('active')) {
+        lightbox.classList.remove('active');
+        lightboxImg.classList.remove('zoomed');
+        document.body.style.overflow = '';
+      }
+    });
+    
+    // Scroll animation for archive items
+    function checkScroll() {
+      archiveItems.forEach(item => {
+        const position = item.getBoundingClientRect();
+        
+        // If element is in viewport
+        if(position.top < window.innerHeight - 100 && position.bottom >= 0) {
+          item.classList.add('visible');
+        }
+      });
+    }
+    
+    // Initial check
+    checkScroll();
+    
+    // Check on scroll
+    window.addEventListener('scroll', checkScroll);
+  });
+  </script>
+</body>
+</html>
