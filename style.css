@@ -1,5 +1,5 @@
 /* style.css — GLOBAL + UNIVERSAL ARTICLE STYLES
-   (about.html desktop styles inline in about.html; index.html desktop styles inline in index.html)
+   (masthead.html desktop styles inline in masthead.html; index.html desktop styles inline in index.html)
    Section & Article keep both web+mobile here. Index/About mobile overrides live here. */
 
 /* Fonts */
@@ -76,8 +76,8 @@ img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
 /* UNIVERSAL ARTICLE STYLES      */
 /* ----------------------------- */
 .article-full{
-  --article-width: min(1000px, 92vw);
-  --article-measure: min(72ch, 92vw);
+  --article-width: min(1200px, 92vw);
+  --article-measure: min(80ch, 92vw);
   padding: 1rem;
 }
 @media (min-width: 1024px){
@@ -357,7 +357,7 @@ body.index-page .issue-toc li{ border-bottom:none !important; }
   }
 }
 
-/* ABOUT (mobile only here; desktop stays inline in about.html) */
+/* ABOUT (mobile only here; desktop stays inline in masthead.html) */
 @media (max-width:1023px){
   .about-wrap{ padding: 1rem .9rem !important; }
   .about-grid{ display:flex; flex-direction:column; gap:1.25rem !important; }
