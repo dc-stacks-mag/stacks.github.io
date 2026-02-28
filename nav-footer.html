@@ -439,7 +439,7 @@
     el.textContent = `${wd}, ${m} ${d}, ${y}`;
   })();
   
-  /* -------------------------------------------------------------
+/* -------------------------------------------------------------
      CLOCK & BERKELEY TIME LOGIC (Global Scope)
      We expose toggleBerkeleyTime() so the books icon can call it.
   ------------------------------------------------------------- */
@@ -456,26 +456,29 @@
     const fmt = (d) => {
       let m = d.toLocaleString('en-US', { month: 'short', timeZone: tz });
       if (m !== 'May') m += '.';
-      const day = String(d.getDate()).padStart(2,'0');
+      
+      // fixx: use timezone-aware formatting for the day, not the user's local system day
+      const day = d.toLocaleString('en-US', { day: '2-digit', timeZone: tz });
       const t = d.toLocaleString('en-US', { hour: 'numeric', minute: '2-digit', second: '2-digit', hour12: true, timeZone: tz });
       return `${m} ${day} · ${t}`;
     };
   
     function tick(){
-      const base = new Date(new Date().toLocaleString('en-US',{ timeZone: tz }));
-      const show = plus10 ? new Date(base.getTime()+10*60000) : base;
+      const now = new Date(); // g the true global current time
+      // fix 2: add 10 minutes cleanly if toggled, otherwise use current time
+      const show = new Date(now.getTime() + (plus10 ? 10 * 60000 : 0));
       if (clockEl) clockEl.textContent = fmt(show);
     }
     setInterval(tick, 250); tick();
   
-    // The toggler function
+    // togglrr function
     toggleBerkeleyTime = function() {
       plus10 = !plus10;
       if(titleEl) titleEl.textContent = plus10 ? 'BERKELEY TIME' : 'Berkeley, CA';
       tick(); // Update immediately
     };
   
-    // Attach to the footer block (Standard behavior)
+    // attach to the footer block (Standard behavior)
     const block = document.getElementById('block-time');
     const prefersTouch = matchMedia('(hover: none)').matches;
     
@@ -486,6 +489,8 @@
       block?.addEventListener('click', toggleBerkeleyTime);
     }
   })();
+
+
   
   // Desktop nav GIFs
   (function(){
